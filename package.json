@@ -1,0 +1,11 @@
+{
+  "name": "rollermanager",
+  "version": "1.0.0",
+  "description": "Roller Derby club Manager",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jerome Lesne",
+  "license": "ISC"
+}
