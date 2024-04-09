@@ -1,5 +1,19 @@
 const mongoose = require("mongoose");
 
-const teamsSchema = new mongoose.Schema({});
+const teamsSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, "Le nom de l'équipe est requis"],
+    },
+    logo: {
+        type: String,
+    },
+    members: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "members",
+        },
+    ],
+});
 
-const teamModel = mongoose.model("teams", teamsSchema);
+const teamsModel = mongoose.model("teams", teamsSchema);

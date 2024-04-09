@@ -11,6 +11,12 @@ const clubsSchema = new mongoose.Schema({
     trainingRoles: {
         type: Array,
     },
+    teams: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "teams",
+        },
+    ],
 });
 
 const clubsModel = mongoose.model("clubs", clubsSchema);
