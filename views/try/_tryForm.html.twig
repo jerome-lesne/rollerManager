@@ -1,6 +1,6 @@
 <div class="hero min-h-[calc(100vh-80px)] bg-base-200">
     <div class="card shrink-0 w-full max-w-sm lg:max-w-3xl shadow-2xl bg-base-100 m-8">
-        <form class="card-body">
+        <form action="/new-trial" method="POST" class="card-body">
             <div class="text-center mb-4">
                 <h1 class="text-4xl font-bold">Demander un essai</h1>
             </div>
@@ -18,13 +18,15 @@
                     <div class="label">
                         <span class="label-text">Prénom</span>
                     </div>
-                    <input type="text" placeholder="Votre prénom" class="input input-bordered w-full max-w-xs" />
+                    <input type="text" name="firstName" placeholder="Votre prénom"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
                         <span class="label-text">Nom</span>
                     </div>
-                    <input type="text" placeholder="Votre nom" class="input input-bordered w-full max-w-xs" />
+                    <input type="text" name="name" placeholder="Votre nom"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
 
             </div>
@@ -33,13 +35,15 @@
                     <div class="label">
                         <span class="label-text">Email</span>
                     </div>
-                    <input type="email" placeholder="Votre e-mail" class="input input-bordered w-full max-w-xs" />
+                    <input type="email" name="mail" placeholder="Votre e-mail"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
                         <span class="label-text">Age</span>
                     </div>
-                    <input type="text" placeholder="Votre age" class="input input-bordered w-full max-w-xs" />
+                    <input type="text" name="age" placeholder="Votre age"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
             </div>
             <div class="lg:flex flex-row justify-between">
@@ -47,13 +51,15 @@
                     <div class="label">
                         <span class="label-text">Téléphone</span>
                     </div>
-                    <input type="tel" placeholder="Numéro de téléphone" class="input input-bordered w-full max-w-xs" />
+                    <input type="tel" name="phone" placeholder="Numéro de téléphone"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
                         <span class="label-text">Pointure</span>
                     </div>
-                    <input type="number" placeholder="Pointure" class="input input-bordered w-full max-w-xs" />
+                    <input type="number" name="shoeSize" placeholder="Pointure"
+                        class="input input-bordered w-full max-w-xs" />
                 </label>
             </div>
             <div class="form-control mt-4">

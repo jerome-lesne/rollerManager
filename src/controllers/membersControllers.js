@@ -1,4 +1,5 @@
 const memberModel = require("../models/membersModel");
+const trialAttendeesModel = require("../models/trialAttendeesModel");
 
 const memberSet = async (req, res) => {
     try {
@@ -11,4 +12,15 @@ const memberSet = async (req, res) => {
     }
 };
 
-module.exports = { memberSet };
+const trialAttendeeSet = async (req, res) => {
+    try {
+        const trialAttendee = new trialAttendeesModel(req.body);
+        trialAttendee.validateSync();
+        await trialAttendee.save();
+        res.redirect("/");
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+module.exports = { memberSet, trialAttendeeSet };
