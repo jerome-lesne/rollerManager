@@ -22,4 +22,10 @@ const tryReq = (req, res) => {
     }
 };
 
-module.exports = { home, login, tryReq };
+const dashboard = (req, res) => {
+    try {
+        res.render("dashboard/index.html.twig", {});
+    } catch (e) {}
+};
+
+module.exports = { home, login, tryReq, dashboard };

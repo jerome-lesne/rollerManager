@@ -4,7 +4,7 @@
     "description": "Roller Derby club Manager",
     "main": "app.js",
     "scripts": {
-        "app": "nodemon app.js",
+        "dev": "nodemon app.js",
         "tailwind": "npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/style.css --watch"
     },
     "author": "Jerome Lesne",

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const cors = require("cors");
 const pagesRouter = require("./src/routes/pagesRoutes");
+const membersRouter = require("./src/routes/membersRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(
 );
 
 app.use(pagesRouter);
+app.use(membersRouter);
 
 app.listen(process.env.PORT, (e) => {
     if (e) {
