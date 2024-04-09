@@ -50,7 +50,7 @@ const membersSchema = new mongoose.Schema({
             validator: (v) => {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(v);
             },
-            message: "Please insert a valid Email",
+            message: "Svp insérez un Email valide",
         },
     },
     emergencyContactName: {
