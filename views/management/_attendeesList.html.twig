@@ -1,0 +1,70 @@
+<div class="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] bg-base-200">
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Contact</th>
+                    <th>Pointure</th>
+                    <th class="hidden md:block">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendee in trialAttendees %}
+                <tr>
+                    <td>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar hidden md:block">
+                                <div class="mask mask-squircle w-12 h-12">
+                                    <img src="images/avatar.svg" alt="Avatar Tailwind CSS Component" />
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-bold">{{attendee.firstName}} {{attendee.name}}</div>
+                                <div class="text-sm opacity-50">Age : {{attendee.age}}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div class="font-bold">
+                                <p>{{attendee.mail}}</p>
+                            </div>
+                            <div class="text-sm opacity-50">
+                                <p>{{attendee.phone}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{attendee.shoeSize}}</td>
+                    <th class="hidden md:block">
+                        <div class="flex flex-col gap-1">
+                            <button class="btn btn-ghost btn-xs bg-blue-600">Inscription</button>
+                            <button class="btn btn-ghost btn-xs bg-red-600">Supprimer</button>
+                        </div>
+                    </th>
+                <tr class="md:hidden">
+                    <td class="p-0">
+                        <div class="collapse">
+                            <input type="checkbox" class="min-h-0" />
+                            <div class="collapse-title text-xs font-bold py-0 min-h-0 flex">
+                                <!-- <span class="bg-green-700 rounded p-1">Actions</span> -->
+                                <button class="btn btn-accent btn-xs">Action</button>
+                            </div>
+                            <div class="collapse-content py-0">
+                                <div class="flex flex-col gap-1 m-1">
+                                    <button class="btn btn-primary btn-xs">Inscription</button>
+                                    <button class="btn btn-error btn-xs">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+
+
+                {% endfor %}
+            </tbody>
+    </div>
+
+</div>

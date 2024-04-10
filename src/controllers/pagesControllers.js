@@ -1,3 +1,5 @@
+const trialAttendeesModel = require("../models/trialAttendeesModel");
+
 const home = (req, res) => {
     try {
         res.render("home/index.html.twig", {});
@@ -24,8 +26,24 @@ const tryReq = (req, res) => {
 
 const dashboard = (req, res) => {
     try {
-        res.render("dashboard/index.html.twig", {});
-    } catch (e) {}
+        res.render("dashboard/index.html.twig", {
+            connectedHeader: true,
+        });
+    } catch (e) {
+        res.json(e);
+    }
 };
 
-module.exports = { home, login, tryReq, dashboard };
+const management = async (req, res) => {
+    try {
+        const trialAttendees = await trialAttendeesModel.find();
+        res.render("management/index.html.twig", {
+            connectedHeader: true,
+            trialAttendees: trialAttendees,
+        });
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+module.exports = { home, login, tryReq, dashboard, management };
