@@ -30,7 +30,7 @@ const trialAttendeeSet = async (req, res) => {
         trialAttendee.validateSync();
         await trialAttendee.save();
         await clubsModel.updateOne(
-            { _id: "66168500208d28d672b5efed" },
+            { _id: "66168500208d28d672b5efed" }, // A MODIFIER AVEC LA SESSION
             { $push: { trialAttendees: trialAttendee.id } },
         );
         res.render("try/index.html.twig", {
@@ -43,4 +43,22 @@ const trialAttendeeSet = async (req, res) => {
     }
 };
 
-module.exports = { memberSet, trialAttendeeSet };
+const trialAttendeeDelete = async (req, res) => {
+    try {
+        const clubId = "66168500208d28d672b5efed"; // A MODIFIER REQ SESSION (findOne())
+        if (clubId) {
+            await clubsModel.updateOne(
+                { trialAttendees: req.params.id },
+                { $pull: { trialAttendees: req.params.id } },
+            );
+            await trialAttendeesModel.deleteOne({ _id: req.params.id });
+            res.status(200).send(
+                `Employee id: ${req.params.id} deleted succesfully`,
+            );
+        } else {
+            res.json("club not found");
+        }
+    } catch (e) {}
+};
+
+module.exports = { memberSet, trialAttendeeSet, trialAttendeeDelete };

@@ -10,8 +10,8 @@
                     <th class="hidden md:block">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for attendee in trialAttendees %}
+            {% for attendee in trialAttendees %}
+            <tbody id={{attendee.id}}>
                 <tr>
                     <td>
                         <div class="flex items-center gap-3">
@@ -45,6 +45,7 @@
                             <button class="btn btn-error btn-xs">Supprimer</button>
                         </div>
                     </th>
+                </tr>
                 <tr class="md:hidden">
                     <td class="p-0" colspan="3">
                         <div class="collapse">
@@ -61,11 +62,10 @@
                         </div>
                     </td>
                 </tr>
-                </tr>
 
 
-                {% endfor %}
             </tbody>
+            {% endfor %}
     </div>
 
 </div>
