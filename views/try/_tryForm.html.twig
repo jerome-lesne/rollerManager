@@ -16,50 +16,56 @@
             <div class="lg:flex flex-row justify-between">
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Prénom</span>
+                        <span class="label-text">Prénom<i class="text-red-500">*</i></span>
                     </div>
                     <input type="text" name="firstName" placeholder="Votre prénom"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.firstName}}</p>
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Nom</span>
+                        <span class="label-text">Nom<i class="text-red-500">*</i></span>
                     </div>
                     <input type="text" name="name" placeholder="Votre nom"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.name}}</p>
                 </label>
 
             </div>
             <div class="lg:flex flex-row justify-between">
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Email</span>
+                        <span class="label-text">Email<i class="text-red-500">*</i></span>
                     </div>
                     <input type="email" name="mail" placeholder="Votre e-mail"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.mail}}</p>
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Age</span>
+                        <span class="label-text">Age<i class="text-red-500">*</i></span>
                     </div>
-                    <input type="text" name="age" placeholder="Votre age"
+                    <input type="number" name="age" placeholder="Votre age"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.age}}</p>
                 </label>
             </div>
             <div class="lg:flex flex-row justify-between">
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Téléphone</span>
+                        <span class="label-text">Téléphone<i class="text-red-500">*</i></span>
                     </div>
                     <input type="tel" name="phone" placeholder="Numéro de téléphone"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.phone}}</p>
                 </label>
                 <label class="form-control w-full max-w-xs">
                     <div class="label">
-                        <span class="label-text">Pointure</span>
+                        <span class="label-text">Pointure<i class="text-red-500">*</i></span>
                     </div>
                     <input type="number" name="shoeSize" placeholder="Pointure"
                         class="input input-bordered w-full max-w-xs" />
+                    <p class="text-red-500">{{error.errors.shoeSize}}</p>
                 </label>
             </div>
             <div class="form-control mt-4">

@@ -1,4 +1,8 @@
 {% extends "base.html.twig" %}
 {% block main %}
+{% if sentSuccess %}
+{% include "try/_sentSuccess.html.twig" %}
+{% else %}
 {% include "try/_tryForm.html.twig" %}
+{% endif %}
 {% endblock %}

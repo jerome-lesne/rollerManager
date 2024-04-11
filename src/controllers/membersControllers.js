@@ -33,9 +33,13 @@ const trialAttendeeSet = async (req, res) => {
             { _id: "66168500208d28d672b5efed" },
             { $push: { trialAttendees: trialAttendee.id } },
         );
-        res.redirect("/");
+        res.render("try/index.html.twig", {
+            sentSuccess: true,
+        });
     } catch (e) {
-        res.json(e);
+        res.render("try/index.html.twig", {
+            error: e,
+        });
     }
 };
 
