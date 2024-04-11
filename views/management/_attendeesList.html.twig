@@ -11,7 +11,8 @@
                 </tr>
             </thead>
             {% for attendee in trialAttendees %}
-            <tbody hx-confirm="Are you sure?" hx-target="this" hx-swap="outerHTML swap:1s">
+            <tbody hx-confirm="Êtes-vous sûr•e de vouloir supprimer {{attendee.firstName}}" hx-target="this"
+                hx-swap="outerHTML swap:1s">
                 <tr>
                     <td>
                         <div class="flex items-center gap-3">
@@ -57,7 +58,8 @@
                             <div class="collapse-content py-0">
                                 <div class="flex flex-col gap-1 m-1 mx-5">
                                     <button class="btn btn-primary btn-xs">Inscription</button>
-                                    <button class="btn btn-error btn-xs">Supprimer</button>
+                                    <button class="btn btn-error btn-xs"
+                                        hx-delete="/delete-trial/{{attendee.id}}">Supprimer</button>
                                 </div>
                             </div>
                         </div>
