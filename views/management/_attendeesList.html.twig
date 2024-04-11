@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             {% for attendee in trialAttendees %}
-            <tbody id={{attendee.id}}>
+            <tbody hx-confirm="Are you sure?" hx-target="this" hx-swap="outerHTML swap:1s">
                 <tr>
                     <td>
                         <div class="flex items-center gap-3">
@@ -42,7 +42,8 @@
                     <th class="hidden md:block">
                         <div class="flex flex-col gap-1">
                             <button class="btn btn-primary btn-xs">Inscription</button>
-                            <button class="btn btn-error btn-xs">Supprimer</button>
+                            <button class="btn btn-error btn-xs"
+                                hx-delete="/delete-trial/{{attendee.id}}">Supprimer</button>
                         </div>
                     </th>
                 </tr>

@@ -52,9 +52,7 @@ const trialAttendeeDelete = async (req, res) => {
                 { $pull: { trialAttendees: req.params.id } },
             );
             await trialAttendeesModel.deleteOne({ _id: req.params.id });
-            res.status(200).send(
-                `Employee id: ${req.params.id} deleted succesfully`,
-            );
+            res.send();
         } else {
             res.json("club not found");
         }
