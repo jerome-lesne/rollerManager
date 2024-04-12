@@ -1,5 +1,8 @@
 <div class="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] bg-base-200">
     <div class="overflow-x-auto">
+        <div class="prose">
+            <h2 class="text-center">Demandes d'éssais</h2>
+        </div>
         <table class="table-xs md:table-md lg:table-lg">
             <!-- head -->
             <thead>
@@ -10,43 +13,53 @@
                     <th class="hidden md:block">Actions</th>
                 </tr>
             </thead>
+            <tbody>
+                {% if not trialAttendees %}
+                <th colspan="4">
+                    <span class="italic font-normal">Pas de demande d'éssai</span>
+                </th>
+                {% endif %}
+            </tbody>
             {% for attendee in trialAttendees %}
-            <tbody hx-confirm="Êtes-vous sûr•e de vouloir supprimer {{attendee.firstName}}" hx-target="this"
-                hx-swap="outerHTML swap:1s">
-                <tr>
-                    <td>
-                        <div class="flex items-center gap-3">
-                            <div class="avatar hidden md:block">
-                                <div class="mask mask-squircle w-12 h-12">
-                                    <img src="images/avatar.svg" alt="Avatar" />
-                                </div>
-                            </div>
-                            <div class="max-w-20 md:max-w-fit overflow-auto">
-                                <div class="font-bold">{{attendee.firstName}} {{attendee.name}}</div>
-                                <div class="text-sm opacity-50">Age : {{attendee.age}}</div>
+            <tbody{% if attendee.subToken %} class="bg-blue-500 bg-opacity-40" {% endif %} <tr>
+                <td>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar hidden md:block">
+                            <div class="mask mask-squircle w-12 h-12">
+                                <img src="images/avatar.svg" alt="Avatar" />
                             </div>
                         </div>
-                    </td>
-                    <td class="max-w-52 md:max-w-fit overflow-auto">
-                        <div>
-                            <div class="font-bold">
-                                <p class="text-wrap">{{attendee.mail}}</p>
-                            </div>
-                            <div class="text-sm opacity-50">
-                                <p>{{attendee.phone}}</p>
-                            </div>
+                        <div class="max-w-20 md:max-w-fit overflow-auto">
+                            <div class="font-bold">{{attendee.firstName}} {{attendee.name}}</div>
+                            <div class="text-sm opacity-50">Age : {{attendee.age}}</div>
                         </div>
-                    </td>
-                    <td>
-                        <p class="text-center">{{attendee.shoeSize}}</p>
-                    </td>
-                    <th class="hidden md:block">
-                        <div class="flex flex-col gap-1">
-                            <button class="btn btn-primary btn-xs">Inscription</button>
-                            <button class="btn btn-error btn-xs"
-                                hx-delete="/delete-trial/{{attendee.id}}">Supprimer</button>
+                    </div>
+                </td>
+                <td class="max-w-52 md:max-w-fit overflow-auto">
+                    <div>
+                        <div class="font-bold">
+                            <p class="text-wrap">{{attendee.mail}}</p>
                         </div>
-                    </th>
+                        <div class="text-sm opacity-50">
+                            <p>{{attendee.phone}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="text-center">{{attendee.shoeSize}}</p>
+                </td>
+                <th class="hidden md:block">
+                    <div class="flex flex-col gap-1">
+                        <button class="btn btn-primary btn-xs" hx-get="/generate-sub-link/{{attendee.id}}"
+                            hx-confirm="Confirmation de l'envoie du lien d'inscritpion ?" hx-swap="none"
+                            hx-target="closest tbody"
+                            hx-on:click="this.closest('tbody').classList.add('bg-blue-500', 'bg-opacity-40')">Inscription</button>
+                        <button class="btn btn-error btn-xs" hx-delete="/delete-trial/{{attendee.id}}"
+                            hx-target="closest tbody"
+                            hx-confirm="Êtes-vous sûr•e de vouloir supprimer {{attendee.firstName}}"
+                            hx-swap="outerHTML swap:1s">Supprimer</button>
+                    </div>
+                </th>
                 </tr>
                 <tr class="md:hidden">
                     <td class="p-0" colspan="3">
@@ -57,18 +70,20 @@
                             </div>
                             <div class="collapse-content py-0">
                                 <div class="flex flex-col gap-1 m-1 mx-5">
-                                    <button class="btn btn-primary btn-xs">Inscription</button>
-                                    <button class="btn btn-error btn-xs"
-                                        hx-delete="/delete-trial/{{attendee.id}}">Supprimer</button>
+                                    <button class="btn btn-primary btn-xs" hx-get="/generate-sub-link/{{attendee.id}}"
+                                        hx-confirm="Confirmation de l'envoie du lien d'inscritpion ?" hx-swap="none"
+                                        hx-target="closest tbody"
+                                        hx-on:click="this.closest('tbody').classList.add('bg-blue-500', 'bg-opacity-40')">Inscription</button>
+                                    <button class="btn btn-error btn-xs" hx-delete="/delete-trial/{{attendee.id}}"
+                                        hx-target="closest tbody"
+                                        hx-confirm="Êtes-vous sûr•e de vouloir supprimer {{attendee.firstName}}"
+                                        hx-swap="outerHTML swap:1s">Supprimer</button>
                                 </div>
                             </div>
                         </div>
                     </td>
                 </tr>
-
-
-            </tbody>
-            {% endfor %}
+                </tbody>
+                {% endfor %}
     </div>
-
 </div>

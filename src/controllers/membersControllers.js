@@ -56,7 +56,31 @@ const trialAttendeeDelete = async (req, res) => {
         } else {
             res.json("club not found");
         }
-    } catch (e) {}
+    } catch (e) {
+        res.json(e);
+    }
 };
 
-module.exports = { memberSet, trialAttendeeSet, trialAttendeeDelete };
+const generateSubLink = async (req, res) => {
+    try {
+        const attendee = await trialAttendeesModel.findById(req.params.id);
+        if (!attendee.subToken) {
+            await trialAttendeesModel.updateOne(
+                { _id: req.params.id },
+                { subToken: req.params.id },
+            );
+            res.status(200);
+        } else {
+            res.status(200);
+        }
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+module.exports = {
+    memberSet,
+    trialAttendeeSet,
+    trialAttendeeDelete,
+    generateSubLink,
+};
