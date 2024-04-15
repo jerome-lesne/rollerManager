@@ -76,12 +76,23 @@ const membersSchema = new mongoose.Schema({
     },
     address: {
         type: String,
+        required: [true, "Adresse requise"],
+    },
+    zipCode: {
+        type: String,
+        required: [true, "Code postal requis"],
+    },
+    city: {
+        type: String,
+        required: [true, "Ville requise"],
     },
     birthyday: {
         type: Date,
+        required: [true, "Date de naissance requise"],
     },
-    birthPlace: {
+    birthplace: {
         type: String,
+        required: [true, "Ville de naissance requise"],
     },
     medicalCertificat: {
         type: Date,

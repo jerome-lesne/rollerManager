@@ -46,4 +46,19 @@ const management = async (req, res) => {
     }
 };
 
-module.exports = { home, login, tryReq, dashboard, management };
+const subscribe = async (req, res) => {
+    try {
+        const attendee = await trialAttendeesModel.findOne({
+            subToken: req.params.token,
+        });
+        if (attendee) {
+            res.render("subscribe/index.html.twig", {});
+        } else {
+            res.redirect("/");
+        }
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+module.exports = { home, login, tryReq, dashboard, management, subscribe };

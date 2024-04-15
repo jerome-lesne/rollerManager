@@ -1,0 +1,178 @@
+<div class="hero min-h-[calc(100vh-80px)] bg-base-200">
+    <div class="card shrink-0 w-full max-w-fit shadow-2xl bg-base-100 card-compact md:card-normal my-4">
+        <form action="/new-trial" method="POST" class="m-4">
+            <div class="text-center mb-4 prose">
+                <h1 class="">Inscription</h1>
+            </div>
+            <div class="flex flex-col justify-between gap-2">
+                <div class="mt-2 prose underline underline-offset-4">
+                    <h2>Profile</h2>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-1/2 md:w-1/5">
+                        <div class="label">
+                            <span class="label-text">Pronom(s)<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="pronoun" placeholder="Pronom(s)"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full md:w-2/5">
+                        <div class="label">
+                            <span class="label-text">Prénom<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="firstname" placeholder="Prénom"
+                            class="input input-bordered w-full max-w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full md:w-2/5">
+                        <div class="label">
+                            <span class="label-text">Nom<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="name" placeholder="Nom" class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Photo</span>
+                        </div>
+                        <input type="file" class="file-input file-input-bordered file-input-secondary w-full max-w-xs"
+                            name="picture" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="mt-2 prose underline underline-offset-4">
+                    <h2>Derby</h2>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text tooltip tooltip-info" data-tip="Votre Nom de Derby !">Derby
+                                Name</span>
+                        </div>
+                        <input type="text" name="firstname" placeholder="Derby Name"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Numéro de Joueur•se</span>
+                        </div>
+                        <input type="text" name="firstname" placeholder="0000"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div>
+                    <div class="form-control my-1">
+                        <label class="cursor-pointer label justify-normal gap-2">
+                            <span class="label-text">Accepte de jouer en mixte </span>
+                            <input type="checkbox" checked="checked" class="checkbox checkbox-secondary" />
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-2 prose underline underline-offset-4">
+                    <h2>Informations de contact</h2>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">E-mail<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="email" name="mail" placeholder="exemple@mail.com"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Téléphone<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="tel" name="phone" placeholder="06........"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Adresse<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="address" placeholder="Numero et nom de rue"
+                            class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-1/3">
+                        <div class="label">
+                            <span class="label-text">Code Postal<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="zipCode" placeholder="13***" class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Ville<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="city" placeholder="Ville" class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Date de Naissance<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="date" name="birthday" placeholder="jj/mm/aaaa"
+                            class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Ville de Naissance<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="text" name="birthplace" placeholder="Ville de Naissance"
+                            class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+                <div class="mt-2 prose underline underline-offset-4">
+                    <h2>Informations médicales</h2>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Informations médicales</span>
+                        </div>
+                        <textarea class="textarea textarea-bordered h-24"
+                            placeholder="Informations médicales dont vous souhaitez nous faire part dans le cadre de la pratique du Roller Derby"
+                            name="medicalInfos"></textarea>
+                    </label>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Personne à prévenir</span>
+                        </div>
+                        <input type="text" name="emergencyContactName"
+                            placeholder="Personne à prévenir en cas d'urgence" class="input input-bordered w-full" />
+                        <p class="text-red-500"></p>
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Téléphone personne à prévenir<i class="text-red-500">*</i></span>
+                        </div>
+                        <input type="tel" name="emergencyContactPhone" placeholder="06........"
+                            class="input input-bordered w-full max-w-xs" />
+                        <p class="text-red-500"></p>
+                    </label>
+                </div>
+            </div>
+            <div class="form-control mt-10">
+                <button type="submit" class="btn btn-primary">Envoyer ma demande</button>
+            </div>
+        </form>
+    </div>
+</div>
