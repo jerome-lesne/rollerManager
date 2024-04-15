@@ -71,7 +71,7 @@ const membersSchema = new mongoose.Schema({
                 "Entrez un numéro de téléphone valide (10 chiffres commençant par 0)",
         },
     },
-    médicalInfos: {
+    medicalInfos: {
         type: String,
     },
     address: {
