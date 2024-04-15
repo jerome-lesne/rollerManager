@@ -29,8 +29,7 @@ const membersSchema = new mongoose.Schema({
         },
     },
     acceptsMixedGender: {
-        type: Boolean,
-        required: true,
+        type: String,
     },
     phone: {
         type: String,

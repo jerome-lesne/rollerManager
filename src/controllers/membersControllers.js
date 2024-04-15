@@ -7,10 +7,11 @@ require("dotenv").config();
 
 const memberSet = async (req, res) => {
     try {
-        const member = new memberModel(req.body);
-        member.validateSync();
-        await member.save();
-        res.send("New member saved");
+        console.log(req.body);
+        // const member = new memberModel(req.body);
+        // member.validateSync();
+        // await member.save();
+        res.status(200).send("Member created");
     } catch (e) {
         res.json(e);
     }
