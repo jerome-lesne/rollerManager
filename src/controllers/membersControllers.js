@@ -2,6 +2,8 @@ const clubsModel = require("../models/clubsModel");
 const memberModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
 const crypto = require("crypto");
+const sendMail = require("../services/mailerService");
+require("dotenv").config();
 
 const memberSet = async (req, res) => {
     try {
@@ -66,9 +68,17 @@ const generateSubLink = async (req, res) => {
     try {
         const attendee = await trialAttendeesModel.findById(req.params.id);
         if (!attendee.subToken) {
+            const token = crypto.randomBytes(32).toString("hex");
+            const link = process.env.URL + "subscribe/" + token;
+            const mailContent = `<h1>Votre Lien d'inscription :</h1><p>${link}</p>`;
             await trialAttendeesModel.updateOne(
                 { _id: req.params.id },
-                { subToken: crypto.randomBytes(32).toString("hex") },
+                { subToken: token },
+            );
+            await sendMail(
+                attendee.mail,
+                "Votre lien d'inscription",
+                mailContent,
             );
             res.status(200);
         } else {
