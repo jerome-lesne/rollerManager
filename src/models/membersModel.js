@@ -101,6 +101,9 @@ const membersSchema = new mongoose.Schema({
     practicalMS: {
         type: Date,
     },
+    accessToken: {
+        type: String,
+    },
 });
 
 const membersModel = mongoose.model("members", membersSchema);

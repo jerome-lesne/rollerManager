@@ -1,6 +1,7 @@
 const clubsModel = require("../models/clubsModel");
 const memberModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
+const crypto = require("crypto");
 
 const memberSet = async (req, res) => {
     try {
@@ -67,7 +68,7 @@ const generateSubLink = async (req, res) => {
         if (!attendee.subToken) {
             await trialAttendeesModel.updateOne(
                 { _id: req.params.id },
-                { subToken: req.params.id },
+                { subToken: crypto.randomBytes(32).toString("hex") },
             );
             res.status(200);
         } else {
