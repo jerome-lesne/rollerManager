@@ -20,7 +20,7 @@ const membersSchema = new mongoose.Schema({
         type: String,
     },
     playerNumber: {
-        type: Number,
+        type: String,
         validate: {
             validator: (v) => {
                 return /^\d{1,4}$/g.test(v);

@@ -53,7 +53,7 @@
                                 Name</span>
                         </div>
                         <input type="text" name="derbyName" placeholder="Derby Name"
-                            class="input input-bordered w-full max-w-xs" />
+                            class="input input-bordered w-full max-w-xs" hx-post="/new-member" hx-params="derbyName" />
                         <p class="text-red-500"></p>
                     </label>
                     <label class="form-control w-full">
@@ -61,7 +61,8 @@
                             <span class="label-text">Numéro de Joueur•se</span>
                         </div>
                         <input type="text" name="playerNumber" placeholder="0000"
-                            class="input input-bordered w-full max-w-xs" />
+                            class="input input-bordered w-full max-w-xs" hx-post="/new-member" hx-params="playerNumber"
+                            hx-target="next p" />
                         <p class="text-red-500"></p>
                     </label>
                 </div>
