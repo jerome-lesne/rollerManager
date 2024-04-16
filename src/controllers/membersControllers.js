@@ -11,7 +11,9 @@ const memberSet = async (req, res) => {
         // const member = new memberModel(req.body);
         // member.validateSync();
         // await member.save();
-        res.status(200).send("Member created");
+        res.status(200).render("subscribe/index.html.twig", {
+            sentSuccess: true,
+        });
     } catch (e) {
         res.json(e);
     }
@@ -70,8 +72,13 @@ const generateSubLink = async (req, res) => {
         const attendee = await trialAttendeesModel.findById(req.params.id);
         if (!attendee.subToken) {
             const token = crypto.randomBytes(32).toString("hex");
-            const link = process.env.URL + "subscribe/" + token;
-            const mailContent = `<h1>Votre Lien d'inscription :</h1><p>${link}</p>`;
+            const link =
+                process.env.URL +
+                ":" +
+                process.env.PORT +
+                "/subscribe/" +
+                token;
+            const mailContent = `<h1>Vous trouverez ci-dessous le lien pour vous inscrire au club de Roller Derby d'Aix en Provence :</h1><p>${link}</p>`;
             await trialAttendeesModel.updateOne(
                 { _id: req.params.id },
                 { subToken: token },
