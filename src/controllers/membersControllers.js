@@ -8,12 +8,10 @@ require("dotenv").config();
 const memberSet = async (req, res) => {
     try {
         if (req.headers["hx-request"]) {
-            console.log(req.body);
             memberModel.schema
                 .path(req.headers["hx-trigger-name"])
-                .doValidate(Object.values(req.body)[0], function (e) {
+                .doValidate(Object.values(req.body)[0], (e) => {
                     if (e) {
-                        console.log(e.message);
                         res.status(200).send(e.message);
                     } else {
                         res.send();

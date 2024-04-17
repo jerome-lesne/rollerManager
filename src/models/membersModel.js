@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const membersSchema = new mongoose.Schema({
     pronoun: {
         type: String,
-        required: [true, "Le pronom est requis"],
+        required: [true, "Champ requis"],
     },
     name: {
         type: String,
-        required: [true, "Le nom est requis"],
+        required: [true, "Champ requis"],
     },
     firstName: {
         type: String,
-        required: [true, "Le prénom est requis"],
+        required: [true, "Champ requis"],
     },
     picture: {
         type: String,
@@ -33,7 +33,7 @@ const membersSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, "Votre numéro de téléphone est requis"],
+        required: [true, "Champ requis"],
         validate: {
             validator: (v) => {
                 return /^0\d{9}$/g.test(v);
@@ -44,7 +44,7 @@ const membersSchema = new mongoose.Schema({
     },
     mail: {
         type: String,
-        required: [true, "Email is required"],
+        required: [true, "Champ requis"],
         validate: {
             validator: (v) => {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(v);
@@ -61,7 +61,7 @@ const membersSchema = new mongoose.Schema({
     },
     emergencyContactPhone: {
         type: String,
-        required: [true, "Le numéro de téléphone est requis"],
+        required: [true, "Champ requis"],
         validate: {
             validator: (v) => {
                 return /^0\d{9}$/g.test(v);
@@ -75,23 +75,23 @@ const membersSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        required: [true, "Adresse requise"],
+        required: [true, "Champ requis"],
     },
     zipCode: {
         type: String,
-        required: [true, "Code postal requis"],
+        required: [true, "Champ requis"],
     },
     city: {
         type: String,
-        required: [true, "Ville requise"],
+        required: [true, "Champ requis"],
     },
     birthyday: {
         type: Date,
-        required: [true, "Date de naissance requise"],
+        required: [true, "Champ requis"],
     },
     birthplace: {
         type: String,
-        required: [true, "Ville de naissance requise"],
+        required: [true, "Champ requis"],
     },
     medicalCertificat: {
         type: Date,
