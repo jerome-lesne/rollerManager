@@ -7,8 +7,19 @@ require("dotenv").config();
 
 const memberSet = async (req, res) => {
     try {
+        console.log();
         if (req.headers["hx-trigger-name"]) {
-            if (memberModel.schema.path(req.headers["hx-trigger-name"])) {
+            if (Object.values(req.body)[0] == "") {
+                res.send();
+            } else if (req.headers["hx-trigger-name"] == "confirmPassword") {
+                if (req.body.password == req.body.confirmPassword) {
+                    res.send();
+                } else {
+                    res.send("Les mots de passes ne correspondent pas");
+                }
+            } else if (
+                memberModel.schema.path(req.headers["hx-trigger-name"])
+            ) {
                 memberModel.schema
                     .path(req.headers["hx-trigger-name"])
                     .doValidate(Object.values(req.body)[0], (e) => {

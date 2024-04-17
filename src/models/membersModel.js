@@ -93,6 +93,10 @@ const membersSchema = new mongoose.Schema({
         type: String,
         required: [true, "Champ requis"],
     },
+    password: {
+        type: String,
+        required: [true, "Champ requis"],
+    },
     medicalCertificat: {
         type: Date,
     },
@@ -112,6 +116,8 @@ const membersSchema = new mongoose.Schema({
         type: Date,
     },
 });
+
+membersSchema.pre("validate", async function (next) {});
 
 const membersModel = mongoose.model("members", membersSchema);
 module.exports = membersModel;
