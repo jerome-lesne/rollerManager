@@ -7,16 +7,18 @@ require("dotenv").config();
 
 const memberSet = async (req, res) => {
     try {
-        if (req.headers["hx-request"]) {
-            memberModel.schema
-                .path(req.headers["hx-trigger-name"])
-                .doValidate(Object.values(req.body)[0], (e) => {
-                    if (e) {
-                        res.status(200).send(e.message);
-                    } else {
-                        res.send();
-                    }
-                });
+        if (req.headers["hx-trigger-name"]) {
+            if (memberModel.schema.path(req.headers["hx-trigger-name"])) {
+                memberModel.schema
+                    .path(req.headers["hx-trigger-name"])
+                    .doValidate(Object.values(req.body)[0], (e) => {
+                        if (e) {
+                            res.status(200).send(e.message);
+                        } else {
+                            res.send();
+                        }
+                    });
+            }
         } else {
             console.log("this is std post req");
             console.log(req.body);
