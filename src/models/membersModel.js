@@ -45,12 +45,24 @@ const membersSchema = new mongoose.Schema({
     mail: {
         type: String,
         required: [true, "Champ requis"],
-        validate: {
-            validator: (v) => {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(v);
+        validate: [
+            {
+                validator: (v) => {
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(v);
+                },
+                message: "Svp insérez un Email valide",
             },
-            message: "Svp insérez un Email valide",
-        },
+            {
+                validator: async function (v) {
+                    const membersModel = mongoose.model("members");
+                    const duplicatedMember = await membersModel.findOne({
+                        mail: v,
+                    });
+                    return !duplicatedMember;
+                },
+                message: "Cet Email est déjà enregistré",
+            },
+        ],
     },
     emergencyContactName: {
         type: String,
