@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const membersSchema = new mongoose.Schema({
     pronoun: {
@@ -92,12 +93,18 @@ const membersSchema = new mongoose.Schema({
     zipCode: {
         type: String,
         required: [true, "Champ requis"],
+        validate: {
+            validator: (v) => {
+                return /^\d{5}$/g.test(v);
+            },
+            message: "Entrez un code postale valide (5 chiffres)",
+        },
     },
     city: {
         type: String,
         required: [true, "Champ requis"],
     },
-    birthyday: {
+    birthday: {
         type: Date,
         required: [true, "Champ requis"],
     },
@@ -133,6 +140,19 @@ const membersSchema = new mongoose.Schema({
     practicalMS: {
         type: Date,
     },
+});
+
+membersSchema.pre("save", function (next) {
+    if (!this.isModified("password")) {
+        return next();
+    }
+    bcrypt.hash(this.password, 10, (error, hash) => {
+        if (error) {
+            return next(error);
+        }
+        this.password = hash;
+        next();
+    });
 });
 
 const membersModel = mongoose.model("members", membersSchema);

@@ -30,30 +30,24 @@ const memberSet = async (req, res) => {
                     });
             }
         } else {
-            console.log("this is std post req");
-            console.log(req.body);
-            // res.status(200).render("subscribe/index.html.twig", {
-            //     sentSuccess: true,
-            // });
+            if (req.body.password == req.body.confirmPassword) {
+                const member = new memberModel(req.body);
+                member.validateSync();
+                await member.save();
+                res.status(200).render("subscribe/index.html.twig", {
+                    sentSuccess: true,
+                });
+            } else {
+                throw { confirmPassword: "Passwords doesn't match" };
+            }
         }
-        // const member = new memberModel(req.body);
-        // member.validateSync();
-        // await member.save();
     } catch (e) {
         console.log(e);
+        res.render("subscribe/index.html.twig", {
+            error: e,
+        });
     }
 };
-
-// const clubSet = async (req, res) => {
-//     try {
-//         const member = new clubsModel(req.body);
-//         member.validateSync();
-//         await member.save();
-//         res.send("New club saved");
-//     } catch (e) {
-//         res.json(e);
-//     }
-// };
 
 const trialAttendeeSet = async (req, res) => {
     try {
@@ -121,6 +115,17 @@ const generateSubLink = async (req, res) => {
         res.json(e);
     }
 };
+
+// const clubSet = async (req, res) => {
+//     try {
+//         const member = new clubsModel(req.body);
+//         member.validateSync();
+//         await member.save();
+//         res.send("New club saved");
+//     } catch (e) {
+//         res.json(e);
+//     }
+// };
 
 module.exports = {
     memberSet,
