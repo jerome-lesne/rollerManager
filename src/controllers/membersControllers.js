@@ -57,6 +57,7 @@ const memberSet = async (req, res) => {
         res.render("subscribe/index.html.twig", {
             error: e,
             token: req.body.token,
+            val: req.body,
         });
     }
 };

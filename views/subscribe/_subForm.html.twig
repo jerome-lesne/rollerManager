@@ -14,8 +14,8 @@
                             <span class="label-text">Pronom(s)<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="pronoun" placeholder="Pronom(s)"
-                            class="input input-bordered w-full max-w-xs" hx-post="/new-member" hx-params="prenoun"
-                            hx-target="next p" />
+                            class="input input-bordered w-full max-w-xs" value="{{val.pronoun}}" hx-post="/new-member"
+                            hx-params="prenoun" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.pronoun}}</p>
                     </label>
                     <label class="form-control w-full md:w-2/5">
@@ -23,8 +23,8 @@
                             <span class="label-text">Prénom<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="firstName" placeholder="Prénom"
-                            class="input input-bordered w-full max-w-full" hx-post="/new-member" hx-params="firstName"
-                            hx-target="next p" />
+                            class="input input-bordered w-full max-w-full" value="{{val.firstName}}"
+                            hx-post="/new-member" hx-params="firstName" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.firstName}}</p>
                     </label>
                     <label class="form-control w-full md:w-2/5">
@@ -32,7 +32,7 @@
                             <span class="label-text">Nom<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="name" placeholder="Nom" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="name" hx-target="next p" />
+                            value="{{val.name}}" hx-post="/new-member" hx-params="name" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.name}}</p>
                     </label>
                 </div>
@@ -55,8 +55,8 @@
                             <span class="label-text tooltip tooltip-info" data-tip="Votre Nom de Derby !">Derby
                                 Name</span>
                         </div>
-                        <input type="text" name="derbyName" placeholder="Derby Name"
-                            class="input input-bordered w-full" />
+                        <input type="text" name="derbyName" placeholder="Derby Name" class="input input-bordered w-full"
+                            value="{{val.derbyName}}" />
                         <p class="text-red-500"></p>
                     </label>
                     <label class="form-control w-full">
@@ -64,7 +64,8 @@
                             <span class="label-text">Numéro de Joueur•se</span>
                         </div>
                         <input type="text" name="playerNumber" placeholder="0000" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="playerNumber" hx-target="next p" />
+                            value="{{val.playerNumber}}" hx-post="/new-member" hx-params="playerNumber"
+                            hx-target="next p" />
                         <p class="text-red-500"></p>
                     </label>
                 </div>
@@ -86,8 +87,8 @@
                             <span class="label-text">E-mail<i class="text-red-500">*</i></span>
                         </div>
                         <input type="email" name="mail" placeholder="exemple@mail.com"
-                            class="input input-bordered w-full" hx-post="/new-member" hx-params="mail"
-                            hx-target="next p" />
+                            class="input input-bordered w-full" value="{{val.mail}}" hx-post="/new-member"
+                            hx-params="mail" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.mail}}</p>
                     </label>
                     <label class="form-control w-full">
@@ -95,7 +96,7 @@
                             <span class="label-text">Téléphone<i class="text-red-500">*</i></span>
                         </div>
                         <input type="tel" name="phone" placeholder="06........" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="phone" hx-target="next p" />
+                            value="{{val.phone}}" hx-post="/new-member" hx-params="phone" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.phone}}</p>
                     </label>
                 </div>
@@ -105,8 +106,8 @@
                             <span class="label-text">Adresse<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="address" placeholder="Numero et nom de rue"
-                            class="input input-bordered w-full" hx-post="/new-member" hx-params="address"
-                            hx-target="next p" />
+                            class="input input-bordered w-full" value="{{val.address}}" hx-post="/new-member"
+                            hx-params="address" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.address}}</p>
                     </label>
                 </div>
@@ -116,7 +117,7 @@
                             <span class="label-text">Code Postal<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="zipCode" placeholder="13***" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="zipCode" hx-target="next p" />
+                            value="{{val.zipCode}}" hx-post="/new-member" hx-params="zipCode" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.zipCode}}</p>
                     </label>
                     <label class="form-control w-full">
@@ -124,7 +125,7 @@
                             <span class="label-text">Ville<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="city" placeholder="Ville" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="city" hx-target="next p" />
+                            value="{{val.city}}" hx-post="/new-member" hx-params="city" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.city}}</p>
                     </label>
                 </div>
@@ -133,8 +134,8 @@
                         <div class="label">
                             <span class="label-text">Date de Naissance<i class="text-red-500">*</i></span>
                         </div>
-                        <input type="date" name="birthday" placeholder="jj/mm/aaaa"
-                            class="input input-bordered w-full" />
+                        <input type="date" name="birthday" placeholder="jj/mm/aaaa" class="input input-bordered w-full"
+                            value="{{val.birthday}}" />
                         <p class="text-red-500">{{error.errors.birthday}}</p>
                     </label>
                     <label class="form-control w-full">
@@ -142,8 +143,8 @@
                             <span class="label-text">Ville de Naissance<i class="text-red-500">*</i></span>
                         </div>
                         <input type="text" name="birthplace" placeholder="Ville de Naissance"
-                            class="input input-bordered w-full" hx-post="/new-member" hx-params="birthplace"
-                            hx-target="next p" />
+                            class="input input-bordered w-full" value="{{val.birthplace}}" hx-post="/new-member"
+                            hx-params="birthplace" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.birthplace}}</p>
                     </label>
                 </div>
@@ -157,7 +158,7 @@
                         </div>
                         <textarea class="textarea textarea-bordered h-24"
                             placeholder="Informations médicales dont vous souhaitez nous faire part dans le cadre de la pratique du Roller Derby"
-                            name="medicalInfos"></textarea>
+                            name="medicalInfos">{{val.medicalInfos}}</textarea>
                     </label>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4">
@@ -167,7 +168,8 @@
                         </div>
                         <input type="text" name="emergencyContactName"
                             placeholder="Personne à prévenir en cas d'urgence" class="input input-bordered w-full"
-                            hx-post="/new-member" hx-params="emergencyContactName" hx-target="next p" />
+                            value="{{val.emergencyContactName}}" hx-post="/new-member" hx-params="emergencyContactName"
+                            hx-target="next p" />
                         <p class="text-red-500">{{error.errors.emergencyContactName}}</p>
                     </label>
                     <label class="form-control w-full">
@@ -175,8 +177,8 @@
                             <span class="label-text">Téléphone personne à prévenir<i class="text-red-500">*</i></span>
                         </div>
                         <input type="tel" name="emergencyContactPhone" placeholder="06........"
-                            class="input input-bordered w-full" hx-post="/new-member" hx-params="emergencyContactPhone"
-                            hx-target="next p" />
+                            class="input input-bordered w-full" value="{{val.emergencyContactPhone}}"
+                            hx-post="/new-member" hx-params="emergencyContactPhone" hx-target="next p" />
                         <p class="text-red-500">{{error.errors.emergencyContactPhone}}</p>
                     </label>
                 </div>
