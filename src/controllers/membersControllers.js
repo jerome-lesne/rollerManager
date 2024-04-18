@@ -38,7 +38,9 @@ const memberSet = async (req, res) => {
                     sentSuccess: true,
                 });
             } else {
-                throw { confirmPassword: "Passwords doesn't match" };
+                throw {
+                    confirmPassword: "Les mots de passes ne correspondent pas",
+                };
             }
         }
     } catch (e) {

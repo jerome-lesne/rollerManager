@@ -16,7 +16,7 @@
                         <input type="text" name="pronoun" placeholder="Pronom(s)"
                             class="input input-bordered w-full max-w-xs" hx-post="/new-member" hx-params="prenoun"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.pronoun}}</p>
                     </label>
                     <label class="form-control w-full md:w-2/5">
                         <div class="label">
@@ -25,7 +25,7 @@
                         <input type="text" name="firstName" placeholder="Prénom"
                             class="input input-bordered w-full max-w-full" hx-post="/new-member" hx-params="firstName"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.firstName}}</p>
                     </label>
                     <label class="form-control w-full md:w-2/5">
                         <div class="label">
@@ -33,7 +33,7 @@
                         </div>
                         <input type="text" name="name" placeholder="Nom" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="name" hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.name}}</p>
                     </label>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4">
@@ -88,7 +88,7 @@
                         <input type="email" name="mail" placeholder="exemple@mail.com"
                             class="input input-bordered w-full" hx-post="/new-member" hx-params="mail"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.mail}}</p>
                     </label>
                     <label class="form-control w-full">
                         <div class="label">
@@ -96,7 +96,7 @@
                         </div>
                         <input type="tel" name="phone" placeholder="06........" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="phone" hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.phone}}</p>
                     </label>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4">
@@ -107,7 +107,7 @@
                         <input type="text" name="address" placeholder="Numero et nom de rue"
                             class="input input-bordered w-full" hx-post="/new-member" hx-params="address"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.address}}</p>
                     </label>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4">
@@ -117,7 +117,7 @@
                         </div>
                         <input type="text" name="zipCode" placeholder="13***" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="zipCode" hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.zipCode}}</p>
                     </label>
                     <label class="form-control w-full">
                         <div class="label">
@@ -125,7 +125,7 @@
                         </div>
                         <input type="text" name="city" placeholder="Ville" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="city" hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.city}}</p>
                     </label>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4">
@@ -135,7 +135,7 @@
                         </div>
                         <input type="date" name="birthday" placeholder="jj/mm/aaaa"
                             class="input input-bordered w-full" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.birthday}}</p>
                     </label>
                     <label class="form-control w-full">
                         <div class="label">
@@ -144,7 +144,7 @@
                         <input type="text" name="birthplace" placeholder="Ville de Naissance"
                             class="input input-bordered w-full" hx-post="/new-member" hx-params="birthplace"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.birthplace}}</p>
                     </label>
                 </div>
                 <div class="mt-2 prose underline underline-offset-4">
@@ -168,7 +168,7 @@
                         <input type="text" name="emergencyContactName"
                             placeholder="Personne à prévenir en cas d'urgence" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="emergencyContactName" hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.emergencyContactName}}</p>
                     </label>
                     <label class="form-control w-full">
                         <div class="label">
@@ -177,7 +177,7 @@
                         <input type="tel" name="emergencyContactPhone" placeholder="06........"
                             class="input input-bordered w-full" hx-post="/new-member" hx-params="emergencyContactPhone"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.emergencyContactPhone}}</p>
                     </label>
                 </div>
                 <div class="mt-2 prose underline underline-offset-4">
@@ -203,7 +203,7 @@
                         </div>
                         <input type="password" name="password" placeholder="***" class="input input-bordered w-full"
                             hx-post="/new-member" hx-params="password" hx-target="next p" hx-trigger="keyup" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.password}}</p>
                     </label>
                     <label class="form-control w-full">
                         <div class="label">
@@ -212,7 +212,7 @@
                         <input type="password" name="confirmPassword" placeholder="***"
                             class="input input-bordered w-full" hx-post="/new-member"
                             hx-params="confirmPassword, password" hx-target="next p" hx-trigger="keyup" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.confirmPassword}}</p>
                     </label>
 
                 </div>
