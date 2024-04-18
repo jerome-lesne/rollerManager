@@ -52,7 +52,9 @@ const subscribe = async (req, res) => {
             subToken: req.params.token,
         });
         if (attendee) {
-            res.render("subscribe/index.html.twig", {});
+            res.render("subscribe/index.html.twig", {
+                token: req.params.token,
+            });
         } else {
             res.redirect("/");
         }

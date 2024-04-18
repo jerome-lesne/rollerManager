@@ -30,6 +30,16 @@ const memberSet = async (req, res) => {
                     });
             }
         } else {
+            const attendee = await trialAttendeesModel.findOne({
+                subToken: req.body.token,
+            });
+
+            if (!attendee) {
+                throw {
+                    wrongToken: "wrong token",
+                };
+            }
+
             if (req.body.password == req.body.confirmPassword) {
                 const member = new memberModel(req.body);
                 member.validateSync();
@@ -44,9 +54,9 @@ const memberSet = async (req, res) => {
             }
         }
     } catch (e) {
-        console.log(e);
         res.render("subscribe/index.html.twig", {
             error: e,
+            token: req.body.token,
         });
     }
 };
