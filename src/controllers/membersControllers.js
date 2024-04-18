@@ -7,7 +7,6 @@ require("dotenv").config();
 
 const memberSet = async (req, res) => {
     try {
-        console.log();
         if (req.headers["hx-trigger-name"]) {
             if (Object.values(req.body)[0] == "") {
                 res.send();

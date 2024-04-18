@@ -96,6 +96,12 @@ const membersSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Champ requis"],
+        validate: {
+            validator: (v) => {
+                return /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/g.test(v);
+            },
+            message: "Ce mot de passe n'est pas valide",
+        },
     },
     medicalCertificat: {
         type: Date,
@@ -116,8 +122,6 @@ const membersSchema = new mongoose.Schema({
         type: Date,
     },
 });
-
-membersSchema.pre("validate", async function (next) {});
 
 const membersModel = mongoose.model("members", membersSchema);
 module.exports = membersModel;
