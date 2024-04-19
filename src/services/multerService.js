@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 const fileFilter = function (req, file, cb) {
     if (!mimeType.includes(file.mimetype)) {
         req.errorMulter =
-            "Seulement les fichiers d'images au format suivants sont autorisés ! (jpg,jpeg,png,webp)";
+            "Seulement les fichiers d'images au format suivants sont autorisés ! (jpg,jpeg,png)";
         cb(null, false);
     }
     cb(null, true);

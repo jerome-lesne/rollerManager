@@ -42,12 +42,19 @@ const memberSet = async (req, res) => {
             }
 
             if (req.body.password == req.body.confirmPassword) {
+                const club = await clubsModel.findOne({
+                    trialAttendees: attendee.id,
+                });
                 const member = new memberModel(req.body);
                 if (req.file) {
                     member.picture = req.file.filename;
                 }
                 member.validateSync();
                 await member.save();
+                await clubsModel.updateOne(
+                    { _id: club.id },
+                    { $push: { members: member.id } },
+                );
                 res.status(200).render("subscribe/index.html.twig", {
                     sentSuccess: true,
                 });
