@@ -85,7 +85,6 @@ const memberSet = async (req, res) => {
 
 const memberConnect = async (req, res) => {
     try {
-        console.log(req.body);
         const member = await membersModel.findOne({ mail: req.body.mail });
         if (member) {
             if (await bcrypt.compare(req.body.password, member.password)) {
