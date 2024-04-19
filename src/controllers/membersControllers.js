@@ -35,13 +35,11 @@ const memberSet = async (req, res) => {
             const attendee = await trialAttendeesModel.findOne({
                 subToken: req.body.token,
             });
-
             if (!attendee) {
                 throw {
                     wrongToken: "wrong token",
                 };
             }
-
             if (req.body.password == req.body.confirmPassword) {
                 const club = await clubsModel.findOne({
                     trialAttendees: attendee.id,
@@ -100,6 +98,15 @@ const memberConnect = async (req, res) => {
         res.render("login/index.html.twig", {
             error: e,
         });
+    }
+};
+
+const memberDisconnect = async (req, res) => {
+    try {
+        req.session.destroy();
+        res.redirect("/login");
+    } catch (e) {
+        res.json(e);
     }
 };
 
@@ -187,4 +194,5 @@ module.exports = {
     trialAttendeeDelete,
     generateSubLink,
     memberConnect,
+    memberDisconnect,
 };

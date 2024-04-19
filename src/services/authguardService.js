@@ -18,7 +18,7 @@ const authguard = (role = undefined) => {
             throw new Error("no access granted");
         } catch (e) {
             console.log(e.message);
-            res.status(401).render("login/index.html.twig");
+            res.status(401).redirect("/");
         }
     };
 };
