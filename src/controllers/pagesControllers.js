@@ -1,3 +1,4 @@
+const membersModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
 
 const home = (req, res) => {
@@ -36,10 +37,12 @@ const tryReq = (req, res) => {
     }
 };
 
-const dashboard = (req, res) => {
+const dashboard = async (req, res) => {
     try {
+        const member = await membersModel.findById(req.session.memberId);
         res.render("dashboard/index.html.twig", {
             connectedHeader: true,
+            roles: member.role,
         });
     } catch (e) {
         res.json(e);
@@ -49,11 +52,14 @@ const dashboard = (req, res) => {
 const management = async (req, res) => {
     try {
         const trialAttendees = await trialAttendeesModel.find();
+        const member = await membersModel.findById(req.session.memberId);
         res.render("management/index.html.twig", {
             connectedHeader: true,
             trialAttendees: trialAttendees,
+            roles: member.role,
         });
     } catch (e) {
+        console.log(e);
         res.json(e);
     }
 };
