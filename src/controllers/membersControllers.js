@@ -4,6 +4,7 @@ const trialAttendeesModel = require("../models/trialAttendeesModel");
 const crypto = require("crypto");
 const sendMail = require("../services/mailerService");
 require("dotenv").config();
+const fs = require("fs");
 
 const memberSet = async (req, res) => {
     try {
@@ -42,6 +43,9 @@ const memberSet = async (req, res) => {
 
             if (req.body.password == req.body.confirmPassword) {
                 const member = new memberModel(req.body);
+                if (req.file) {
+                    member.picture = req.file.filename;
+                }
                 member.validateSync();
                 await member.save();
                 res.status(200).render("subscribe/index.html.twig", {
@@ -54,7 +58,16 @@ const memberSet = async (req, res) => {
             }
         }
     } catch (e) {
+        if (req.file) {
+            fs.unlink(
+                "public/images/idPictures/" + req.file.filename,
+                (err) => {
+                    console.log(err);
+                },
+            );
+        }
         res.render("subscribe/index.html.twig", {
+            errorMulter: req.errorMulter,
             error: e,
             token: req.body.token,
             val: req.body,

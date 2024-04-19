@@ -16,6 +16,7 @@ const membersSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
+        required: [true, "Champ requis"],
     },
     derbyName: {
         type: String,

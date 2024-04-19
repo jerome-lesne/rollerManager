@@ -1,5 +1,7 @@
 const multer = require("multer");
 
+const mimeType = ["image/jpg", "image/jpeg", "image/png"];
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./public/images/idPictures");
@@ -11,7 +13,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
+    if (!mimeType.includes(file.mimetype)) {
         req.errorMulter =
             "Seulement les fichiers d'images au format suivants sont autorisés ! (jpg,jpeg,png,webp)";
         cb(null, false);
