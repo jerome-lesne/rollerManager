@@ -1,10 +1,11 @@
 const clubsModel = require("../models/clubsModel");
-const memberModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
 const crypto = require("crypto");
 const sendMail = require("../services/mailerService");
 require("dotenv").config();
 const fs = require("fs");
+const bcrypt = require("bcrypt");
+const membersModel = require("../models/membersModel");
 
 const memberSet = async (req, res) => {
     try {
@@ -18,9 +19,9 @@ const memberSet = async (req, res) => {
                     res.send("Les mots de passes ne correspondent pas");
                 }
             } else if (
-                memberModel.schema.path(req.headers["hx-trigger-name"])
+                membersModel.schema.path(req.headers["hx-trigger-name"])
             ) {
-                memberModel.schema
+                membersModel.schema
                     .path(req.headers["hx-trigger-name"])
                     .doValidate(Object.values(req.body)[0], (e) => {
                         if (e) {
@@ -45,7 +46,7 @@ const memberSet = async (req, res) => {
                 const club = await clubsModel.findOne({
                     trialAttendees: attendee.id,
                 });
-                const member = new memberModel(req.body);
+                const member = new membersModel(req.body);
                 if (req.file) {
                     member.picture = req.file.filename;
                 }
@@ -78,6 +79,27 @@ const memberSet = async (req, res) => {
             error: e,
             token: req.body.token,
             val: req.body,
+        });
+    }
+};
+
+const memberConnect = async (req, res) => {
+    try {
+        console.log(req.body);
+        const member = await membersModel.findOne({ mail: req.body.mail });
+        if (member) {
+            if (await bcrypt.compare(req.body.password, member.password)) {
+                req.session.memberId = member.id;
+                res.redirect("/dashboard");
+            } else {
+                throw { password: "Wrong password" };
+            }
+        } else {
+            throw { mail: "email not found" };
+        }
+    } catch (e) {
+        res.render("login/index.html.twig", {
+            error: e,
         });
     }
 };
@@ -165,4 +187,5 @@ module.exports = {
     trialAttendeeSet,
     trialAttendeeDelete,
     generateSubLink,
+    memberConnect,
 };
