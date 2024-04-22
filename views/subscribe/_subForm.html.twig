@@ -67,7 +67,7 @@
                         <input type="text" name="playerNumber" placeholder="0000" class="input input-bordered w-full"
                             value="{{val.playerNumber}}" hx-post="/new-member" hx-params="playerNumber"
                             hx-target="next p" />
-                        <p class="text-red-500"></p>
+                        <p class="text-red-500">{{error.errors.playerNumber}}</p>
                     </label>
                 </div>
                 <div>

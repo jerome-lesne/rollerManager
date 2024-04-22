@@ -1,0 +1,53 @@
+<div>
+    <div class="overflow-x-auto flex justify-center">
+        <table class="table-xs md:table-md lg:table-lg">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th colspan="4">
+                    <button type="button" class="btn btn-success btn-sm" hx-get="/get-team-form"
+                        hx-target="next div">Ajouter
+                        une
+                        équipe</button>
+                    <div></div>
+                </th>
+            </tbody>
+            <tbody>
+                {% if not teams %}
+                <th colspan="4">
+                    <span class="italic font-normal">Pas d'équipes</span>
+                </th>
+                {% endif %}
+            </tbody>
+            {% for team in teams %}
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="w-16 h-16">
+                            {% if not team.logo %}
+                            <img src="images/team.svg" alt="Team" />
+                            {% else %}
+                            <img src="images/teamsLogos/{{team.logo}}" alt="Team" />
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="max-w-52 md:max-w-fit overflow-auto">
+                        <div class="font-bold">
+                            <p class="text-wrap">{{team.name}}</p>
+                        </div>
+                    </td>
+                    <td class="flex flex-col gap-1">
+                        <button class="btn btn-primary btn-xs">Editer</button>
+                        <button class="btn btn-error btn-xs">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>

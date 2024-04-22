@@ -1,5 +1,6 @@
 const membersModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
+const teamsModel = require("../models/teamsModel");
 
 const home = (req, res) => {
     try {
@@ -51,11 +52,13 @@ const dashboard = async (req, res) => {
 
 const management = async (req, res) => {
     try {
+        const teams = await teamsModel.find();
         const trialAttendees = await trialAttendeesModel.find();
         const member = await membersModel.findById(req.session.memberId);
         res.render("management/index.html.twig", {
             connectedHeader: true,
             trialAttendees: trialAttendees,
+            teams: teams,
             roles: member.role,
         });
     } catch (e) {

@@ -25,6 +25,7 @@ const membersSchema = new mongoose.Schema({
         type: String,
         validate: {
             validator: (v) => {
+                if (!v) return true;
                 return /^\d{1,4}$/g.test(v);
             },
             message: "Insérez un nombre de 1 à 4 chiffres maximum",

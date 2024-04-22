@@ -3,3 +3,4 @@ node_modules
 .DS_Store
 nodemon.json
 public/images/idPictures/*
+public/images/teamsLogos/*

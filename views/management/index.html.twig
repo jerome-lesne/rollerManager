@@ -1,4 +1,16 @@
 {% extends "base.html.twig" %}
 {% block main %}
-{% include "management/_attendeesList.html.twig" %}
+<div class="min-h-[calc(100vh-5rem)] bg-base-200">
+    <div role="tablist" class="tabs tabs-bordered w-full">
+        <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Teams" checked />
+        <div role="tabpanel" class="tab-content p-10 w-full">
+            {% include "management/_teamsList.html.twig" %}
+        </div>
+
+        <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Essais" />
+        <div role="tabpanel" class="tab-content p-10 w-full">
+            {% include "management/_attendeesList.html.twig" %}
+        </div>
+    </div>
+</div>
 {% endblock %}
