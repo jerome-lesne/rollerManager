@@ -52,8 +52,8 @@
                             hx-on:click="this.closest('tbody').classList.add('bg-blue-500', 'bg-opacity-40')">Inscription</button>
                         <button class="btn btn-error btn-xs" hx-delete="/delete-trial/{{attendee.id}}"
                             hx-target="closest tbody"
-                            hx-confirm="Êtes-vous sûr•e de vouloir supprimer {{attendee.firstName}}"
-                            hx-swap="outerHTML swap:1s">Supprimer</button>
+                            hx-confirm="êtes-vous sûr•e de vouloir supprimer {{attendee.firstname}}"
+                            hx-swap="outerhtml swap:1s">Supprimer</button>
                     </div>
                 </td>
                 </tr>
