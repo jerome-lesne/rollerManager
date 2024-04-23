@@ -1,10 +1,13 @@
 <div>
     <div class="overflow-x-auto flex flex-col items-center justify-center mt-4">
-        <div>
-            <button type="button" class="btn btn-success btn-sm" hx-get="/get-team-form" hx-target="next div">Ajouter
-                une
-                équipe</button>
-            <div></div>
+        <div class="collapse collapse-arrow bg-base-200 w-fit">
+            <input type="checkbox" />
+            <div class="collapse-title text-xl font-medium">
+                Ajouter une équipe
+            </div>
+            <div class="collapse-content">
+                {% include "management/_teamsForm.html.twig" %}
+            </div>
         </div>
         <table class="table-xs md:table-md lg:table-lg">
             <thead>
@@ -14,37 +17,16 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+            {% if not teams %}
             <tbody>
-                {% if not teams %}
                 <th colspan="4">
                     <span class="italic font-normal">Pas d'équipes</span>
                 </th>
-                {% endif %}
             </tbody>
-            <tbody>
+            {% endif %}
+            <tbody id="teamsList">
                 {% for team in teams %}
-                <tr>
-                    <td>
-                        <div class="w-16 h-16">
-                            {% if not team.logo %}
-                            <img src="images/team.svg" alt="Team" />
-                            {% else %}
-                            <img src="images/teamsLogos/{{team.logo}}" alt="Team" />
-                            {% endif %}
-                        </div>
-                    </td>
-                    <td class="max-w-52 md:max-w-fit overflow-auto">
-                        <div class="font-bold">
-                            <p class="text-wrap">{{team.name}}</p>
-                        </div>
-                    </td>
-                    <td class="flex flex-col justify-center gap-2">
-                        <button class="btn btn-primary btn-xs">Editer</button>
-                        <button class="btn btn-error btn-xs" hx-delete="/delete-team/{{team.id}}" hx-target="closest tr"
-                            hx-confirm="êtes-vous sûr•e de vouloir supprimer l'équipe {{team.name}}"
-                            hx-swap="outerhtml swap:1s">Supprimer</button>
-                    </td>
-                </tr>
+                {% include "management/_teamListElmt.html.twig" %}
                 {% endfor %}
             </tbody>
         </table>

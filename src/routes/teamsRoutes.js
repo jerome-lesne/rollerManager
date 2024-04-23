@@ -1,5 +1,5 @@
 const teamsRouter = require("express").Router();
-const { teamSet, teamSetForm } = require("../controllers/teamsControllers");
+const { teamSet } = require("../controllers/teamsControllers");
 const upload = require("../services/multerService");
 
 teamsRouter.post(
@@ -8,6 +8,5 @@ teamsRouter.post(
     teamSet,
 );
 teamsRouter.delete("/delete-team");
-teamsRouter.get("/get-team-form", teamSetForm);
 
 module.exports = teamsRouter;

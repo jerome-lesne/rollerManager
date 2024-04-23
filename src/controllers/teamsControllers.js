@@ -13,14 +13,15 @@ const teamSet = async (req, res) => {
         }
         if (req.errorMulter) {
             throw new Error();
+        } else {
+            team.validateSync();
+            await team.save();
+            await clubsModel.updateOne(
+                { _id: club.id },
+                { $push: { teams: team.id } },
+            );
+            res.render("management/_teamListElmt.html.twig", { team: team });
         }
-        team.validateSync();
-        await team.save();
-        await clubsModel.updateOne(
-            { _id: club.id },
-            { $push: { teams: team.id } },
-        );
-        res.send();
     } catch (e) {
         if (req.file) {
             fs.unlink(
@@ -30,19 +31,13 @@ const teamSet = async (req, res) => {
                 },
             );
         }
+        res.setHeader("HX-Retarget", "this");
+        res.setHeader("HX-Reswap", "outerHTML");
         res.render("management/_teamsForm.html.twig", {
-            errorMulter: req.errorMulter,
             error: e.errors,
+            errorMulter: req.errorMulter,
         });
     }
 };
 
-const teamSetForm = async (req, res) => {
-    try {
-        res.render("management/_teamsForm.html.twig");
-    } catch (e) {
-        res.json(e);
-    }
-};
-
-module.exports = { teamSet, teamSetForm };
+module.exports = { teamSet };

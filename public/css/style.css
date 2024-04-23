@@ -4052,6 +4052,14 @@ details.collapse summary::-webkit-details-marker {
   width: fit-content;
 }
 
+.w-64 {
+  width: 16rem;
+}
+
+.w-56 {
+  width: 14rem;
+}
+
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
@@ -4172,6 +4180,10 @@ details.collapse summary::-webkit-details-marker {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-x-auto {
@@ -4299,12 +4311,21 @@ details.collapse summary::-webkit-details-marker {
   line-height: 1rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
 
 .font-normal {
   font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
 }
 
 .italic {
@@ -4426,6 +4447,10 @@ details.collapse summary::-webkit-details-marker {
 
   .md\:w-1\/2 {
     width: 50%;
+  }
+
+  .md\:w-64 {
+    width: 16rem;
   }
 
   .md\:max-w-fit {

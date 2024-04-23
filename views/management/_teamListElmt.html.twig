@@ -1,0 +1,22 @@
+<tr>
+    <td>
+        <div class="w-16 h-16 overflow-hidden">
+            {% if not team.logo %}
+            <img src="images/team.svg" alt="Team" />
+            {% else %}
+            <img src="images/teamsLogos/{{team.logo}}" alt="Team" />
+            {% endif %}
+        </div>
+    </td>
+    <td class="overflow-auto w-52 md:w-64">
+        <div class="font-bold flex justify-center">
+            <p class="text-wrap">{{team.name}}</p>
+        </div>
+    </td>
+    <td class="flex flex-col justify-center gap-2">
+        <button class="btn btn-primary btn-xs">Editer</button>
+        <button class="btn btn-error btn-xs" hx-delete="/delete-team/{{team.id}}" hx-target="closest tr"
+            hx-confirm="êtes-vous sûr•e de vouloir supprimer l'équipe {{team.name}}"
+            hx-swap="outerhtml swap:1s">Supprimer</button>
+    </td>
+</tr>

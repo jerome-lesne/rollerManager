@@ -1,4 +1,5 @@
-<form id="addteam" hx-post="/add-team" hx-target="this" class="m-4" enctype="multipart/form-data">
+<form id="addteam" hx-post="/add-team" hx-target="#teamsList" hx-swap="beforeend" class="m-4"
+    enctype="multipart/form-data">
     <div class="flex flex-col md:flex-row md:gap-4 md:items-center">
         <label class="form-control w-full md:w-1/2">
             <div class="label">
@@ -16,16 +17,10 @@
             <p class="text-red-500">{{error.name}}</p>
         </label>
     </div>
+    <div id="formErrors"></div>
     <label class="form-control flex justify-center items-center">
         <div class="form-control mt-5 w-1/2">
             <button class="btn btn-primary btn-sm">Créer l'équipe</button>
         </div>
     </label>
-    <label class="form-control flex justify-center items-center">
-        <div class="form-control mt-1 w-1/2">
-            <button class="btn btn-secondary btn-sm"
-                hx-on:click="javascript:document.getElementById('addteam').innerHTML = '';">Annuler</button>
-        </div>
-    </label>
-    </div>
 </form>
