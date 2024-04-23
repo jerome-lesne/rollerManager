@@ -24,8 +24,8 @@
                 </th>
                 {% endif %}
             </tbody>
-            {% for team in teams %}
             <tbody>
+                {% for team in teams %}
                 <tr>
                     <td>
                         <div class="w-16 h-16">
@@ -43,11 +43,13 @@
                     </td>
                     <td class="flex flex-col gap-1">
                         <button class="btn btn-primary btn-xs">Editer</button>
-                        <button class="btn btn-error btn-xs">Supprimer</button>
+                        <button class="btn btn-error btn-xs" hx-delete="/delete-team/{{team.id}}" hx-target="closest tr"
+                            hx-confirm="êtes-vous sûr•e de vouloir supprimer l'équipe {{team.name}}"
+                            hx-swap="outerhtml swap:1s">Supprimer</button>
                     </td>
                 </tr>
+                {% endfor %}
             </tbody>
-            {% endfor %}
         </table>
     </div>
 </div>

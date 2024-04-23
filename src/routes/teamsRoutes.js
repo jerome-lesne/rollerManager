@@ -7,6 +7,7 @@ teamsRouter.post(
     upload("./public/images/teamsLogos").single("logo"),
     teamSet,
 );
+teamsRouter.delete("/delete-team");
 teamsRouter.get("/get-team-form", teamSetForm);
 
 module.exports = teamsRouter;
