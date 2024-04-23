@@ -40,4 +40,25 @@ const teamSet = async (req, res) => {
     }
 };
 
-module.exports = { teamSet };
+const teamDelete = async (req, res) => {
+    try {
+        await clubsModel.updateOne(
+            { teams: req.params.id },
+            { $pull: { teams: req.params.id } },
+        );
+        const team = await teamsModel.findById(req.params.id);
+        if (team.logo) {
+            fs.unlink("public/images/teamsLogos/" + team.logo, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+        await teamsModel.deleteOne({ _id: req.params.id });
+        res.status(200).send();
+    } catch (e) {
+        res.send(e);
+    }
+};
+
+module.exports = { teamSet, teamDelete };

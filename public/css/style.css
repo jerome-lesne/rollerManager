@@ -3959,6 +3959,26 @@ details.collapse summary::-webkit-details-marker {
   height: auto;
 }
 
+.h-28 {
+  height: 7rem;
+}
+
+.h-3 {
+  height: 0.75rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-0 {
   min-height: 0px;
 }
@@ -4058,6 +4078,18 @@ details.collapse summary::-webkit-details-marker {
 
 .w-56 {
   width: 14rem;
+}
+
+.w-20 {
+  width: 5rem;
+}
+
+.w-28 {
+  width: 7rem;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .min-w-max {
@@ -4188,6 +4220,10 @@ details.collapse summary::-webkit-details-marker {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .text-wrap {
@@ -4383,6 +4419,48 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 768px) {
+  .md\:btn-sm {
+    height: 2rem;
+    min-height: 2rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .md\:btn-md {
+    height: 3rem;
+    min-height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-square:where(.md\:btn-sm) {
+    height: 2rem;
+    width: 2rem;
+    padding: 0px;
+  }
+
+  .btn-square:where(.md\:btn-md) {
+    height: 3rem;
+    width: 3rem;
+    padding: 0px;
+  }
+
+  .btn-circle:where(.md\:btn-sm) {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 9999px;
+    padding: 0px;
+  }
+
+  .btn-circle:where(.md\:btn-md) {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 9999px;
+    padding: 0px;
+  }
+
   .md\:card-normal .card-body {
     padding: var(--padding-card, 2rem);
     font-size: 1rem;
@@ -4429,6 +4507,10 @@ details.collapse summary::-webkit-details-marker {
     display: none;
   }
 
+  .md\:h-28 {
+    height: 7rem;
+  }
+
   .md\:w-2\/5 {
     width: 40%;
   }
@@ -4451,6 +4533,10 @@ details.collapse summary::-webkit-details-marker {
 
   .md\:w-64 {
     width: 16rem;
+  }
+
+  .md\:w-28 {
+    width: 7rem;
   }
 
   .md\:max-w-fit {
@@ -4476,6 +4562,11 @@ details.collapse summary::-webkit-details-marker {
 
   .md\:gap-4 {
     gap: 1rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 

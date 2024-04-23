@@ -1,5 +1,5 @@
 const teamsRouter = require("express").Router();
-const { teamSet } = require("../controllers/teamsControllers");
+const { teamSet, teamDelete } = require("../controllers/teamsControllers");
 const upload = require("../services/multerService");
 
 teamsRouter.post(
@@ -7,6 +7,6 @@ teamsRouter.post(
     upload("./public/images/teamsLogos").single("logo"),
     teamSet,
 );
-teamsRouter.delete("/delete-team");
+teamsRouter.delete("/delete-team/:id", teamDelete);
 
 module.exports = teamsRouter;
