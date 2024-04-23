@@ -116,7 +116,7 @@ const trialAttendeeSet = async (req, res) => {
         trialAttendee.validateSync();
         await trialAttendee.save();
         await clubsModel.updateOne(
-            { _id: "66168500208d28d672b5efed" }, // A MODIFIER AVEC LA SESSION
+            { _id: "66168500208d28d672b5efed" }, // A MODIFIER ?
             { $push: { trialAttendees: trialAttendee.id } },
         );
         res.render("try/index.html.twig", {

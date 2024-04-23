@@ -1,10 +1,13 @@
-const { MulterError } = require("multer");
 const teamsModel = require("../models/teamsModel");
+const clubsModel = require("../models/clubsModel");
+const fs = require("fs");
 
 const teamSet = async (req, res) => {
     try {
-        console.log(req.body);
         const team = new teamsModel(req.body);
+        const club = await clubsModel.findOne({
+            members: req.session.memberId,
+        });
         if (req.file) {
             team.logo = req.file.filename;
         }
@@ -13,6 +16,10 @@ const teamSet = async (req, res) => {
         }
         team.validateSync();
         await team.save();
+        await clubsModel.updateOne(
+            { _id: club.id },
+            { $push: { teams: team.id } },
+        );
         res.send();
     } catch (e) {
         if (req.file) {

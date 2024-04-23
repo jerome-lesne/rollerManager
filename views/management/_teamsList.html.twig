@@ -1,5 +1,11 @@
 <div>
-    <div class="overflow-x-auto flex justify-center">
+    <div class="overflow-x-auto flex flex-col items-center justify-center">
+        <div>
+            <button type="button" class="btn btn-success btn-sm" hx-get="/get-team-form" hx-target="next div">Ajouter
+                une
+                équipe</button>
+            <div></div>
+        </div>
         <table class="table-xs md:table-md lg:table-lg">
             <thead>
                 <tr>
@@ -8,15 +14,6 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <th colspan="4">
-                    <button type="button" class="btn btn-success btn-sm" hx-get="/get-team-form"
-                        hx-target="next div">Ajouter
-                        une
-                        équipe</button>
-                    <div></div>
-                </th>
-            </tbody>
             <tbody>
                 {% if not teams %}
                 <th colspan="4">
@@ -41,7 +38,7 @@
                             <p class="text-wrap">{{team.name}}</p>
                         </div>
                     </td>
-                    <td class="flex flex-col gap-1">
+                    <td class="flex flex-col justify-center gap-2">
                         <button class="btn btn-primary btn-xs">Editer</button>
                         <button class="btn btn-error btn-xs" hx-delete="/delete-team/{{team.id}}" hx-target="closest tr"
                             hx-confirm="êtes-vous sûr•e de vouloir supprimer l'équipe {{team.name}}"

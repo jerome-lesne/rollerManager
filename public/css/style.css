@@ -3934,6 +3934,19 @@ details.collapse summary::-webkit-details-marker {
   height: 6rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.h-auto {
+  height: auto;
+}
+
 .min-h-0 {
   min-height: 0px;
 }
