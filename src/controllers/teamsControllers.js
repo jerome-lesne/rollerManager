@@ -27,7 +27,9 @@ const teamSet = async (req, res) => {
             fs.unlink(
                 "public/images/teamsLogos/" + req.file.filename,
                 (err) => {
-                    console.log(err);
+                    if (err) {
+                        console.log(err);
+                    }
                 },
             );
         }
@@ -61,4 +63,68 @@ const teamDelete = async (req, res) => {
     }
 };
 
-module.exports = { teamSet, teamDelete };
+const getInlineTeamForm = async (req, res) => {
+    try {
+        const team = await teamsModel.findById(req.params.id);
+        res.render("management/_teamFormInline.html.twig", {
+            idTeam: req.params.id,
+            team: team,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+const getInlineTeam = async (req, res) => {
+    try {
+        const team = await teamsModel.findById(req.params.id);
+        res.render("management/_teamListElmt.html.twig", { team: team });
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+const teamEdit = async (req, res) => {
+    try {
+        const team = await teamsModel.findById(req.params.id);
+        const data = req.body;
+        console.log(req.file);
+        if (req.file) {
+            if (req.errorMulter) {
+                throw new Error();
+            } else {
+                data.logo = req.file.filename;
+                fs.unlink("public/images/teamsLogos/" + team.logo, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+        await teamsModel.updateOne({ _id: req.params.id }, data);
+        res.render("management/_teamListElmt.html.twig", {
+            team: await teamsModel.findById(req.params.id),
+        });
+    } catch (e) {
+        fs.unlink("public/images/teamsLogos/" + req.file.filename, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.render("management/_teamFormInline.html.twig", {
+            idTeam: req.params.id,
+            team: team,
+            error: e.errors,
+            errorMulter: e.errorMulter,
+        });
+        console.log(e);
+    }
+};
+
+module.exports = {
+    teamSet,
+    teamDelete,
+    getInlineTeamForm,
+    getInlineTeam,
+    teamEdit,
+};
