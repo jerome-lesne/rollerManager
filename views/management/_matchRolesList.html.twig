@@ -3,30 +3,29 @@
         <div class="collapse collapse-plus bg-base-200 w-11/12 sm:w-2/3">
             <input type="checkbox" />
             <div class="collapse-title text-md md:text-xl font-medium">
-                Ajouter une équipe
+                Ajouter un Rôle
             </div>
             <div class="collapse-content">
-                {% include "management/_teamsForm.html.twig" %}
+                {% include "management/_matchRolesForm.html.twig" %}
             </div>
         </div>
         <table class="table-xs md:table-md lg:table-lg w-11/12 sm:w-2/3">
             <thead>
                 <tr>
-                    <th class="w-1/5">Logo</th>
-                    <th class="w-2/5">Nom</th>
-                    <th class="w-2/5">Actions</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            {% if not teams %}
             <tbody>
+                {% if not matchRoles %}
                 <th colspan="4">
-                    <span class="italic font-normal">Pas d'équipes</span>
+                    <span class="italic font-normal">Pas de rôles de match</span>
                 </th>
+                {% endif %}
             </tbody>
-            {% endif %}
-            <tbody id="teamsList">
-                {% for team in teams %}
-                {% include "management/_teamListElmt.html.twig" %}
+            <tbody id="roleMatchList">
+                {% for matchRole in matchRoles %}
+                {% include "management/_matchRolesListElmt.html.twig" %}
                 {% endfor %}
             </tbody>
         </table>

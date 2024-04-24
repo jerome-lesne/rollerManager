@@ -1,18 +1,25 @@
 {% extends "base.html.twig" %}
 {% block main %}
 <div class="min-h-[calc(100vh-5rem)] bg-base-200">
-    <div role="tablist" class="tabs tabs-lifted">
-        <input type="radio" name="my_tabs_1" role="tab" class="tab font-bold h-10 whitespace-nowrap"
+    <div role="tablist" class="tabs tabs-lifted tabs-xs sm:tabs-sm md:tabs-md lg:tabs-lg">
+        <input type="radio" name="my_tabs_1" role="tab" class="tab font-bold min-h-10 whitespace-nowrap"
+            aria-label="Rôles de Match" />
+        <div role="tabpanel" class="tab-content mt-5 w-full min-h-[calc(100vh-9rem)] h-full bg-base-100">
+            {% include "management/_matchRolesList.html.twig" %}
+        </div>
+
+        <input type="radio" name="my_tabs_1" role="tab" class="tab font-bold min-h-10 whitespace-nowrap"
             aria-label="Equipes" checked />
         <div role="tabpanel" class="tab-content mt-5 w-full min-h-[calc(100vh-9rem)] h-full bg-base-100">
             {% include "management/_teamsList.html.twig" %}
         </div>
 
-        <input type="radio" name="my_tabs_1" role="tab" class="tab font-bold h-10 whitespace-nowrap"
+        <input type="radio" name="my_tabs_1" role="tab" class="tab font-bold min-h-10 whitespace-nowrap"
             aria-label="Demandes d'éssais" />
         <div role="tabpanel" class="tab-content mt-5 w-full min-h-[calc(100vh-9rem)] h-full bg-base-100">
             {% include "management/_attendeesList.html.twig" %}
         </div>
+
     </div>
 </div>
 {% endblock %}

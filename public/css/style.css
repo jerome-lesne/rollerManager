@@ -3801,6 +3801,10 @@ details.collapse summary::-webkit-details-marker {
   min-height: calc(100vh - 9rem);
 }
 
+.min-h-10 {
+  min-height: 2.5rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -3848,6 +3852,22 @@ details.collapse summary::-webkit-details-marker {
 
 .w-2\/3 {
   width: 66.666667%;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
+}
+
+.w-1\/5 {
+  width: 20%;
+}
+
+.w-3\/5 {
+  width: 60%;
+}
+
+.w-2\/5 {
+  width: 40%;
 }
 
 .max-w-20 {
@@ -3971,6 +3991,11 @@ details.collapse summary::-webkit-details-marker {
   border-radius: 9999px;
 }
 
+.border-base-300 {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
+}
+
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
@@ -4009,6 +4034,10 @@ details.collapse summary::-webkit-details-marker {
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .px-4 {
@@ -4104,6 +4133,15 @@ details.collapse summary::-webkit-details-marker {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+@media (min-width: 640px) {
+  .sm\:tabs-sm :where(.tab) {
+    height: 1.5rem;
+    font-size: 0.875rem;
+    line-height: .75rem;
+    --tab-padding: 0.75rem;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:btn-sm {
     height: 2rem;
@@ -4124,6 +4162,14 @@ details.collapse summary::-webkit-details-marker {
     width: 2rem;
     border-radius: 9999px;
     padding: 0px;
+  }
+
+  .md\:tabs-md :where(.tab) {
+    height: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    line-height: 2;
+    --tab-padding: 1rem;
   }
 
   .md\:card-normal .card-body {
@@ -4150,6 +4196,14 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 1024px) {
+  .lg\:tabs-lg :where(.tab) {
+    height: 3rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    line-height: 2;
+    --tab-padding: 1.25rem;
+  }
+
   .lg\:table-lg :not(thead):not(tfoot) tr {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -4160,6 +4214,12 @@ details.collapse summary::-webkit-details-marker {
     padding-right: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:w-2\/3 {
+    width: 66.666667%;
   }
 }
 
@@ -4194,6 +4254,10 @@ details.collapse summary::-webkit-details-marker {
 
   .md\:w-64 {
     width: 16rem;
+  }
+
+  .md\:w-2\/3 {
+    width: 66.666667%;
   }
 
   .md\:max-w-fit {
