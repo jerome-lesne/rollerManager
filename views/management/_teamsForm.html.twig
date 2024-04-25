@@ -3,24 +3,24 @@
     <div class="flex flex-col md:flex-row md:gap-4 md:items-center">
         <label class="form-control w-full md:w-1/2">
             <div class="label">
-                <span class="label-text">logo<i class="text-red-500">*</i></span>
+                <span class="label-text">Logo</span>
             </div>
             <input type="file" name="logo"
                 class="file-input file-input-sm file-input-bordered file-input-secondary w-full" />
             <p class="text-red-500">{{errormulter}}</p>
         </label>
-        <label class="form-control w-1/2 md:w-1/2">
+        <label class="form-control md:w-1/2">
             <div class="label">
-                <span class="label-text">nom<i class="text-red-500">*</i></span>
+                <span class="label-text">Nom<i class="text-red-500">*</i></span>
             </div>
-            <input type="text" name="name" placeholder="nom" class="input input-sm input-bordered w-full max-w-xs" />
+            <input type="text" name="name" placeholder="Nom" class="input input-sm input-bordered w-full" />
             <p class="text-red-500">{{error.name}}</p>
         </label>
     </div>
     <div id="formerrors"></div>
     <label class="form-control flex justify-center items-center">
         <div class="form-control mt-4 w-1/2">
-            <button class="btn btn-primary btn-sm">créer l'équipe</button>
+            <button class="btn btn-primary btn-sm">Créer l'équipe</button>
         </div>
     </label>
 </form>

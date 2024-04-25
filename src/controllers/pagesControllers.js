@@ -41,10 +41,32 @@ const tryReq = (req, res) => {
 
 const dashboard = async (req, res) => {
     try {
-        const member = await membersModel.findById(req.session.memberId);
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("members")
+            .populate("teams");
+        let members = club.members.map((e) => {
+            return e.toObject();
+        });
+        for (let i = 0; i < members.length; i++) {
+            const e = members[i];
+            let team = await teamsModel.findOne({ members: e._id });
+            if (team) {
+                e["team"] = team.name;
+            } else {
+                e["team"] = "-";
+            }
+        }
+
         res.render("dashboard/index.html.twig", {
             connectedHeader: true,
-            roles: member.role,
+            roles: connectedMember.role,
+            members: members,
         });
     } catch (e) {
         res.json(e);
@@ -53,17 +75,21 @@ const dashboard = async (req, res) => {
 
 const management = async (req, res) => {
     try {
-        const teams = await teamsModel.find();
-        const trialAttendees = await trialAttendeesModel.find();
-        const member = await membersModel.findById(req.session.memberId);
-        const club = await clubsModel.findOne({
-            members: req.session.memberId,
-        });
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("members")
+            .populate("trialAttendees")
+            .populate("teams");
         res.render("management/index.html.twig", {
             connectedHeader: true,
-            trialAttendees: trialAttendees,
-            teams: teams,
-            roles: member.role,
+            trialAttendees: club.trialAttendees,
+            teams: club.teams,
+            roles: connectedMember.role,
             matchRoles: club.matchRoles,
         });
     } catch (e) {

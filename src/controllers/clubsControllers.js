@@ -15,4 +15,17 @@ const addMatchRole = async (req, res) => {
     }
 };
 
-module.exports = { addMatchRole };
+const deleteMatchRole = async (req, res) => {
+    try {
+        await clubsModel.findOneAndUpdate(
+            { members: req.session.memberId },
+            { $pull: { matchRoles: req.params.role } },
+            { new: true },
+        );
+        res.status(200).send();
+    } catch (e) {
+        res.send(e);
+    }
+};
+
+module.exports = { addMatchRole, deleteMatchRole };
