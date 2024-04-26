@@ -17,13 +17,6 @@
                     <th class="w-2/5">Actions</th>
                 </tr>
             </thead>
-            {% if not teams %}
-            <tbody>
-                <th colspan="4">
-                    <span class="italic font-normal">Pas d'équipes</span>
-                </th>
-            </tbody>
-            {% endif %}
             <tbody id="teamsList">
                 {% for team in teams %}
                 {% include "management/_teamListElmt.html.twig" %}

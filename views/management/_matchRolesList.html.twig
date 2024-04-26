@@ -16,13 +16,6 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                {% if not matchRoles %}
-                <th colspan="4">
-                    <span class="italic font-normal">Pas de rôles de match</span>
-                </th>
-                {% endif %}
-            </tbody>
             <tbody id="roleMatchList">
                 {% for matchRole in matchRoles %}
                 {% include "management/_matchRolesListElmt.html.twig" %}
