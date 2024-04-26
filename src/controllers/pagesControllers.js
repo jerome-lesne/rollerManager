@@ -66,6 +66,7 @@ const dashboard = async (req, res) => {
         res.render("dashboard/index.html.twig", {
             connectedHeader: true,
             roles: connectedMember.role,
+            connectedMember: connectedMember,
             members: members,
         });
     } catch (e) {
@@ -91,6 +92,7 @@ const management = async (req, res) => {
             teams: club.teams,
             roles: connectedMember.role,
             matchRoles: club.matchRoles,
+            connectedMember: connectedMember,
         });
     } catch (e) {
         console.log(e);
