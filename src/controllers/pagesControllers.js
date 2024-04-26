@@ -41,34 +41,68 @@ const tryReq = (req, res) => {
 
 const dashboard = async (req, res) => {
     try {
-        const connectedMember = await membersModel.findById(
-            req.session.memberId,
-        );
-        const club = await clubsModel
-            .findOne({
-                members: req.session.memberId,
-            })
-            .populate("members")
-            .populate("teams");
-        let members = club.members.map((e) => {
-            return e.toObject();
-        });
-        for (let i = 0; i < members.length; i++) {
-            const e = members[i];
-            let team = await teamsModel.findOne({ members: e._id });
-            if (team) {
-                e["team"] = team.name;
-            } else {
-                e["team"] = "-";
+        if (req.headers["hx-request"]) {
+            const searchTerm = req.query.search;
+            const regex = new RegExp(searchTerm, "i");
+            const club = await clubsModel
+                .findOne({
+                    members: req.session.memberId,
+                })
+                .populate({
+                    path: "members",
+                    match: {
+                        $or: [
+                            { name: { $regex: regex } },
+                            { firstName: { $regex: regex } },
+                            { derbyName: { $regex: regex } },
+                        ],
+                    },
+                });
+            let members = club.members.map((e) => {
+                return e.toObject();
+            });
+            for (let i = 0; i < members.length; i++) {
+                const e = members[i];
+                let team = await teamsModel.findOne({ members: e._id });
+                if (team) {
+                    e["team"] = team.name;
+                } else {
+                    e["team"] = "-";
+                }
             }
-        }
+            res.render("dashboard/_memberListElmt.html.twig", {
+                members: members,
+            });
+        } else {
+            const connectedMember = await membersModel.findById(
+                req.session.memberId,
+            );
+            const club = await clubsModel
+                .findOne({
+                    members: req.session.memberId,
+                })
+                .populate("members")
+                .populate("teams");
+            let members = club.members.map((e) => {
+                return e.toObject();
+            });
+            for (let i = 0; i < members.length; i++) {
+                const e = members[i];
+                let team = await teamsModel.findOne({ members: e._id });
+                if (team) {
+                    e["team"] = team.name;
+                } else {
+                    e["team"] = "-";
+                }
+            }
 
-        res.render("dashboard/index.html.twig", {
-            connectedHeader: true,
-            roles: connectedMember.role,
-            connectedMember: connectedMember,
-            members: members,
-        });
+            res.render("dashboard/index.html.twig", {
+                connectedHeader: true,
+                roles: connectedMember.role,
+                connectedMember: connectedMember,
+                members: members,
+            });
+        }
     } catch (e) {
         res.json(e);
     }

@@ -54,6 +54,11 @@ const memberSet = async (req, res) => {
                     { _id: club.id },
                     { $push: { members: member.id } },
                 );
+                await clubsModel.updateOne(
+                    { trialAttendees: attendee.id },
+                    { $pull: { trialAttendees: attendee.id } },
+                );
+                await trialAttendeesModel.deleteOne({ _id: attendee.id });
                 res.status(200).render("subscribe/index.html.twig", {
                     sentSuccess: true,
                 });

@@ -6,9 +6,6 @@ const {
     dashboard,
     management,
     subscribe,
-    managementAttendees,
-    managementTeams,
-    managementMatchRoles,
 } = require("../controllers/pagesControllers");
 const authguard = require("../services/authguardService");
 

@@ -9,11 +9,15 @@
                 </tr>
             </thead>
             <tbody>
-                {% for member in members %}
-                {% include "dashboard/_memberListElmt.html.twig" %}
-                {% endfor %}
+                <tr>
+                    <td>
+                        {% include "dashboard/_searchNames.html.twig" %}
+                    </td>
+                </tr>
             </tbody>
-
+            <tbody id="memberList">
+                {% include "dashboard/_memberListElmt.html.twig" %}
+            </tbody>
         </table>
     </div>
 </div>
