@@ -3763,6 +3763,14 @@ details.collapse summary::-webkit-details-marker {
   z-index: 1;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
 .m-1 {
   margin: 0.25rem;
 }
@@ -3876,6 +3884,24 @@ details.collapse summary::-webkit-details-marker {
 
 .h-14 {
   height: 3.5rem;
+}
+
+.h-\[calc\(100vh-80px\)\] {
+  height: calc(100vh - 80px);
+}
+
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.h-60 {
+  height: 15rem;
+}
+
+.h-min {
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .min-h-0 {
@@ -4078,6 +4104,14 @@ details.collapse summary::-webkit-details-marker {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-clip {
+  overflow: clip;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .overflow-x-auto {

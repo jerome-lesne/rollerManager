@@ -1,21 +1,19 @@
 <div class="min-h-[calc(100vh-80px)] bg-base-300 flex justify-center">
-    <div class="overflow-x-auto w-full sm:w-4/5 lg:w-2/3">
-        <table class="table-xs sm:table-sm md:table-md lg:table-lg table-pin-rows w-full">
+    <div class="w-full sm:w-4/5 lg:w-2/3">
+        <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full table-pin-rows">
             <thead>
-                <tr>
-                    <th>Nom</th>
+                <tr class="bg-base-300">
+                    <th class="flex flex-col justify-center items-center gap-1">
+                        <div>
+                            Nom
+                        </div>
+                        {% include "dashboard/_searchNames.html.twig" %}
+                    </th>
                     <th>Equipe</th>
                     <th>Roles</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        {% include "dashboard/_searchNames.html.twig" %}
-                    </td>
-                </tr>
-            </tbody>
-            <tbody id="memberList">
+            <tbody id="memberList" class="h-20 overflow-scroll">
                 {% include "dashboard/_memberListElmt.html.twig" %}
             </tbody>
         </table>
