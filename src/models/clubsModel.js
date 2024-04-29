@@ -29,6 +29,9 @@ const clubsSchema = new mongoose.Schema({
             ref: "trialAttendees",
         },
     ],
+    roles: {
+        type: Array,
+    },
 });
 
 const clubsModel = mongoose.model("clubs", clubsSchema);

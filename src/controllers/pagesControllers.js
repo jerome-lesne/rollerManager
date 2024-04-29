@@ -41,6 +41,7 @@ const tryReq = (req, res) => {
 
 const dashboard = async (req, res) => {
     try {
+        console.log(req.query);
         if (req.headers["hx-request"]) {
             const searchTerm = req.query.search;
             const regex = new RegExp(searchTerm, "i");
@@ -53,8 +54,12 @@ const dashboard = async (req, res) => {
                 ],
             };
 
-            if (req.query.team[0] !== "") {
-                query.team = req.query.team[0];
+            if (req.query.team !== "") {
+                query.team = req.query.team;
+            }
+
+            if (req.query.role !== "") {
+                query.role = req.query.role;
             }
 
             const club = await clubsModel
