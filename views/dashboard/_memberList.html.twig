@@ -17,14 +17,7 @@
                             <div>
                                 Equipe
                             </div>
-                            <div>
-                                <select class="select select-xs max-w-16 sm:max-w-none" id="team" name="team">
-                                    <option value="">--Filtre--</option>
-                                    <option value="Amazones">Amazones</option>
-                                    <option value="Valkyries">Valkyries</option>
-                                    <option value="Fresh Meat">Fresh Meat</option>
-                                </select>
-                            </div>
+                            {% include "dashboard/_selectTeam.html.twig" %}
                         </div>
                     </th>
                     <th>

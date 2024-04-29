@@ -44,6 +44,19 @@ const dashboard = async (req, res) => {
         if (req.headers["hx-request"]) {
             const searchTerm = req.query.search;
             const regex = new RegExp(searchTerm, "i");
+
+            const query = {
+                $or: [
+                    { name: { $regex: regex } },
+                    { firstName: { $regex: regex } },
+                    { derbyName: { $regex: regex } },
+                ],
+            };
+
+            if (req.query.team[0] !== "") {
+                query.team = req.query.team[0];
+            }
+
             const club = await clubsModel
                 .findOne({
                     members: req.session.memberId,
@@ -53,16 +66,12 @@ const dashboard = async (req, res) => {
                     populate: {
                         path: "team",
                     },
-                    match: {
-                        $or: [
-                            { name: { $regex: regex } },
-                            { firstName: { $regex: regex } },
-                            { derbyName: { $regex: regex } },
-                        ],
-                    },
-                });
+                    match: query,
+                })
+                .populate("teams");
+
             res.render("dashboard/_memberListElmt.html.twig", {
-                members: club.members,
+                club: club,
             });
         } else {
             const connectedMember = await membersModel.findById(
@@ -77,13 +86,13 @@ const dashboard = async (req, res) => {
                     populate: {
                         path: "team",
                     },
-                });
-            console.log(club);
+                })
+                .populate("teams");
             res.render("dashboard/index.html.twig", {
                 connectedHeader: true,
                 roles: connectedMember.role,
                 connectedMember: connectedMember,
-                members: club.members,
+                club: club,
             });
         }
     } catch (e) {
