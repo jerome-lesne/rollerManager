@@ -2,7 +2,7 @@
 <tr>
     <td class="w-3/5">
         <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
-            <div class="avatar">
+            <div class="w-1/5 avatar">
                 {% if member.picture %}
                 <div class="mask mask-squircle w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
                     <img src="images/idPictures/{{member.picture}}" alt="Avatar" />
@@ -13,23 +13,23 @@
                 </div>
                 {% endif %}
             </div>
-            <div class="w-1/5">
+            <div class="w-1/5 overflow-auto">
                 <div class="font-light">{{member.pronoun}}</div>
             </div>
-            <div class="w-3/5">
+            <div class="w-3/5 overflow-auto">
                 <div class="font-bold">{{member.derbyName}}</div>
                 <div class="text-sm opacity-50">{{member.firstName}} {{member.name}}</div>
             </div>
         </div>
     </td>
     <td class="w-1/5">
-        <div class="flex items-center justify-center">
-            {{member.team}}
+        <div class="flex items-center justify-center overflow-auto">
+            {{member.team.name}}
         </div>
     </td>
     <td class="w-1/5">
         {% if member.role %}
-        <div class="font-bold flex flex-col items-center justify-center gap-2">
+        <div class="font-bold flex flex-col items-center justify-center gap-2 overflow-auto">
             {% for role in member.role %}
 
             {% if role == "Bureau" %}

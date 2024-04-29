@@ -124,6 +124,11 @@ const membersSchema = new mongoose.Schema({
             message: "Ce mot de passe n'est pas valide",
         },
     },
+    team: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "teams",
+    },
+
     medicalCertificat: {
         type: Date,
     },
