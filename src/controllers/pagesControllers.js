@@ -50,6 +50,9 @@ const dashboard = async (req, res) => {
                 })
                 .populate({
                     path: "members",
+                    populate: {
+                        path: "team",
+                    },
                     match: {
                         $or: [
                             { name: { $regex: regex } },
@@ -58,18 +61,6 @@ const dashboard = async (req, res) => {
                         ],
                     },
                 });
-            // let members = club.members.map((e) => {
-            //     return e.toObject();
-            // });
-            // for (let i = 0; i < members.length; i++) {
-            //     const e = members[i];
-            //     let team = await teamsModel.findOne({ members: e._id });
-            //     if (team) {
-            //         e["team"] = team.name;
-            //     } else {
-            //         e["team"] = "-";
-            //     }
-            // }
             res.render("dashboard/_memberListElmt.html.twig", {
                 members: club.members,
             });
@@ -88,19 +79,6 @@ const dashboard = async (req, res) => {
                     },
                 });
             console.log(club);
-            // let members = club.members.map((e) => {
-            //     return e.toObject();
-            // });
-            // for (let i = 0; i < members.length; i++) {
-            //     const e = members[i];
-            //     let team = await teamsModel.findOne({ members: e._id });
-            //     if (team) {
-            //         e["team"] = team.name;
-            //     } else {
-            //         e["team"] = "-";
-            //     }
-            // }
-
             res.render("dashboard/index.html.twig", {
                 connectedHeader: true,
                 roles: connectedMember.role,
