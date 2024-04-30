@@ -8,12 +8,6 @@ const teamsSchema = new mongoose.Schema({
     logo: {
         type: String,
     },
-    members: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "members",
-        },
-    ],
 });
 
 const teamsModel = mongoose.model("teams", teamsSchema);

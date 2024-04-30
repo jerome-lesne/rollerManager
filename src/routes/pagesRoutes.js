@@ -13,6 +13,7 @@ pagesRouter.get("/", home);
 pagesRouter.get("/login", login);
 pagesRouter.get("/try", tryReq);
 pagesRouter.get("/dashboard", authguard(), dashboard);
+pagesRouter.get("/add-info", authguard());
 pagesRouter.get("/management", authguard("Bureau"), management);
 pagesRouter.get("/subscribe/:token", subscribe);
 

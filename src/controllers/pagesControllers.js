@@ -41,7 +41,6 @@ const tryReq = (req, res) => {
 
 const dashboard = async (req, res) => {
     try {
-        console.log(req.query);
         if (req.headers["hx-request"]) {
             const searchTerm = req.query.search;
             const regex = new RegExp(searchTerm, "i");
