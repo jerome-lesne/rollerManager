@@ -4,3 +4,4 @@ node_modules
 nodemon.json
 public/images/idPictures/*
 public/images/teamsLogos/*
+public/css/style.css
