@@ -1,16 +1,68 @@
 <tr class="additionalInfo hidden">
+    {% if "Bureau" in roles or "Coach" in roles %}
     <td colspan="3">
-        <div>
-            {{member.mail}}
-        </div>
-        <div>
-            {{member.phone}}
-        </div>
-        <div>
-            {{member.medicalInfos}}
-        </div>
-        <div>
-            {{member.medicalCertificate}}
+        <div class="flex justify-around">
+
+            <!-- Coach -->
+            <div>
+                <div>
+                    {{member.mail}}
+                </div>
+                <div>
+                    {{member.phone}}
+                </div>
+                <div>
+                    {{member.medicalInfos}}
+                </div>
+                <div>
+                    {{member.medicalCertificate}}
+                </div>
+                <div>
+                    {{member.emergencyContactName}}
+                </div>
+                <div>
+                    {{member.emergencyContactPhone}}
+                </div>
+            </div>
+
+
+            {% if "Bureau" in roles %}
+            <!-- Bureau -->
+            <div>
+                <div>
+                    {{member.acceptMixedGender}}
+                </div>
+                <div>
+                    {{member.address}}
+                </div>
+                <div>
+                    {{member.zipCode}}
+                </div>
+                <div>
+                    {{member.city}}
+                </div>
+                <div>
+                    {{member.birthday}}
+                </div>
+                <div>
+                    {{member.birthplace}}
+                </div>
+                <div>
+                    {{member.medicalCertificat}}
+                </div>
+                <div>
+                    {{member.licenceNumber}}
+                </div>
+                <div>
+                    {{member.coachedTeam}}
+                </div>
+                <div>
+                    {{member.practicalMS}}
+                </div>
+            </div>
+            {% endif %}
+
         </div>
     </td>
+    {% endif %}
 </tr>
