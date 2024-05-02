@@ -31,8 +31,6 @@ app.use(clubsRouter);
 
 app.listen(process.env.PORT, (e) => {
     if (e) {
-        console.log(e);
-    } else {
         console.log(`server connected on PORT: ${process.env.PORT}`);
     }
 });

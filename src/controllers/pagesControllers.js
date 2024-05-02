@@ -42,6 +42,9 @@ const tryReq = (req, res) => {
 const dashboard = async (req, res) => {
     try {
         if (req.headers["hx-request"]) {
+            const connectedMember = await membersModel.findById(
+                req.session.memberId,
+            );
             const searchTerm = req.query.search;
             const regex = new RegExp(searchTerm, "i");
 
@@ -76,6 +79,8 @@ const dashboard = async (req, res) => {
 
             res.render("dashboard/_memberListElmt.html.twig", {
                 club: club,
+                roles: connectedMember.role,
+                connectedMember: connectedMember,
             });
         } else {
             const connectedMember = await membersModel.findById(

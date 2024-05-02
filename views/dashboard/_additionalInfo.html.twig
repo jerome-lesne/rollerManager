@@ -1,68 +1,107 @@
 <tr class="additionalInfo hidden">
     {% if "Bureau" in roles or "Coach" in roles %}
     <td colspan="3">
-        <div class="flex justify-around">
-
+        <div class="flex justify-around gap-4">
             <!-- Coach -->
-            <div>
-                <div>
-                    {{member.mail}}
+            <div class="w-1/2">
+                <div class="flex justify-between gap-4">
+                    <p>Email:</p>
+                    <p class="opacity-50">{{member.mail}}</p>
                 </div>
-                <div>
-                    {{member.phone}}
+                <div class="flex justify-between gap-4">
+                    <p>Tel:</p>
+                    <p class="opacity-50 gap-4">{{member.phone}}</p>
                 </div>
-                <div>
-                    {{member.medicalInfos}}
+                <div class="flex justify-between gap-4">
+                    <p>Médical:</p>
+                    {% if member.medicalInfos %}
+                    <p class="opacity-50">{{member.medicalInfos}}</p>
+                    {% else %}
+                    <p class="opacity-50">/</p>
+                    {% endif %}
+
                 </div>
-                <div>
-                    {{member.medicalCertificate}}
+                <div class="flex justify-between gap-4">
+                    <p>Contact Urgence:</p>
+                    <p class="opacity-50">{{member.emergencyContactName}}</p>
                 </div>
-                <div>
-                    {{member.emergencyContactName}}
-                </div>
-                <div>
-                    {{member.emergencyContactPhone}}
+                <div class="flex justify-between gap-4">
+                    <p>Contact Urgence Tel:</p>
+                    <p class="opacity-50">{{member.emergencyContactPhone}}</p>
                 </div>
             </div>
 
-
             {% if "Bureau" in roles %}
             <!-- Bureau -->
-            <div>
-                <div>
-                    {{member.acceptMixedGender}}
+            <div class="w-1/2">
+                <div class="flex justify-between">
+                    <p>Accepte de jouer en mixte:</p>
+                    <p class="opacity-50">{{member.acceptsMixedGender}}</p>
                 </div>
-                <div>
-                    {{member.address}}
+                <div class="flex justify-between">
+                    <p>Date certificat médical:</p>
+                    {% if medicalCertificat %}
+                    <p class="opacity-50">{{member.medicalCertificat|date('d-m-Y')}}</p>
+                    {% else %}
+                    <p class="opacity-50">/</p>
+                    {% endif %}
+
                 </div>
-                <div>
-                    {{member.zipCode}}
+                <div class="flex justify-between">
+                    <p>N° de licence:</p>
+                    {% if member.licenceNumber %}
+                    <p class="opacity-50">{{member.licenceNumber}}</p>
+                    {% else %}
+                    <p class="opacity-50">/</p>
+                    {% endif %}
                 </div>
-                <div>
-                    {{member.city}}
+                <div class="flex justify-between">
+                    <p>MS theorique:</p>
+                    {% if member.theoricalMS %}
+                    <p class="opacity-50">{{member.theoricalMS|date('d-m-Y')}}</p>
+                    {% else %}
+                    <p class="opacity-50">/</p>
+                    {% endif %}
                 </div>
-                <div>
-                    {{member.birthday}}
+                <div class="flex justify-between">
+                    <p>MS pratique:</p>
+                    {% if member.practicalMS %}
+                    <p class="opacity-50">{{member.practicalMS|date('d-m-Y')}}</p>
+                    {% else %}
+                    <p class="opacity-50">/</p>
+                    {% endif %}
                 </div>
-                <div>
-                    {{member.birthplace}}
+                <div class="flex justify-between">
+                    <p>Adresse:</p>
+                    <p class="opacity-50">{{member.address}}</p>
                 </div>
-                <div>
-                    {{member.medicalCertificat}}
+                <div class="flex justify-between">
+                    <p>Code postal:</p>
+                    <p class="opacity-50">{{member.zipCode}}</p>
                 </div>
-                <div>
-                    {{member.licenceNumber}}
+                <div class="flex justify-between">
+                    <p>Ville:</p>
+                    <p class="opacity-50">{{member.city}}</p>
                 </div>
-                <div>
-                    {{member.coachedTeam}}
+                <div class="flex justify-between">
+                    <p>Date de naissance:</p>
+                    <p class="opacity-50">{{member.birthday|date('d-m-Y')}}</p>
                 </div>
-                <div>
-                    {{member.practicalMS}}
+                <div class="flex justify-between">
+                    <p>Lieu de naissance:</p>
+                    <p class="opacity-50">{{member.birthplace}}</p>
                 </div>
             </div>
             {% endif %}
 
         </div>
+
+        {% if "Bureau" in roles %}
+        <div class="flex justify-center gap-4 mt-4">
+            <button type="button" class="btn btn-xs sm:btn-sm btn-info">Editer</button>
+            <button type="button" class="btn btn-xs sm:btn-sm btn-error">Supprimer</button>
+        </div>
+        {% endif %}
     </td>
     {% endif %}
 </tr>
