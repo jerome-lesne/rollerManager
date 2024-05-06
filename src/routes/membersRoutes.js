@@ -5,6 +5,9 @@ const {
     generateSubLink,
     memberConnect,
     memberDisconnect,
+    memberFormEdit,
+    cancelMemberEdit,
+    editMember,
 } = require("../controllers/membersControllers");
 const authguard = require("../services/authguardService");
 const upload = require("../services/multerService");
@@ -28,5 +31,8 @@ membersRouter.get(
 );
 membersRouter.post("/connect", memberConnect);
 membersRouter.get("/disconnect", memberDisconnect);
+membersRouter.get("/edit-member-form/:id", memberFormEdit);
+membersRouter.get("/cancel-member-form/:id", cancelMemberEdit);
+membersRouter.put("/edit-member/:id", editMember);
 
 module.exports = membersRouter;

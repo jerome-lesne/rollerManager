@@ -1,57 +1,163 @@
-{% for member in club.members %}
-<tr class="hover"
-    hx-on:click="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.classList.toggle('bg-base-100'); this.classList.toggle('bg-base-100')">
-    <td class="w-3/5">
-        <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
-            <div class="w-1/5 avatar">
-                {% if member.picture %}
-                <div class="mask mask-squircle w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
-                    <img src="images/idPictures/{{member.picture}}" alt="Avatar" />
+<tbody id="member" class="h-full overflow-scroll" hx-target="this" hx-swap="outerHTML">
+    <tr class="hover mainInfo h-full {% if unfolded %} bg-base-100 {% endif %}"
+        hx-on:click="this.nextElementSibling.classList.toggle('hidden'); this.classList.toggle('bg-base-100')">
+        <td class="w-3/5">
+            <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
+                <div class="w-1/5 avatar">
+                    {% if member.picture %}
+                    <div class="mask mask-squircle w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
+                        <img src="images/idPictures/{{member.picture}}" alt="Avatar" />
+                    </div>
+                    {% else %}
+                    <div class="mask mask-squircle w-12 h-12">
+                        <img src="images/avatar.svg" alt="Avatar" />
+                    </div>
+                    {% endif %}
                 </div>
-                {% else %}
-                <div class="mask mask-squircle w-12 h-12">
-                    <img src="images/avatar.svg" alt="Avatar" />
+                <div class="w-1/5 overflow-auto">
+                    <div class="font-light">{{member.pronoun}}</div>
+                </div>
+                <div class="w-3/5 overflow-auto">
+                    <div class="font-bold">{{member.derbyName}}</div>
+                    <div class="text-sm opacity-50">{{member.firstName}} {{member.name}}</div>
+                    {% if member.playerNumber %}
+                    <div class="text-sm opacity-50">N°{{member.playerNumber}}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </td>
+        <td class="w-1/5">
+            <div class="flex items-center justify-center overflow-auto">
+                {{member.team.name}}
+            </div>
+        </td>
+        <td class="w-1/5">
+            {% if member.role %}
+            <div class="font-bold flex flex-col items-center justify-center gap-2">
+                {% for role in member.role %}
+                {% if role == "Bureau" %}
+                <div class="badge badge-primary badge-xs sm:badge-sm md:badge-md lg:badge-lg">{{role}}</div>
+                {% endif %}
+                {% if role == "CA" %}
+                <div class="badge badge-secondary badge-xs sm:badge-sm md:badge-md lg:badge-lg">{{role}}</div>
+                {% endif %}
+                {% if role == "Coach" %}
+                <div class="badge badge-accent badge-xs sm:badge-sm md:badge-md lg:badge-lg">{{role}}</div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="font-bold flex items-center justify-center gap-2">
+                <div class="badge badge-neutral">Membre</div>
+            </div>
+            {% endif %}
+        </td>
+    </tr>
+    <tr class="additionalInfo h-full bg-base-100 {% if not unfolded %} hidden
+        {% endif %}">
+        {% if "Bureau" in roles or "Coach" in roles %}
+        <td class="h-full" colspan="3">
+            <div class="flex flex-col sm:flex-row justify-around items-center sm:items-start gap-4 h-full">
+                <!-- Coach -->
+                <div class="flex flex-col w-full h-full sm:w-1/2">
+                    <div class="flex justify-between gap-4 h-1/6">
+                        <p>Email:</p>
+                        <p class="opacity-50">{{member.mail}}</p>
+                    </div>
+                    <div class="flex justify-between gap-4 h-1/6">
+                        <p>Tel:</p>
+                        <p class="opacity-50 gap-4">{{member.phone}}</p>
+                    </div>
+                    <div class="flex justify-between gap-4 h-20">
+                        <p>Médical:</p>
+                        {% if member.medicalInfos %}
+                        <p class="opacity-50">{{member.medicalInfos}}</p>
+                        {% else %}
+                        <p class="opacity-50">/</p>
+                        {% endif %}
+
+                    </div>
+                    <div class="flex justify-between gap-4 h-1/6">
+                        <p>Contact Urgence:</p>
+                        <p class="opacity-50">{{member.emergencyContactName}}</p>
+                    </div>
+                    <div class="flex justify-between gap-4 h-1/6">
+                        <p>Contact Urgence Tel:</p>
+                        <p class="opacity-50">{{member.emergencyContactPhone}}</p>
+                    </div>
+                </div>
+
+                {% if "Bureau" in roles %}
+                <!-- Bureau -->
+                <div class="w-full sm:w-1/2">
+                    <div class="flex justify-between">
+                        <p>Joue en mixte:</p>
+                        <p class="opacity-50">{{member.acceptsMixedGender}}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Certificat médical:</p>
+                        {% if medicalCertificat %}
+                        <p class="opacity-50">{{member.medicalCertificat|date('d-m-Y')}}</p>
+                        {% else %}
+                        <p class="opacity-50">/</p>
+                        {% endif %}
+
+                    </div>
+                    <div class="flex justify-between">
+                        <p>N° de licence:</p>
+                        {% if member.licenceNumber %}
+                        <p class="opacity-50">{{member.licenceNumber}}</p>
+                        {% else %}
+                        <p class="opacity-50">/</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex justify-between">
+                        <p>MS theorique:</p>
+                        {% if member.theoricalMS %}
+                        <p class="opacity-50">{{member.theoricalMS|date('d-m-Y')}}</p>
+                        {% else %}
+                        <p class="opacity-50">/</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex justify-between">
+                        <p>MS pratique:</p>
+                        {% if member.practicalMS %}
+                        <p class="opacity-50">{{member.practicalMS|date('d-m-Y')}}</p>
+                        {% else %}
+                        <p class="opacity-50">/</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Adresse:</p>
+                        <p class="opacity-50">{{member.address}}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Code postal:</p>
+                        <p class="opacity-50">{{member.zipCode}}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Ville:</p>
+                        <p class="opacity-50">{{member.city}}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Date de naissance:</p>
+                        <p class="opacity-50">{{member.birthday|date('d-m-Y')}}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Lieu de naissance:</p>
+                        <p class="opacity-50">{{member.birthplace}}</p>
+                    </div>
                 </div>
                 {% endif %}
             </div>
-            <div class="w-1/5 overflow-auto">
-                <div class="font-light">{{member.pronoun}}</div>
+            {% if "Bureau" in roles %}
+            <div class="flex justify-center gap-4 mt-4">
+                <button type="button" class="btn btn-xs sm:btn-sm btn-info"
+                    hx-get="/edit-member-form/{{member.id}}">Editer</button>
+                <button type="button" class="btn btn-xs sm:btn-sm btn-error">Supprimer</button>
             </div>
-            <div class="w-3/5 overflow-auto">
-                <div class="font-bold">{{member.derbyName}}</div>
-                <div class="text-sm opacity-50">{{member.firstName}} {{member.name}}</div>
-                {% if member.playerNumber %}
-                <div class="text-sm opacity-50">N°{{member.playerNumber}}</div>
-                {% endif %}
-            </div>
-        </div>
-    </td>
-    <td class="w-1/5">
-        <div class="flex items-center justify-center overflow-auto">
-            {{member.team.name}}
-        </div>
-    </td>
-    <td class="w-1/5">
-        {% if member.role %}
-        <div class="font-bold flex flex-col items-center justify-center gap-2 overflow-auto">
-            {% for role in member.role %}
-            {% if role == "Bureau" %}
-            <div class="badge badge-primary">{{role}}</div>
             {% endif %}
-            {% if role == "CA" %}
-            <div class="badge badge-secondary">{{role}}</div>
-            {% endif %}
-            {% if role == "Coach" %}
-            <div class="badge badge-accent">{{role}}</div>
-            {% endif %}
-            {% endfor %}
-        </div>
-        {% else %}
-        <div class="font-bold flex items-center justify-center gap-2">
-            <div class="badge badge-neutral">Membre</div>
-        </div>
+        </td>
         {% endif %}
-    </td>
-</tr>
-{% include "dashboard/_additionalInfo.html.twig" %}
-{% endfor %}
+    </tr>
+</tbody>

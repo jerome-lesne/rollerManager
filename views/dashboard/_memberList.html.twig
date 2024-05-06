@@ -30,9 +30,9 @@
                     </th>
                 </tr>
             </thead>
-            <tbody id="memberList" class="h-20 overflow-scroll">
-                {% include "dashboard/_memberListElmt.html.twig" %}
-            </tbody>
+            {% for member in club.members %}
+            {% include "dashboard/_memberListElmt.html.twig" %}
+            {% endfor %}
         </table>
     </div>
 </div>

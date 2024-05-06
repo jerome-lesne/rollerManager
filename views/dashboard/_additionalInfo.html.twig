@@ -1,4 +1,4 @@
-<tr class="additionalInfo hidden">
+<tbody id="member" class="h-20 overflow-scroll">
     {% if "Bureau" in roles or "Coach" in roles %}
     <td colspan="3">
         <div class="flex justify-around gap-4">
@@ -98,10 +98,11 @@
 
         {% if "Bureau" in roles %}
         <div class="flex justify-center gap-4 mt-4">
-            <button type="button" class="btn btn-xs sm:btn-sm btn-info">Editer</button>
+            <button type="button" class="btn btn-xs sm:btn-sm btn-info"
+                hx-get="/edit-member-form/{{member.id}}">Editer</button>
             <button type="button" class="btn btn-xs sm:btn-sm btn-error">Supprimer</button>
         </div>
         {% endif %}
     </td>
     {% endif %}
-</tr>
+</tbody>

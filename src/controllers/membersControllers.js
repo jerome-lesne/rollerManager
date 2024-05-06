@@ -182,6 +182,57 @@ const generateSubLink = async (req, res) => {
     }
 };
 
+const memberFormEdit = async (req, res) => {
+    try {
+        const member = await membersModel
+            .findById(req.params.id)
+            .populate("team");
+        res.render("dashboard/_editMemberForm.html.twig", {
+            member: member,
+        });
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+const cancelMemberEdit = async (req, res) => {
+    try {
+        const member = await membersModel
+            .findById(req.params.id)
+            .populate("team");
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        res.render("dashboard/_memberListElmt.html.twig", {
+            member: member,
+            roles: connectedMember.role,
+            unfolded: true,
+        });
+    } catch (e) {
+        res.json(e);
+    }
+};
+
+const editMember = async (req, res) => {
+    try {
+        await membersModel.updateOne({ _id: req.params.id }, req.body);
+        const member = await membersModel
+            .findById(req.params.id)
+            .populate("team");
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        res.render("dashboard/_memberListElmt.html.twig", {
+            member: member,
+            roles: connectedMember.role,
+            unfolded: true,
+        });
+        res.send();
+    } catch (e) {
+        res.json(e);
+    }
+};
+
 // const clubSet = async (req, res) => {
 //     try {
 //         const member = new clubsModel(req.body);
@@ -200,4 +251,7 @@ module.exports = {
     generateSubLink,
     memberConnect,
     memberDisconnect,
+    memberFormEdit,
+    cancelMemberEdit,
+    editMember,
 };
