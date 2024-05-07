@@ -33,13 +33,19 @@
         </td>
         <td class="w-1/5 overflow-auto">
             <div class="flex items-center justify-center overflow-auto">
-                {{member.team.name}}
+                <select class="select select-xs select-primary my-1" name="team">
+                    <option value="no_team">--Aucune Equipe--</option>
+                    {% for team in club.teams %}
+                    <option value="{{team.id}}">{{team.name}}</option>
+                    {% endfor %}
+                </select>
             </div>
+
         </td>
         <td class="w-1/5">
             <div class="font-bold flex flex-col items-center justify-center gap-2">
                 <select class="select select-xs select-primary" name="role" multiple="multiple">
-                    <option value="">--Aucun Role--</option>
+                    <option value="no_role">--Aucun Role--</option>
                 {% for role in club.roles %}
                     {% if role in member.role %}
                         <option value="{{role}}" selected>{{role}}</option>

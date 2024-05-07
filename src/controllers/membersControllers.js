@@ -184,9 +184,11 @@ const generateSubLink = async (req, res) => {
 
 const memberFormEdit = async (req, res) => {
     try {
-        const club = await clubsModel.findOne({
-            members: req.session.memberId,
-        });
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("teams");
         const member = await membersModel
             .findById(req.params.id)
             .populate("team");
@@ -223,6 +225,24 @@ const editMember = async (req, res) => {
         if (!data.acceptsMixedGender) {
             data.acceptsMixedGender = "off";
         }
+        if (data.team == "no_team") {
+            delete data.team;
+            await membersModel.updateOne(
+                { _id: req.params.id },
+                { $unset: { team: "" } },
+            );
+        }
+        if (data.role == "no_role") {
+            delete data.role;
+            await membersModel.updateOne(
+                { _id: req.params.id },
+                { $unset: { role: "" } },
+            );
+        } else if (data.role.includes("no_role")) {
+            data.role = data.role.filter((role) => role !== "no_role");
+        }
+
+        console.log(data);
         await membersModel.updateOne({ _id: req.params.id }, data);
         const member = await membersModel
             .findById(req.params.id)
