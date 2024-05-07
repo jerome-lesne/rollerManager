@@ -232,14 +232,16 @@ const editMember = async (req, res) => {
                 { $unset: { team: "" } },
             );
         }
-        if (data.role == "no_role") {
-            delete data.role;
-            await membersModel.updateOne(
-                { _id: req.params.id },
-                { $unset: { role: "" } },
-            );
-        } else if (data.role.includes("no_role")) {
-            data.role = data.role.filter((role) => role !== "no_role");
+        if (data.role) {
+            if (data.role == "no_role") {
+                delete data.role;
+                await membersModel.updateOne(
+                    { _id: req.params.id },
+                    { $unset: { role: "" } },
+                );
+            } else if (data.role.includes("no_role")) {
+                data.role = data.role.filter((role) => role !== "no_role");
+            }
         }
 
         console.log(data);
