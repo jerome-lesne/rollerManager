@@ -36,7 +36,11 @@
                 <select class="select select-xs select-primary my-1" name="team">
                     <option value="no_team">--Aucune Equipe--</option>
                     {% for team in club.teams %}
+                    {% if team.id == member.team.id %}
+                    <option value="{{team.id}}" selected>{{team.name}}</option>
+                    {% else %}
                     <option value="{{team.id}}">{{team.name}}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
