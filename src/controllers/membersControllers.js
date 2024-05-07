@@ -184,10 +184,14 @@ const generateSubLink = async (req, res) => {
 
 const memberFormEdit = async (req, res) => {
     try {
+        const club = await clubsModel.findOne({
+            members: req.session.memberId,
+        });
         const member = await membersModel
             .findById(req.params.id)
             .populate("team");
         res.render("dashboard/_editMemberForm.html.twig", {
+            club: club,
             member: member,
         });
     } catch (e) {
@@ -215,7 +219,11 @@ const cancelMemberEdit = async (req, res) => {
 
 const editMember = async (req, res) => {
     try {
-        await membersModel.updateOne({ _id: req.params.id }, req.body);
+        const data = req.body;
+        if (!data.acceptsMixedGender) {
+            data.acceptsMixedGender = "off";
+        }
+        await membersModel.updateOne({ _id: req.params.id }, data);
         const member = await membersModel
             .findById(req.params.id)
             .populate("team");
@@ -227,7 +235,6 @@ const editMember = async (req, res) => {
             roles: connectedMember.role,
             unfolded: true,
         });
-        res.send();
     } catch (e) {
         res.json(e);
     }

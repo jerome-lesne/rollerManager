@@ -44,6 +44,9 @@
                 {% if role == "Coach" %}
                 <div class="badge badge-accent badge-xs sm:badge-sm md:badge-md lg:badge-lg">{{role}}</div>
                 {% endif %}
+                {% if role == "" %}
+                <div class="badge badge-neutral">Membre</div>
+                {% endif %}
                 {% endfor %}
             </div>
             {% else %}
