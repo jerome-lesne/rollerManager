@@ -1,6 +1,6 @@
 <tr id="{{member.id}}" class="h-full overflow-scroll" hx-target="this" hx-swap="outerHTML">
-    <td colspan="3" class="hover:bg-base-200" style="padding: 0px;">
-        <div class="flex mainInfo h-full {% if unfolded %} bg-base-100 {% endif %}"
+    <td colspan="3" style="padding: 0px;">
+        <div class="flex mainInfo h-full {% if unfolded %} bg-base-100 {% endif %} hover:bg-base-200 hover:cursor-pointer"
             hx-on:click="this.nextElementSibling.classList.toggle('hidden'); this.classList.toggle('bg-base-100')">
             <div class="w-3/5 py-4 px-3">
                 <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
@@ -59,8 +59,8 @@
         </div>
         <div class="additionalInfo h-full bg-base-100 {% if not unfolded %} hidden {% endif %}">
             {% if "Bureau" in roles or "Coach" in roles %}
-            <div class="h-full" colspan="3">
-                <div class="flex flex-col sm:flex-row justify-around items-center sm:items-start gap-4 h-full">
+            <div class="h-full">
+                <div class="flex flex-col sm:flex-row justify-around items-center sm:items-start gap-4 h-full p-2">
                     <!-- Coach -->
                     <div class="flex flex-col w-full h-full sm:w-1/2">
                         <div class="flex justify-between items-center gap-4 h-1/6">
@@ -154,7 +154,7 @@
                     {% endif %}
                 </div>
                 {% if "Bureau" in roles %}
-                <div class="flex justify-center gap-4 mt-4">
+                <div class="flex justify-center gap-4 pb-2">
                     <button type="button" class="btn btn-xs sm:btn-sm btn-info"
                         hx-get="/edit-member-form/{{member.id}}">Editer</button>
                     <button type="button" class="btn btn-xs sm:btn-sm btn-error">Supprimer</button>
