@@ -1,0 +1,54 @@
+<div class="min-h-[calc(100vh-80px)] bg-base-300 flex justify-center">
+    <div class="w-full sm:w-4/5 lg:w-2/3">
+        <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full">
+            <thead class="sticky top-0">
+                <tr class="bg-base-300">
+                    <th class="w-3/5">
+                        <div class="flex flex-col justify-center items-center gap-1">
+                            <div>
+                                Nom
+                            </div>
+                            <div class="flex items-center justify-center w-4/5">
+                                <input class="form-control input input-xs w-full" type="search" name="search"
+                                    placeholder="Recherche par Prénom/Nom/DerbyName..." hx-get="/dashboard"
+                                    hx-target="tbody" hx-swap="outerHTML" hx-include="[name='team'], [name='role']"
+                                    hx-trigger="keyup delay:500ms, change from:#team, change from:#role">
+                            </div>
+                        </div>
+                    </th>
+                    <th class="w-1/5">
+                        <div class="flex flex-col justify-center items-center gap-1">
+                            <div>
+                                Equipe
+                            </div>
+                            <div>
+                                <select class="select select-xs w-full" id="team" name="team">
+                                    <option value="">--Filtre--</option>
+                                    {% for team in club.teams %}
+                                    <option value="{{team.id}}">{{team.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="w-1/5">
+                        <div class="flex flex-col justify-center items-center gap-1">
+                            <div>
+                                Roles
+                            </div>
+                            <div>
+                                <select class="select select-xs w-full" id="role" name="role">
+                                    <option value="">--Filtre--</option>
+                                    {% for role in club.roles %}
+                                    <option value="{{role}}">{{role}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            {% include "dashboard/_memberList.html.twig" %}
+        </table>
+    </div>
+</div>

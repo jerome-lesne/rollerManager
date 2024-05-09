@@ -1,38 +1,5 @@
-<div class="min-h-[calc(100vh-80px)] bg-base-300 flex justify-center">
-    <div class="w-full sm:w-4/5 lg:w-2/3">
-        <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full table-pin-rows">
-            <thead>
-                <tr class="bg-base-300">
-                    <th>
-                        <div class="flex flex-col justify-center items-center gap-1">
-                            <div>
-                                Nom
-                            </div>
-                            {% include "dashboard/_searchNames.html.twig" %}
-
-                        </div>
-                    </th>
-                    <th>
-                        <div class="flex flex-col justify-center items-center gap-1">
-                            <div>
-                                Equipe
-                            </div>
-                            {% include "dashboard/_selectTeam.html.twig" %}
-                        </div>
-                    </th>
-                    <th>
-                        <div class="flex flex-col justify-center items-center gap-1">
-                            <div>
-                                Roles
-                            </div>
-                            {% include "dashboard/_selectRole.html.twig" %}
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            {% for member in club.members %}
-            {% include "dashboard/_memberListElmt.html.twig" %}
-            {% endfor %}
-        </table>
-    </div>
-</div>
+<tbody id="memberList">
+    {% for member in club.members %}
+    {% include "dashboard/_memberListElmt.html.twig" %}
+    {% endfor %}
+</tbody>

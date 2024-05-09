@@ -77,7 +77,7 @@ const dashboard = async (req, res) => {
                 })
                 .populate("teams");
 
-            res.render("dashboard/_memberListElmt.html.twig", {
+            res.render("dashboard/_memberList.html.twig", {
                 club: club,
                 roles: connectedMember.role,
                 connectedMember: connectedMember,

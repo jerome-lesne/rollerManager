@@ -243,8 +243,6 @@ const editMember = async (req, res) => {
                 data.role = data.role.filter((role) => role !== "no_role");
             }
         }
-
-        console.log(data);
         await membersModel.updateOne({ _id: req.params.id }, data);
         const member = await membersModel
             .findById(req.params.id)

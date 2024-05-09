@@ -29,11 +29,10 @@
                         value="{{member.playerNumber}}">
                 </div>
             </div>
-            </div>
         </td>
         <td class="w-1/5 overflow-auto">
             <div class="flex items-center justify-center overflow-auto">
-                <select class="select select-xs select-primary my-1" name="team">
+                <select class="select select-xs select-primary w-full m-1" name="team">
                     <option value="no_team">--Aucune Equipe--</option>
                     {% for team in club.teams %}
                     {% if team.id == member.team.id %}
@@ -48,7 +47,7 @@
         </td>
         <td class="w-1/5">
             <div class="font-bold flex flex-col items-center justify-center gap-2">
-                <select class="select select-xs select-primary" name="role" multiple="multiple">
+                <select class="select select-xs select-primary w-full" name="role" multiple="multiple">
                     <option value="no_role">--Aucun Role--</option>
                 {% for role in club.roles %}
                     {% if role in member.role %}
@@ -101,7 +100,7 @@
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">Certificat médical:</p>
                         <input type="date" class="input input-primary input-xs w-2/3 my-1" name="medicalCertificat"
-                            value="{{member.medicalCertificat}}">
+                            value="{{member.medicalCertificat|date('Y-m-d')}}">
                     </div>
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">N° de licence:</p>
@@ -110,13 +109,13 @@
                     </div>
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">MS theorique:</p>
-                        <input type="date" class="input input-primary input-xs w-2/3 my-1" name="theoricalMS"
-                            value="{{member.theoricalMS}}">
+                        <input type="date" class="input input-primary input-xs w-2/3 my-1" name="theoreticalMS"
+                            value="{{member.theoreticalMS|date('Y-m-d')}}">
                     </div>
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">MS pratique:</p>
                         <input type="date" class="input input-primary input-xs w-2/3 my-1" name="practicalMS"
-                            value="{{member.practicalMS}}">
+                            value="{{member.practicalMS|date('Y-m-d')}}">
                     </div>
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">Adresse:</p>
@@ -136,7 +135,7 @@
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">Date de naissance:</p>
                         <input type="date" class="input input-primary input-xs w-2/3 my-1" name="birthday"
-                            value="{{member.birthday}}">
+                            value="{{member.birthday|date('Y-m-d')}}">
                     </div>
                     <div class="flex justify-between items-center gap-4">
                         <p class="w-1/3">Lieu de naissance:</p>
