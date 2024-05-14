@@ -1,7 +1,9 @@
 <tr id="{{member.id}}" class="h-full overflow-scroll" hx-target="this" hx-swap="outerHTML">
     <td colspan="3" style="padding: 0px;">
         <div class="flex mainInfo h-full {% if unfolded %} bg-base-100 {% endif %} hover:bg-base-200 hover:cursor-pointer"
-            hx-on:click="this.nextElementSibling.classList.toggle('hidden'); this.classList.toggle('bg-base-100')">
+            {% if 'Bureau' in connectedMember.role or 'Coach' in connectedMember.role %}
+            hx-on:click="this.nextElementSibling.classList.toggle('hidden'); this.classList.toggle('bg-base-100')" {%
+            endif %}>
             <div class="w-3/5 py-4 px-3">
                 <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
                     <div class="w-1/5 avatar">
@@ -95,7 +97,11 @@
                     <div class="w-full sm:w-1/2">
                         <div class="flex justify-between">
                             <p>Joue en mixte:</p>
-                            <p class="opacity-50">{{member.acceptsMixedGender}}</p>
+                            {% if member.acceptsMixedGender %}
+                            <p class="opacity-50">Oui</p>
+                            {% else %}
+                            <p class="opacity-50">Non</p>
+                            {% endif %}
                         </div>
                         <div class="flex justify-between">
                             <p>Certificat médical:</p>

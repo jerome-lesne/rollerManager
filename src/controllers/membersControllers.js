@@ -163,7 +163,7 @@ const generateSubLink = async (req, res) => {
                 process.env.PORT +
                 "/subscribe/" +
                 token;
-            const mailContent = `<h1>Vous trouverez ci-dessous le lien pour vous inscrire au club de Roller Derby d'Aix en Provence :</h1><p>${link}</p>`;
+            const mailContent = `<p>Bonjour ${attendee.firstName} !</p><p>Ci-dessous le lien pour t'inscrire au club de Roller Derby d'Aix en Provence :</p><p>${link}</p>`;
             await trialAttendeesModel.updateOne(
                 { _id: req.params.id },
                 { subToken: token },
