@@ -211,8 +211,8 @@ const cancelMemberEdit = async (req, res) => {
         );
         res.render("dashboard/_memberListElmt.html.twig", {
             member: member,
-            roles: connectedMember.role,
             unfolded: true,
+            connectedMember: connectedMember,
         });
     } catch (e) {
         res.json(e);
@@ -222,6 +222,24 @@ const cancelMemberEdit = async (req, res) => {
 const editMember = async (req, res) => {
     try {
         const data = req.body;
+        const memberUpdate = await membersModel.findById(req.params.id);
+        if (!req.errorMulter || req.errorMulter == "error") {
+            if (req.file) {
+                data.picture = req.file.filename;
+                if (memberUpdate.picture) {
+                    fs.unlink(
+                        "public/images/idPictures/" + memberUpdate.picture,
+                        (err) => {
+                            if (err) {
+                                // console.log(err);
+                            }
+                        },
+                    );
+                }
+            }
+        } else {
+            throw { image: req.errorMulter };
+        }
         if (!data.acceptsMixedGender) {
             data.acceptsMixedGender = "off";
         }
@@ -252,11 +270,34 @@ const editMember = async (req, res) => {
         );
         res.render("dashboard/_memberListElmt.html.twig", {
             member: member,
-            roles: connectedMember.role,
             unfolded: true,
+            connectedMember: connectedMember,
         });
     } catch (e) {
-        res.json(e);
+        console.log(e);
+        if (req.file) {
+            fs.unlink(
+                "public/images/idPictures/" + req.file.filename,
+                (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                },
+            );
+        }
+        const memberError = await membersModel
+            .findById(req.params.id)
+            .populate("team");
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("teams");
+        res.render("dashboard/_editMemberForm.html.twig", {
+            club: club,
+            member: memberError,
+            errorMulter: e.image,
+        });
     }
 };
 
@@ -276,7 +317,9 @@ const deleteMember = async (req, res) => {
         }
         await membersModel.deleteOne({ _id: req.params.id });
         res.status(200).send();
-    } catch (error) { }
+    } catch (e) {
+        res.json(e);
+    }
 };
 
 // const clubSet = async (req, res) => {

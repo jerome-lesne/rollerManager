@@ -1,7 +1,8 @@
 <tr class="overflow-scroll">
     <td colspan="3" style="padding: 0px;">
         <form hx-put="/edit-member/{{member.id}}" hx-target="closest tr" hx-swap="outerHTML" hx-include="this"
-            hx-trigger="click from:find .validateForm" hx-confirm="Confirmer la modification ?">
+            hx-trigger="click from:find .validateForm" hx-confirm="Confirmer la modification ?"
+            enctype="multipart/form-data">
             <div class="mainInfo bg-base-100 flex h-full">
                 <div class="w-3/5 py-4 px-3">
                     <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 md:gap-16 lg:gap-20 h-full">
@@ -9,7 +10,7 @@
                             <div>
                                 <input type="file"
                                     class="file-input file-input-bordered file-input-xs file-input-secondary w-full"
-                                    hx-post="/new-member" hx-params="picture" hx-target="next p" name="picture" />
+                                    name="picture" />
                                 <p class="text-red-500">{{errorMulter}}</p>
                             </div>
                             <div>

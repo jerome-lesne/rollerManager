@@ -88,17 +88,21 @@ const teamEdit = async (req, res) => {
     try {
         const team = await teamsModel.findById(req.params.id);
         const data = req.body;
-        console.log(req.file);
         if (req.file) {
             if (req.errorMulter) {
                 throw new Error();
             } else {
                 data.logo = req.file.filename;
-                fs.unlink("public/images/teamsLogos/" + team.logo, (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
+                if (team.logo) {
+                    fs.unlink(
+                        "public/images/teamsLogos/" + team.logo,
+                        (err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        },
+                    );
+                }
             }
         }
         await teamsModel.updateOne({ _id: req.params.id }, data);
