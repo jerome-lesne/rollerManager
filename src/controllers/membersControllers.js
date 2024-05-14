@@ -231,7 +231,7 @@ const editMember = async (req, res) => {
                         "public/images/idPictures/" + memberUpdate.picture,
                         (err) => {
                             if (err) {
-                                // console.log(err);
+                                console.log(err);
                             }
                         },
                     );

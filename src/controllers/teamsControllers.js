@@ -88,10 +88,8 @@ const teamEdit = async (req, res) => {
     try {
         const team = await teamsModel.findById(req.params.id);
         const data = req.body;
-        if (req.file) {
-            if (req.errorMulter) {
-                throw new Error();
-            } else {
+        if (!req.errorMulter || req.errorMulter == "error") {
+            if (req.file) {
                 data.logo = req.file.filename;
                 if (team.logo) {
                     fs.unlink(
@@ -104,24 +102,31 @@ const teamEdit = async (req, res) => {
                     );
                 }
             }
+        } else {
+            throw { image: req.errorMulter };
         }
         await teamsModel.updateOne({ _id: req.params.id }, data);
         res.render("management/_teamListElmt.html.twig", {
             team: await teamsModel.findById(req.params.id),
         });
     } catch (e) {
-        fs.unlink("public/images/teamsLogos/" + req.file.filename, (err) => {
-            if (err) {
-                console.log(err);
-            }
-        });
+        if (req.file) {
+            fs.unlink(
+                "public/images/teamsLogos/" + req.file.filename,
+                (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                },
+            );
+        }
+        const teamError = await teamsModel.findById(req.params.id);
         res.render("management/_teamFormInline.html.twig", {
             idTeam: req.params.id,
-            team: team,
+            team: teamError,
             error: e.errors,
-            errorMulter: e.errorMulter,
+            errorMulter: e.image,
         });
-        console.log(e);
     }
 };
 

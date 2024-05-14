@@ -16,10 +16,10 @@
     <td>
         <div class="flex flex-col justify-center items-center gap-2">
             <button class=" btn btn-primary btn-xs md:btn-sm w-full" hx-get="/inline-team-form/{{team.id}}"
-                hx-target="closest tr">Editer</button>
+                hx-target="closest tr" hx-swap="outerHTML">Editer</button>
             <button class="btn btn-error btn-xs md:btn-sm w-full" hx-delete="/delete-team/{{team.id}}"
                 hx-target="closest tr" hx-confirm="Etes-vous sûr•e de vouloir supprimer l'équipe {{team.name}} ?"
-                hx-swap="outerhtml swap:1s">Supprimer</button>
+                hx-swap="outerHTML swap:1s">Supprimer</button>
         </div>
     </td>
 </tr>
