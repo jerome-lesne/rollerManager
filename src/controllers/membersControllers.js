@@ -260,6 +260,25 @@ const editMember = async (req, res) => {
     }
 };
 
+const deleteMember = async (req, res) => {
+    try {
+        await clubsModel.updateOne(
+            { members: req.params.id },
+            { $pull: { members: req.params.id } },
+        );
+        const member = await membersModel.findById(req.params.id);
+        if (member.picture) {
+            fs.unlink("public/images/idPictures/" + member.picture, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+        await membersModel.deleteOne({ _id: req.params.id });
+        res.status(200).send();
+    } catch (error) { }
+};
+
 // const clubSet = async (req, res) => {
 //     try {
 //         const member = new clubsModel(req.body);
@@ -281,4 +300,5 @@ module.exports = {
     memberFormEdit,
     cancelMemberEdit,
     editMember,
+    deleteMember,
 };

@@ -157,7 +157,10 @@
                 <div class="flex justify-center gap-4 pb-2">
                     <button type="button" class="btn btn-xs sm:btn-sm btn-info"
                         hx-get="/edit-member-form/{{member.id}}">Editer</button>
-                    <button type="button" class="btn btn-xs sm:btn-sm btn-error">Supprimer</button>
+                    <button type="button" class="btn btn-xs sm:btn-sm btn-error"
+                        hx-delete="/delete-member/{{member.id}}"
+                        hx-confirm="êtes-vous sûr•e de vouloir supprimer {{member.firstName}} {{member.name}} ?"
+                        hx-target="closest tr" hx-swap="outerhtml swap:1s">Supprimer</button>
                 </div>
                 {% endif %}
             </div>
