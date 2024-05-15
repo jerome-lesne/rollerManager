@@ -152,6 +152,21 @@ const subscribe = async (req, res) => {
     }
 };
 
+const calendar = async (req, res) => {
+    try {
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        res.render("calendar/index.html.twig", {
+            connectedHeader: true,
+            roles: connectedMember.role,
+            connectedMember: connectedMember,
+        });
+    } catch (e) {
+        res.json(e);
+    }
+};
+
 module.exports = {
     home,
     login,
@@ -159,4 +174,5 @@ module.exports = {
     dashboard,
     management,
     subscribe,
+    calendar,
 };

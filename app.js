@@ -6,6 +6,7 @@ const pagesRouter = require("./src/routes/pagesRoutes");
 const membersRouter = require("./src/routes/membersRoutes");
 const teamsRouter = require("./src/routes/teamsRoutes");
 const clubsRouter = require("./src/routes/clubsRoutes");
+const calendarRouter = require("./src/routes/calendarRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(pagesRouter);
 app.use(membersRouter);
 app.use(teamsRouter);
 app.use(clubsRouter);
+app.use(calendarRouter);
 
 app.listen(process.env.PORT, (e) => {
     if (e) {

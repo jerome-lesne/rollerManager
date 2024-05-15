@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
+{% endblock %}
+{% block main %}
+{% include "calendar/fullCalendar.html.twig" %}
+{% endblock %}
+{% block script %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<script src="/js/fullCalendar.js"></script>
+{% endblock %}
