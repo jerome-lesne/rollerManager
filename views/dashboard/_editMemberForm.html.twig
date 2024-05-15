@@ -100,7 +100,8 @@
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">Certificat médical:</p>
                             <input type="date" class="input input-primary input-xs w-2/3 my-1" name="medicalCertificat"
-                                value="{{member.medicalCertificat|date('Y-m-d')}}">
+                                {% if member.medicalCertificat %}value="{{member.medicalCertificat|date('Y-m-d')}}" {%
+                                endif %}>
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">N° de licence:</p>
@@ -109,13 +110,13 @@
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">MS theorique:</p>
-                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="theoreticalMS"
-                                value="{{member.theoreticalMS|date('Y-m-d')}}">
+                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="theoreticalMS" {%
+                                if member.theoreticalMS %}value="{{member.theoreticalMS|date('Y-m-d')}}" {% endif %}>
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">MS pratique:</p>
-                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="practicalMS"
-                                value="{{member.practicalMS|date('Y-m-d')}}">
+                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="practicalMS" {% if
+                                member.practicalMS %}value="{{member.practicalMS|date('Y-m-d')}}" {% endif %}>
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">Adresse:</p>
@@ -134,8 +135,8 @@
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">Date de naissance:</p>
-                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="birthday"
-                                value="{{member.birthday|date('Y-m-d')}}">
+                            <input type="date" class="input input-primary input-xs w-2/3 my-1" name="birthday" {% if
+                                member.birthday %} value="{{member.birthday|date('Y-m-d')}}" {% endif %}>
                         </div>
                         <div class="flex justify-between items-center gap-4">
                             <p class="w-1/3">Lieu de naissance:</p>

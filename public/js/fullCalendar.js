@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         buttonText: {
             today: "Aujourd'hui",
+            dayGridMonth: "Mois",
+            timeGridWeek: "Semaine",
+            timeGridDay: "Jour",
         },
     });
     calendar.setOption("locale", "fr");
