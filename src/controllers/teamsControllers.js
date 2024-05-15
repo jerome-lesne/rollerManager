@@ -1,6 +1,7 @@
 const teamsModel = require("../models/teamsModel");
 const clubsModel = require("../models/clubsModel");
 const fs = require("fs");
+const membersModel = require("../models/membersModel");
 
 const teamSet = async (req, res) => {
     try {
@@ -44,6 +45,10 @@ const teamSet = async (req, res) => {
 
 const teamDelete = async (req, res) => {
     try {
+        await membersModel.updateMany(
+            { team: req.params.id },
+            { $unset: { team: "" } },
+        );
         await clubsModel.updateOne(
             { teams: req.params.id },
             { $pull: { teams: req.params.id } },
@@ -59,7 +64,7 @@ const teamDelete = async (req, res) => {
         await teamsModel.deleteOne({ _id: req.params.id });
         res.status(200).send();
     } catch (e) {
-        res.send(e);
+        console.log(e);
     }
 };
 
