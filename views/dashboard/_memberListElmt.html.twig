@@ -150,7 +150,11 @@
                         </div>
                         <div class="flex justify-between">
                             <p>Date de naissance:</p>
+                            {% if member.birthday %}
                             <p class="opacity-50">{{member.birthday|date('d-m-Y')}}</p>
+                            {% else %}
+                            <p class="opacity-50">/</p>
+                            {% endif %}
                         </div>
                         <div class="flex justify-between">
                             <p>Lieu de naissance:</p>
