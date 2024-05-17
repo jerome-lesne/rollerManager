@@ -1,0 +1,67 @@
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<script>
+    const calendarEl = document.getElementById("calendar");
+    document.addEventListener("DOMContentLoaded", function () {
+        const openModal = (startDate, endDate) => {
+            const modalEvent = document.getElementById("modalEvent")
+            console.log(startDate)
+            console.log(endDate)
+            // Open modal
+            modalEvent.showModal()
+        }
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            customButtons: {
+                newTraining: {
+                    text: 'Nouvel Evènement',
+                    click: () => {
+                        const modalEvent = document.getElementById("modalEvent")
+                        modalEvent.showModal()
+                    }
+                }
+            },
+            headerToolbar: {
+                left: "prev,next today newTraining",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+            },
+            buttonText: {
+                today: "Aujourd'hui",
+                dayGridMonth: "Mois",
+                timeGridWeek: "Semaine",
+                timeGridDay: "Jour",
+            },
+            views: {
+                dayGrid: {
+                    // options apply to dayGridMonth, dayGridWeek, and dayGridDay views
+                },
+                timeGrid: {
+                    // options apply to timeGridWeek and timeGridDay views
+                },
+                week: {
+                    // options apply to dayGridWeek and timeGridWeek views
+                },
+                day: {
+                    // options apply to dayGridDay and timeGridDay views
+                },
+            },
+            initialView: "timeGridWeek",
+            selectable: true,
+            select: (info) => {
+                const startDate = info.startStr;
+                const endDate = info.endStr;
+                openModal(startDate, endDate);
+            },
+            events: [
+                {
+                    // this object will be "parsed" into an Event Object
+                    title: "The Title", // a property!
+                    start: "2024-05-16", // a property!
+                    end: "2024-05-16", // a property! ** see important note below about 'end' **
+                },
+            ],
+        });
+        calendar.setOption("locale", "fr");
+        calendar.render();
+    });
+</script>

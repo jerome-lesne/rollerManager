@@ -1,0 +1,7 @@
+<form id="newTrainingForm">
+    <input type="text" name="title" placeholder="Event Title">
+    <input type="datetime-local" name="start" placeholder="Start Date and Time">
+    <input type="datetime-local" name="end" placeholder="End Date and Time">
+    <!-- Add other event details inputs here -->
+    <button type="submit" hx-post="/add-training" hx-target="#calendar" hx-swap="outerHTML">Add Event</button>
+</form>
