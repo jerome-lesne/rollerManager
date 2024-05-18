@@ -1,7 +1,23 @@
-<form id="newTrainingForm">
-    <input type="text" name="title" placeholder="Event Title">
-    <input type="datetime-local" name="start" placeholder="Start Date and Time">
-    <input type="datetime-local" name="end" placeholder="End Date and Time">
-    <!-- Add other event details inputs here -->
-    <button type="submit" hx-post="/add-training" hx-target="#calendar" hx-swap="outerHTML">Add Event</button>
-</form>
+<div class="modal-box">
+    <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
+            hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
+    </form>
+    <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center">
+        <h2>Nouvel entrainement</h2>
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Début :
+            <input type="datetime-local" name="start" class="grow" />
+        </label>
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Fin :
+            <input type="datetime-local" name="end" class="grow" />
+        </label>
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Lieu :
+            <input type="text" name="place" class="grow" />
+        </label>
+        <button type="submit" class="btn btn-accent btn-sm md:btn-md" hx-post="/add-training" hx-target="#calendar"
+            hx-swap="outerHTML">Créer l'entrainement</button>
+    </form>
+</div>

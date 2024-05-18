@@ -3,11 +3,11 @@
     const calendarEl = document.getElementById("calendar");
     document.addEventListener("DOMContentLoaded", function () {
         const openModal = (startDate, endDate) => {
-            const modalEvent = document.getElementById("modalEvent")
+            const modalCreateEvent = document.getElementById("modalCreateEvent")
             console.log(startDate)
             console.log(endDate)
             // Open modal
-            modalEvent.showModal()
+            modalCreateEvent.showModal()
         }
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -15,8 +15,8 @@
                 newTraining: {
                     text: 'Nouvel Evènement',
                     click: () => {
-                        const modalEvent = document.getElementById("modalEvent")
-                        modalEvent.showModal()
+                        const modalCreateEvent = document.getElementById("modalCreateEvent")
+                        modalCreateEvent.showModal()
                     }
                 }
             },

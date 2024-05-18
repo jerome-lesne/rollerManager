@@ -1,0 +1,44 @@
+<div class="modal-box">
+    <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
+            hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
+    </form>
+    <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center">
+        <h2>Nouveau match</h2>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Début :
+            <input type="datetime-local" name="start" class="grow" />
+        </label>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Fin :
+            <input type="datetime-local" name="end" class="grow" />
+        </label>
+        <select name="type"
+            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full"
+            required>
+            <option value="" disabled selected>Type de match</option>
+            <option value="">Championnat</option>
+            <option value="">Amical</option>
+        </select>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Equipe Adverse :
+            <input type="text" name="opponent" class="grow" />
+        </label>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Lieu :
+            <input type="text" name="place" class="grow" />
+        </label>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Lien Map :
+            <input type="text" name="map_link" class="grow" />
+        </label>
+        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+            Fin inscription :
+            <input type="datetime-local" name="registration_deadline" class="grow" />
+        </label>
+        <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
+            placeholder="instructions sur l'organisation de l'évènement"></textarea>
+        <button type="button" id="validateMatch" class="btn btn-secondary btn-sm md:btn-md" hx-post="/add-training"
+            hx-target="#calendar" hx-swap="outerHTML">Créer le match</button>
+    </form>
+</div>
