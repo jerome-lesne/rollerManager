@@ -3,15 +3,16 @@
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
             hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
     </form>
-    <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center">
+    <form id="newMatchForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-match"
+        hx-target="#modalcreateevent" hx-swap="outerhtml" hx-trigger="click from:#validatematch">
         <h2>Nouveau match</h2>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Début :
-            <input type="datetime-local" name="start" class="grow" />
+            <input type="datetime-local" name="start" class="grow" value="{{start_select}}" />
         </label>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
-            <input type="datetime-local" name="end" class="grow" />
+            <input type="datetime-local" name="end" class="grow" value="{{end_select}}" />
         </label>
         <select name="type"
             class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full"
@@ -38,7 +39,6 @@
         </label>
         <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
             placeholder="instructions sur l'organisation de l'évènement"></textarea>
-        <button type="button" id="validateMatch" class="btn btn-secondary btn-sm md:btn-md" hx-post="/add-training"
-            hx-target="#calendar" hx-swap="outerHTML">Créer le match</button>
+        <button type="button" id="validateMatch" class="btn btn-secondary btn-sm md:btn-md">Créer le match</button>
     </form>
 </div>

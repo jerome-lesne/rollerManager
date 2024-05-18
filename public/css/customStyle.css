@@ -8,6 +8,10 @@ tr.htmx-swapping {
     transition: opacity 1s ease-out;
 }
 
+.fc-newEvent-button {
+    background: green !important;
+}
+
 @media (max-width: 767.98px) {
     .fc .fc-toolbar.fc-header-toolbar {
         display: flex;

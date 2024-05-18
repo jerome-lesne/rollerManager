@@ -4,16 +4,19 @@
     document.addEventListener("DOMContentLoaded", function () {
         const openModal = (startDate, endDate) => {
             const modalCreateEvent = document.getElementById("modalCreateEvent")
+            const startSelect = document.getElementById("start_select")
+            const endSelect = document.getElementById("end_select")
+            startSelect.value = startDate
+            endSelect.value = endDate
             console.log(startDate)
             console.log(endDate)
-            // Open modal
             modalCreateEvent.showModal()
         }
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             customButtons: {
-                newTraining: {
-                    text: 'Nouvel Evènement',
+                newEvent: {
+                    text: '+',
                     click: () => {
                         const modalCreateEvent = document.getElementById("modalCreateEvent")
                         modalCreateEvent.showModal()
@@ -21,7 +24,7 @@
                 }
             },
             headerToolbar: {
-                left: "prev,next today newTraining",
+                left: "prev,next today newEvent",
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
             },
@@ -45,11 +48,17 @@
                     // options apply to dayGridDay and timeGridDay views
                 },
             },
+            locale: "fr",
             initialView: "timeGridWeek",
+            weekNumberCalculation: "ISO",
+            weekNumbers: true,
+            weekText: "S",
+            weekTextLong: "Semaine",
+            allDayContent: "Jour",
             selectable: true,
             select: (info) => {
-                const startDate = info.startStr;
-                const endDate = info.endStr;
+                const startDate = info.startStr.slice(0, -9);
+                const endDate = info.endStr.slice(0, -9);
                 openModal(startDate, endDate);
             },
             events: [
@@ -61,7 +70,6 @@
                 },
             ],
         });
-        calendar.setOption("locale", "fr");
         calendar.render();
     });
 </script>
