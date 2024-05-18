@@ -2,6 +2,7 @@ const membersModel = require("../models/membersModel");
 const trialAttendeesModel = require("../models/trialAttendeesModel");
 const teamsModel = require("../models/teamsModel");
 const clubsModel = require("../models/clubsModel");
+const trainingsModel = require("../models/trainingsModel");
 
 const home = (req, res) => {
     try {
@@ -157,12 +158,15 @@ const calendar = async (req, res) => {
         const connectedMember = await membersModel.findById(
             req.session.memberId,
         );
+        const trainings = await trainingsModel.find();
         res.render("calendar/index.html.twig", {
             connectedHeader: true,
             roles: connectedMember.role,
             connectedMember: connectedMember,
+            trainings: trainings,
         });
     } catch (e) {
+        console.log(e);
         res.json(e);
     }
 };
