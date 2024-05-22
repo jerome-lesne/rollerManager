@@ -69,15 +69,15 @@ const addMatch = async (req, res) => {
         await match.save();
         res.status(201).render("calendar/_newEventForm.html.twig");
     } catch (e) {
-        // if (e.errors) {
-        //     res.setHeader("HX-Retarget", "#modal-box");
-        //     res.render("calendar/_newMatchForm.html.twig", {
-        //         error: e.errors,
-        //         values: req.body,
-        //     });
-        // } else {
-        res.status(500).send("server error");
-        // }
+        if (e.errors) {
+            res.setHeader("HX-Retarget", "#modal-box");
+            res.render("calendar/_newMatchForm.html.twig", {
+                error: e.errors,
+                values: req.body,
+            });
+        } else {
+            res.status(500).send("server error");
+        }
     }
 };
 
