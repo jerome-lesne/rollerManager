@@ -9,7 +9,8 @@
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Début :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="start"
-                class="grow" id="startInput" value="{{start_select}}" />
+                class="grow" id="startInput" {% if error %} value="{{values.start}}" {% else %} value="{{start_select}}"
+                {% endif %} />
         </label>
         {% if error %}
         <p class="text-red-500">{{error.start}}</p>
@@ -17,7 +18,8 @@
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="end"
-                class="grow" id="endInput" value="{{end_select}}" />
+                class="grow" id="endInput" {% if error %} value="{{values.end}}" {% else %} value="{{end_select}}" {%
+                endif %} />
         </label>
         {% if error %}
         <p class="text-red-500">{{error.end}}</p>
@@ -26,11 +28,11 @@
             class="input input-bordered input-accent input-sm md:input-md flex items-center justify-between gap-2 w-full">
             Toute la journée :
             <input type="checkbox" class="checkbox checkbox-accent checkbox-sm md:checkbox-md" name="allDay"
-                id="allDayCheckbox" class="grow" {% if allDay_select=='true' %}checked{% endif %} />
+                id="allDayCheckbox" class="grow" {% if allDay_select=='true' %} checked {% endif %} />
         </label>
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
-            <input type="text" name="place" class="grow" />
+            <input type="text" name="place" class="grow" {% if error %} value="{{values.place}}" {% endif %} />
         </label>
         {% if error %}
         <p class="text-red-500">{{error.place}}</p>
