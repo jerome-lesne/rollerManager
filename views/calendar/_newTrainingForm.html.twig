@@ -1,4 +1,4 @@
-<div class="modal-box">
+<div class="modal-box" id="modal-box">
     <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
             hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
@@ -11,11 +11,17 @@
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="start"
                 class="grow" id="startInput" value="{{start_select}}" />
         </label>
+        {% if error %}
+        <p class="text-red-500">{{error.start}}</p>
+        {% endif %}
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="end"
                 class="grow" id="endInput" value="{{end_select}}" />
         </label>
+        {% if error %}
+        <p class="text-red-500">{{error.end}}</p>
+        {% endif %}
         <label
             class="input input-bordered input-accent input-sm md:input-md flex items-center justify-between gap-2 w-full">
             Toute la journée :
@@ -26,6 +32,9 @@
             Lieu :
             <input type="text" name="place" class="grow" />
         </label>
+        {% if error %}
+        <p class="text-red-500">{{error.place}}</p>
+        {% endif %}
         <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Créer
             l'entrainement</button>
     </form>

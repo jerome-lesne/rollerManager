@@ -4,7 +4,7 @@
             hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
     </form>
     <form id="newMatchForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-match"
-        hx-target="#modalcreateevent" hx-swap="outerhtml" hx-trigger="click from:#validateEvent">
+        hx-target="#modalCreateEvent" hx-swap="outerhtml" hx-trigger="click from:#validateEvent">
         <h2>Nouveau match</h2>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Début :
@@ -22,12 +22,12 @@
             <input type="checkbox" class="checkbox checkbox-accent checkbox-sm md:checkbox-md" name="allDay"
                 id="allDayCheckbox" class="grow" {% if allDay_select=='true' %}checked{% endif %} />
         </label>
-        <select name="type"
+        <select name="matchType"
             class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full"
             required>
             <option value="" disabled selected>Type de match</option>
-            <option value="">Championnat</option>
-            <option value="">Amical</option>
+            <option value="Championnat">Championnat</option>
+            <option value="Amical">Amical</option>
         </select>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Equipe Adverse :
@@ -39,15 +39,14 @@
         </label>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Lien Map :
-            <input type="text" name="map_link" class="grow" />
+            <input type="text" name="mapLink" class="grow" />
         </label>
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Fin inscription :
-            <input type="datetime-local" name="registration_deadline" class="grow" />
+            <input type="datetime-local" name="registrationDeadline" class="grow" />
         </label>
         <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
             placeholder="instructions sur l'organisation de l'évènement"></textarea>
-        <button type="button" id="validateEvent" class="btn btn-secondary btn-sm md:btn-md"
-            onclick="calendar.refetchEvents()">Créer le match</button>
+        <button type="button" id="validateEvent" class="btn btn-secondary btn-sm md:btn-md">Créer le match</button>
     </form>
 </div>

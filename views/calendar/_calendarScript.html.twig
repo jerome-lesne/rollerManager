@@ -69,9 +69,18 @@
                 alert(info.event.id)
             },
             eventSources: [
-                "/get-trainings-events",
+                {
+                    url: "/get-trainings-events",
+                    classNames: ["training-event"]
+                },
+                {
+                    url: "/get-matches-events",
+                    classNames: ["match-event"]
+                }
+
             ]
         });
+
         calendar.render();
 
         document.addEventListener("htmx:afterSwap", (event) => {
@@ -79,7 +88,6 @@
                 const allDayCheckbox = document.getElementById("allDayCheckbox");
                 const startInput = document.getElementById("startInput");
                 const endInput = document.getElementById("endInput");
-                const validateEvent = document.getElementById("validateEvent")
                 if (allDayCheckbox && startInput && endInput) {
                     const updateInputTypes = () => {
                         if (allDayCheckbox.checked) {
