@@ -6,11 +6,13 @@ const getEventForm = async (req, res) => {
             res.render("calendar/_newTrainingForm.html.twig", {
                 start_select: req.body.start_select,
                 end_select: req.body.end_select,
+                allDay_select: req.body.allDay_select,
             });
         } else if (req.body.eventType === "match") {
             res.render("calendar/_newMatchForm.html.twig", {
                 start_select: req.body.start_select,
                 end_select: req.body.end_select,
+                allDay_select: req.body.allDay_select,
             });
         } else {
             res.status(500).send("server error");
@@ -30,11 +32,16 @@ const cancelCreateEvent = async (req, res) => {
 
 const addTraining = async (req, res) => {
     try {
-        const training = new trainingsModel(req.body);
-        console.log(training.id);
+        let data = req.body;
+        if (data.allDay === "on") {
+            data.allDay = true;
+        } else {
+            data.allDay = false;
+        }
+        const training = new trainingsModel(data);
         training.validateSync();
         await training.save();
-        res.render("calendar/_newEventForm.html.twig");
+        res.status(201).render("calendar/_newEventForm.html.twig");
     } catch (e) {
         res.status(500).send("server error");
     }
@@ -52,6 +59,7 @@ const getTrainingsEvents = async (req, res) => {
             title: "Entrainement",
             start: event.start,
             end: event.end,
+            allDay: event.allDay,
         }));
         res.json(calendarTrainingsEvents);
     } catch (e) {

@@ -1,24 +1,20 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 <script>
     const calendarEl = document.getElementById("calendar");
-    document.addEventListener("DOMContentLoaded", function () {
-        const openModal = (startDate, endDate) => {
-            const modalCreateEvent = document.getElementById("modalCreateEvent")
-            const startSelect = document.getElementById("start_select")
-            const endSelect = document.getElementById("end_select")
-            startSelect.value = startDate
-            endSelect.value = endDate
-            console.log(startDate)
-            console.log(endDate)
-            modalCreateEvent.showModal()
-        }
+    document.addEventListener("DOMContentLoaded", () => {
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             customButtons: {
                 newEvent: {
-                    text: '+',
+                    text: "+",
                     click: () => {
                         const modalCreateEvent = document.getElementById("modalCreateEvent")
+                        const start_select = document.getElementById("start_select")
+                        const end_select = document.getElementById("end_select")
+                        const allDay_select = document.getElementById("allDay_select")
+                        delete start_select.value
+                        delete end_select.value
+                        delete allDay_select.value
                         modalCreateEvent.showModal()
                     }
                 }
@@ -55,19 +51,70 @@
             weekText: "S",
             weekTextLong: "Semaine",
             allDayContent: "Jour",
+            scrollTime: "09:00",
             selectable: true,
             select: (info) => {
-                const startDate = info.startStr.slice(0, -9);
-                const endDate = info.endStr.slice(0, -9);
-                openModal(startDate, endDate);
+                const allDay = info.allDay
+                if (!allDay) {
+                    const startDate = info.startStr.slice(0, -6)
+                    const endDate = info.endStr.slice(0, -6)
+                    openModal(startDate, endDate, allDay);
+                } else {
+                    const startDate = info.startStr
+                    const endDate = info.endStr
+                    openModal(startDate, endDate, allDay);
+                }
             },
             eventClick: (info) => {
                 alert(info.event.id)
             },
             eventSources: [
-                '/get-trainings-events',
+                "/get-trainings-events",
             ]
         });
         calendar.render();
+
+        document.addEventListener("htmx:afterSwap", (event) => {
+            if (event.detail.target.id === "modalCreateEvent") {
+                const allDayCheckbox = document.getElementById("allDayCheckbox");
+                const startInput = document.getElementById("startInput");
+                const endInput = document.getElementById("endInput");
+                const validateEvent = document.getElementById("validateEvent")
+                if (allDayCheckbox && startInput && endInput) {
+                    const updateInputTypes = () => {
+                        if (allDayCheckbox.checked) {
+                            startInput.value = ""
+                            endInput.value = ""
+                            startInput.type = "date";
+                            endInput.type = "date";
+                        } else {
+                            startInput.value = ""
+                            endInput.value = ""
+                            startInput.type = "datetime-local";
+                            endInput.type = "datetime-local";
+                        }
+                    };
+                    allDayCheckbox.addEventListener("change", updateInputTypes);
+                }
+            }
+        });
+
+        document.addEventListener("htmx:afterRequest", (event) => {
+            if (event.detail.xhr.status === 201) {
+                calendar.refetchEvents()
+            }
+        });
+
+        const openModal = (startDate, endDate, allDay) => {
+            const modalCreateEvent = document.getElementById("modalCreateEvent")
+            const start_select = document.getElementById("start_select")
+            const end_select = document.getElementById("end_select")
+            const allDay_select = document.getElementById("allDay_select")
+            start_select.value = startDate
+            end_select.value = endDate
+            allDay_select.value = allDay
+            modalCreateEvent.showModal()
+        }
+
     });
 </script>

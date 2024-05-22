@@ -4,21 +4,29 @@
             hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
     </form>
     <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-training"
-        hx-target="#modalCreateEvent" hx-swap="outerHTML" hx-trigger="click from:#validateTraining">
+        hx-target="#modalCreateEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
         <h2>Nouvel entrainement</h2>
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Début :
-            <input type="datetime-local" name="start" class="grow" value="{{start_select}}" />
+            <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="start"
+                class="grow" id="startInput" value="{{start_select}}" />
         </label>
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
-            <input type="datetime-local" name="end" class="grow" value="{{end_select}}" />
+            <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="end"
+                class="grow" id="endInput" value="{{end_select}}" />
+        </label>
+        <label
+            class="input input-bordered input-accent input-sm md:input-md flex items-center justify-between gap-2 w-full">
+            Toute la journée :
+            <input type="checkbox" class="checkbox checkbox-accent checkbox-sm md:checkbox-md" name="allDay"
+                id="allDayCheckbox" class="grow" {% if allDay_select=='true' %}checked{% endif %} />
         </label>
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" />
         </label>
-        <button id="validateTraining" type="button" class="btn btn-accent btn-sm md:btn-md">Créer
+        <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Créer
             l'entrainement</button>
     </form>
 </div>

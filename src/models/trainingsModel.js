@@ -13,7 +13,10 @@ const trainingsSchema = new mongoose.Schema({
         type: Date,
         required: [true, "La date et l'heure de fin est requise"],
     },
-    attendee: [
+    allDay: {
+        type: Boolean,
+    },
+    attendees: [
         {
             member: {
                 type: mongoose.Schema.Types.ObjectId,
