@@ -12,7 +12,7 @@
                 class="grow" id="startInput" {% if error %} value="{{values.start}}" {% else %} value="{{start_select}}"
                 {% endif %} />
         </label>
-        {% if error %}
+        {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
@@ -21,7 +21,7 @@
                 class="grow" id="endInput" {% if error %} value="{{values.end}}" {% else %} value="{{end_select}}" {%
                 endif %} />
         </label>
-        {% if error %}
+        {% if error.end %}
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
         <label
@@ -34,7 +34,7 @@
             Lieu :
             <input type="text" name="place" class="grow" {% if error %} value="{{values.place}}" {% endif %} />
         </label>
-        {% if error %}
+        {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
         <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Créer

@@ -12,7 +12,7 @@
                 class="grow" id="startInput" {% if error %} value="{{values.start}}" {% else %} value="{{start_select}}"
                 {% endif %} />
         </label>
-        {% if error %}
+        {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
@@ -21,7 +21,7 @@
                 class="grow" id="endInput" {% if error %} value="{{values.end}}" {% else %} value="{{end_select}}" {%
                 endif %} />
         </label>
-        {% if error %}
+        {% if error.end %}
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
         <label
@@ -36,28 +36,37 @@
             <option value="Championnat">Championnat</option>
             <option value="Amical">Amical</option>
         </select>
-        {% if error %}
+        {% if error.matchType %}
         <p class="text-red-500">{{error.matchType}}</p>
+        {% endif %}
+        <select name="team"
+            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full">
+            {% for team in teams %}
+            <option value="{{team.id}}">{{team.name}}</option>
+            {% endfor %}
+        </select>
+        {% if error.team %}
+        <p class="text-red-500">{{error.team}}</p>
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Equipe Adverse :
             <input type="text" name="opponent" class="grow" {% if error %} value="{{values.opponent}}" {% endif %} />
         </label>
-        {% if error %}
+        {% if error.opponent %}
         <p class="text-red-500">{{error.opponent}}</p>
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" {% if error %} value="{{values.place}}" {% endif %} />
         </label>
-        {% if error %}
+        {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Lien Map :
             <input type="text" name="mapLink" class="grow" {% if error %} value="{{values.mapLink}}" {% endif %} />
         </label>
-        {% if error %}
+        {% if error.mapLink %}
         <p class="text-red-500">{{error.mapLink}}</p>
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
@@ -65,7 +74,7 @@
             <input type="datetime-local" name="registrationDeadline" class="grow" {% if error %}
                 value="{{values.registrationDeadline}}" {% endif %} />
         </label>
-        {% if error %}
+        {% if error.registrationDeadline %}
         <p class="text-red-500">{{error.registrationDeadline}}</p>
         {% endif %}
         <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
