@@ -1,10 +1,10 @@
 <div class="modal-box" id="modal-box">
     <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
-            hx-target="#modalCreateEvent" hx-swap="outerHTML">✕</button>
+            hx-target="#modalEvent" hx-swap="outerHTML">✕</button>
     </form>
     <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-training"
-        hx-target="#modalCreateEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
+        hx-target="#modalEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
         <h2>Nouvel entrainement</h2>
         <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
             Début :

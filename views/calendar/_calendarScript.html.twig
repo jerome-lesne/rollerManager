@@ -8,14 +8,14 @@
                 newEvent: {
                     text: "+",
                     click: () => {
-                        const modalCreateEvent = document.getElementById("modalCreateEvent")
+                        const modalEvent = document.getElementById("modalEvent")
                         const start_select = document.getElementById("start_select")
                         const end_select = document.getElementById("end_select")
                         const allDay_select = document.getElementById("allDay_select")
                         delete start_select.value
                         delete end_select.value
                         delete allDay_select.value
-                        modalCreateEvent.showModal()
+                        modalEvent.showModal()
                     }
                 }
             },
@@ -66,7 +66,10 @@
                 }
             },
             eventClick: (info) => {
-                alert(info.event.id)
+                htmx.ajax('GET', `/get-event/${info.event.id}`, {target: "#modalEvent", headers: {"eventtype": info.event.extendedProps.type}}).then(() => {
+                    const modalEvent = document.getElementById("modalEvent")
+                    modalEvent.showModal()
+                });
             },
             eventSources: [
                 {
@@ -84,7 +87,7 @@
         calendar.render();
 
         document.addEventListener("htmx:afterSwap", (event) => {
-            if (event.detail.target.id === "modalCreateEvent") {
+            if (event.detail.target.id === "modalEvent") {
                 const allDayCheckbox = document.getElementById("allDayCheckbox");
                 const startInput = document.getElementById("startInput");
                 const endInput = document.getElementById("endInput");
@@ -114,14 +117,14 @@
         });
 
         const openModal = (startDate, endDate, allDay) => {
-            const modalCreateEvent = document.getElementById("modalCreateEvent")
+            const modalEvent = document.getElementById("modalEvent")
             const start_select = document.getElementById("start_select")
             const end_select = document.getElementById("end_select")
             const allDay_select = document.getElementById("allDay_select")
             start_select.value = startDate
             end_select.value = endDate
             allDay_select.value = allDay
-            modalCreateEvent.showModal()
+            modalEvent.showModal()
         }
 
     });

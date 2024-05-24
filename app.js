@@ -7,6 +7,8 @@ const membersRouter = require("./src/routes/membersRoutes");
 const teamsRouter = require("./src/routes/teamsRoutes");
 const clubsRouter = require("./src/routes/clubsRoutes");
 const eventsRouter = require("./src/routes/eventsRoutes");
+require("./src/utils/twigFilters");
+
 require("dotenv").config();
 
 const app = express();

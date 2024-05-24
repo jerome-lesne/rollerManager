@@ -1,0 +1,40 @@
+<div class="modal-box" id="modal-box">
+    <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
+            hx-target="#modalEvent" hx-swap="outerHTML">✕</button>
+    </form>
+    <div class="flex flex-col items-center justify-center w-full prose">
+        <h3>Match</h3>
+        <div class="w-full bg-base-300 p-4">
+            <div class="w-full">
+                <h4 class="mt-0 text-center">{{match.team.name}} - VS - {{match.opponent}}</h4>
+            </div>
+            <div class="w-full">
+                <h4>Horaires : </h4>
+                <p>{{match.start | french_date}} - {{match.end | french_date}}</p>
+            </div>
+            <div class="w-full">
+                <h4>Lieu : </h4>
+                <p>{{match.place}}</p>
+                <iframe
+                    src="https://www.google.com/maps/place/Gymnase+Paul+Giera/@43.9353781,4.7960121,17z/data=!3m1!4b1!4m6!3m5!1s0x12b5ebeddadcf74b:0x85d2a0c8bab11aaf!8m2!3d43.9353781!4d4.7960121!16s%2Fg%2F11g0hny5j5?hl=fr&entry=ttu"
+                    class="w-full" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="w-full flex justify-center items-center">
+                <button class="btn btn-secondary btn-sm md:btn-md" type="button">Participer !</button>
+            </div>
+        </div>
+        <div class="w-full">
+            <h4>Participant•e•s: </h4>
+            <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full">
+                <thead class="sticky top-0 z-10">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Equipe</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

@@ -110,6 +110,9 @@ const getTrainingsEvents = async (req, res) => {
             start: event.start,
             end: event.end,
             allDay: event.allDay,
+            extendedProps: {
+                type: "training",
+            },
         }));
         res.json(calendarTrainingsEvents);
     } catch (e) {
@@ -135,10 +138,38 @@ const getMatchesEvents = async (req, res) => {
             start: event.start,
             end: event.end,
             allDay: event.allDay,
+            extendedProps: {
+                type: "match",
+            },
         }));
         res.json(calendarMatchesEvents);
     } catch (e) {
         res.status(500).send(e.message);
+    }
+};
+
+const getEvent = async (req, res) => {
+    try {
+        switch (req.headers.eventtype) {
+            case "training":
+                const training = await trainingsModel.findById(req.params.id);
+                res.render("calendar/_displayTraining.html.twig", {
+                    training: training,
+                });
+                break;
+            case "match":
+                const match = await matchesModel
+                    .findById(req.params.id)
+                    .populate("team");
+                res.render("calendar/_displayMatch.html.twig", {
+                    match: match,
+                });
+                break;
+            default:
+                break;
+        }
+    } catch (e) {
+        console.log(e);
     }
 };
 
@@ -149,4 +180,5 @@ module.exports = {
     getTrainingsEvents,
     addMatch,
     getMatchesEvents,
+    getEvent,
 };

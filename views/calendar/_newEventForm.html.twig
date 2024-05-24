@@ -1,10 +1,10 @@
-<dialog id="modalCreateEvent" class="modal">
+<dialog id="modalEvent" class="modal">
     <div class="modal-box">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
         <form id="eventForm" class="flex flex-col justify-center items-center gap-4" hx-post="/get-event-form"
-            hx-target="#modalCreateEvent" hx-trigger="click from:#validate">
+            hx-target="#modalEvent" hx-trigger="click from:#validate">
             <h2>Nouvel évènement</h2>
             <select id="eventSelector" name="eventType"
                 class="select select-bordered select-sm md:select-md select-primary w-4/5" required>
