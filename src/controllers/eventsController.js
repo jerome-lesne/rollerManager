@@ -1,6 +1,7 @@
 const clubsModel = require("../models/clubsModel");
 const matchesModel = require("../models/matchesModel");
 const trainingsModel = require("../models/trainingsModel");
+const checkMapsLink = require("../utils/mapsLinkHandler");
 
 const getEventForm = async (req, res) => {
     try {
@@ -73,6 +74,10 @@ const addMatch = async (req, res) => {
             data.allDay = false;
         }
         data.club = await clubsModel.findOne({ members: req.session.memberId });
+        const mapLink = checkMapsLink(data.mapLink);
+        if (mapLink) {
+            data.mapLink = mapLink;
+        }
         const match = new matchesModel(data);
         match.validateSync();
         await match.save();

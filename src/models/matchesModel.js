@@ -14,7 +14,7 @@ const matchesSchema = new mongoose.Schema({
         type: Date,
         required: [true, "La date et l'heure de fin est requise"],
         validate: {
-            validator: function (value) {
+            validator: function(value) {
                 return value > this.start;
             },
             message:
@@ -42,7 +42,8 @@ const matchesSchema = new mongoose.Schema({
         required: [true, "Le lieu est requis"],
     },
     mapLink: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
+        required: [true, "Un lien google map est requis"],
     },
     registrationDeadline: {
         type: Date,
