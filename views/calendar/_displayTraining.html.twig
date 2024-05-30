@@ -14,8 +14,20 @@
                 <h4>Lieu : </h4>
                 <p>{{training.place}}</p>
             </div>
-            <div class="w-full flex justify-center items-center">
-                <button class="btn btn-accent btn-sm md:btn-md" type="button">Participer !</button>
+            <div class="w-full flex flex-col justify-center items-center">
+                <div>
+                    {% if userInTraining %}
+                    <button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                        hx-get="/withdraw-from-training/{{training.id}}" hx-target="#id_{{connectedMember}}"
+                        hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?">Se
+                        désinscrire</button>
+                    {% else %}
+                    <button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
+                        hx-get="/attend-training/{{training.id}}" hx-target="next tbody" hx-swap="afterbegin"
+                        hx-confirm="Confirmez-vous votre participation ?">Participer
+                        !</button>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="flex flex-col w-full border-opacity-50">
@@ -29,6 +41,11 @@
                         <th>Equipe</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {% for attendee in training.attendees %}
+                    {% include "calendar/_trainingAttendeeElmt.html.twig" %}
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>

@@ -159,9 +159,26 @@ const getEvent = async (req, res) => {
     try {
         switch (req.headers.eventtype) {
             case "training":
-                const training = await trainingsModel.findById(req.params.id);
+                const currentUserInTraining = await trainingsModel.findOne({
+                    _id: req.params.id,
+                    "attendees.member": req.session.memberId,
+                });
+                let userInTraining;
+                currentUserInTraining
+                    ? (userInTraining = true)
+                    : (userInTraining = false);
+                const training = await trainingsModel
+                    .findById(req.params.id)
+                    .populate({
+                        path: "attendees.member",
+                        populate: {
+                            path: "team",
+                        },
+                    });
                 res.render("calendar/_displayTraining.html.twig", {
                     training: training,
+                    userInTraining: userInTraining,
+                    connectedMember: req.session.memberId,
                 });
                 break;
             case "match":
@@ -243,6 +260,53 @@ const withdrawFromMatch = async (req, res) => {
     }
 };
 
+const attendTraining = async (req, res) => {
+    try {
+        const memberAttend = req.session.memberId;
+        const training = await trainingsModel.findOne({
+            _id: req.params.id,
+            "attendees.member": memberAttend,
+        });
+        if (!training) {
+            await trainingsModel.updateOne(
+                { _id: req.params.id },
+                { $push: { attendees: { member: memberAttend } } },
+            );
+            const member = await membersModel
+                .findById(memberAttend)
+                .populate("team");
+            res.render("calendar/_trainingAttendeeElmt.html.twig", {
+                attendee: { member: member },
+                swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                    hx-get="/withdraw-from-training/${req.params.id}" hx-target="#id_${memberAttend}"
+                    hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
+                    désinscrire</button>`,
+            });
+        } else {
+            res.send("le membre participe déjà à l'événement");
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
+const withdrawFromTraining = async (req, res) => {
+    try {
+        await trainingsModel.findOneAndUpdate(
+            { _id: req.params.id },
+            { $pull: { attendees: { member: req.session.memberId } } },
+        );
+        const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
+                        hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-training/${req.params.id}' 
+                        hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
+        res.status(200).send(response);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
 module.exports = {
     getEventForm,
     cancelCreateEvent,
@@ -253,4 +317,6 @@ module.exports = {
     getEvent,
     attendMatch,
     withdrawFromMatch,
+    attendTraining,
+    withdrawFromTraining,
 };
