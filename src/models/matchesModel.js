@@ -59,7 +59,7 @@ const matchesSchema = new mongoose.Schema({
                 ref: "members",
             },
             matchRole: {
-                type: String,
+                type: Array,
             },
         },
     ],

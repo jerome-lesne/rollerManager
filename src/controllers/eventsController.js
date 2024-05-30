@@ -1,7 +1,9 @@
 const clubsModel = require("../models/clubsModel");
 const matchesModel = require("../models/matchesModel");
+const membersModel = require("../models/membersModel");
 const trainingsModel = require("../models/trainingsModel");
 const checkMapsLink = require("../utils/mapsLinkHandler");
+const { tryReq } = require("./pagesControllers");
 
 const getEventForm = async (req, res) => {
     try {
@@ -163,11 +165,27 @@ const getEvent = async (req, res) => {
                 });
                 break;
             case "match":
+                const currentUserInMatch = await matchesModel.findOne({
+                    _id: req.params.id,
+                    "attendees.member": req.session.memberId,
+                });
+                let userInMatch;
+                currentUserInMatch
+                    ? (userInMatch = true)
+                    : (userInMatch = false);
                 const match = await matchesModel
                     .findById(req.params.id)
-                    .populate("team");
+                    .populate("team")
+                    .populate({
+                        path: "attendees.member",
+                        populate: {
+                            path: "team",
+                        },
+                    });
                 res.render("calendar/_displayMatch.html.twig", {
                     match: match,
+                    userInMatch: userInMatch,
+                    connectedMember: req.session.memberId,
                 });
                 break;
             default:
@@ -175,6 +193,53 @@ const getEvent = async (req, res) => {
         }
     } catch (e) {
         console.log(e);
+    }
+};
+
+const attendMatch = async (req, res) => {
+    try {
+        const memberAttend = req.session.memberId;
+        const match = await matchesModel.findOne({
+            _id: req.params.id,
+            "attendees.member": memberAttend,
+        });
+        if (!match) {
+            await matchesModel.updateOne(
+                { _id: req.params.id },
+                { $push: { attendees: { member: memberAttend } } },
+            );
+            const member = await membersModel
+                .findById(memberAttend)
+                .populate("team");
+            res.render("calendar/_matchAttendeeElmt.html.twig", {
+                attendee: { member: member },
+                swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                    hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
+                    hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
+                    désinscrire</button>`,
+            });
+        } else {
+            res.send("le membre participe déjà à l'événement");
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
+const withdrawFromMatch = async (req, res) => {
+    try {
+        await matchesModel.findOneAndUpdate(
+            { _id: req.params.id },
+            { $pull: { attendees: { member: req.session.memberId } } },
+        );
+        const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
+                        hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-match/${req.params.id}' 
+                        hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
+        res.status(200).send(response);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
     }
 };
 
@@ -186,4 +251,6 @@ module.exports = {
     addMatch,
     getMatchesEvents,
     getEvent,
+    attendMatch,
+    withdrawFromMatch,
 };

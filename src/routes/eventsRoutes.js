@@ -7,6 +7,8 @@ const {
     addMatch,
     getMatchesEvents,
     getEvent,
+    attendMatch,
+    withdrawFromMatch,
 } = require("../controllers/eventsController");
 
 eventsRouter.post("/get-event-form", getEventForm);
@@ -16,5 +18,7 @@ eventsRouter.post("/add-match", addMatch);
 eventsRouter.get("/get-trainings-events", getTrainingsEvents);
 eventsRouter.get("/get-matches-events", getMatchesEvents);
 eventsRouter.get("/get-event/:id", getEvent);
+eventsRouter.get("/attend-match/:id", attendMatch);
+eventsRouter.get("/withdraw-from-match/:id", withdrawFromMatch);
 
 module.exports = eventsRouter;
