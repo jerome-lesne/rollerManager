@@ -2,7 +2,7 @@
     <td>
         {{swapBtn}}
         <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
-            <div class="w-1/5 avatar">
+            <div class="w-2/5 avatar">
                 {% if attendee.member.picture %}
                 <div class="mask mask-squircle w-14 h-14">
                     <img class="m-0" src="images/idPictures/{{attendee.member.picture}}" alt="Avatar" />
@@ -13,10 +13,8 @@
                 </div>
                 {% endif %}
             </div>
-            <div class="w-1/5 overflow-auto">
-                <div class="font-light">{{attendee.member.pronoun}}</div>
-            </div>
             <div class="w-3/5 overflow-auto">
+                <div class="font-light">{{attendee.member.pronoun}}</div>
                 <div class="font-bold">{{attendee.member.derbyName}}</div>
                 <div class="text-sm opacity-50">{{attendee.member.firstName}}
                     {{attendee.member.name}}</div>
