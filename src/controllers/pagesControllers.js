@@ -99,6 +99,7 @@ const dashboard = async (req, res) => {
                 })
                 .populate("teams");
             res.render("dashboard/index.html.twig", {
+                title: "Membres",
                 connectedHeader: true,
                 roles: connectedMember.role,
                 connectedMember: connectedMember,
@@ -160,6 +161,7 @@ const calendar = async (req, res) => {
         );
         const trainings = await trainingsModel.find();
         res.render("calendar/index.html.twig", {
+            title: "Calendrier",
             connectedHeader: true,
             roles: connectedMember.role,
             connectedMember: connectedMember,
