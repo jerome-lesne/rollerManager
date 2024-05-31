@@ -64,7 +64,7 @@
         {% endif %}
         <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
             Lien Map :
-            <input type="text" name="mapLink" class="grow" {% if error %} value="{{values.mapLink}}" {% endif %} />
+            <input type="text" name="mapLink" class="grow" {% if error %} value='{{values.mapLink}}' {% endif %} />
         </label>
         {% if error.mapLink %}
         <p class="text-red-500">{{error.mapLink}}</p>

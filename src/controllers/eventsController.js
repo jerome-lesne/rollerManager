@@ -69,7 +69,7 @@ const addTraining = async (req, res) => {
 
 const addMatch = async (req, res) => {
     try {
-        let data = req.body;
+        let data = JSON.parse(JSON.stringify(req.body));
         if (data.allDay === "on") {
             data.allDay = true;
         } else {
