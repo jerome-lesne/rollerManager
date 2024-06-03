@@ -346,6 +346,16 @@ const editTraining = async (req, res) => {
     }
 };
 
+const deleteTraining = async (req, res) => {
+    try {
+        await trainingsModel.deleteOne({ _id: req.params.id });
+        res.status(201).render("calendar/_newEventForm.html.twig");
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("server error");
+    }
+};
+
 module.exports = {
     getEventForm,
     cancelCreateEvent,
@@ -360,4 +370,5 @@ module.exports = {
     withdrawFromTraining,
     editTrainingForm,
     editTraining,
+    deleteTraining,
 };
