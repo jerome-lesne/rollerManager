@@ -1,7 +1,22 @@
 <div class="modal-box max-w-screen-sm" id="modal-box">
     <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4" hx-get="/cancel-create-event"
             hx-target="#modalEvent" hx-swap="outerHTML">✕</button>
+        <div class="dropdown absolute left-4 top-4">
+            <div tabindex="0" role="button" class="btn btn-sm btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="inline-block w-5 h-5 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                    </path>
+                </svg>
+                </button>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
+                <li class="text-blue-500"><a>Editer</a></li>
+                <li class="text-red-500"><a>Supprimer</a></li>
+            </ul>
+        </div>
     </form>
     <div class="flex flex-col items-center justify-center w-full prose">
         <h3>Entrainement</h3>
