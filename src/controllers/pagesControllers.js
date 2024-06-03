@@ -7,7 +7,7 @@ const trainingsModel = require("../models/trainingsModel");
 const home = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/dashboard");
+            res.redirect("/members");
         } else {
             res.render("home/index.html.twig", {});
         }
@@ -19,7 +19,7 @@ const home = (req, res) => {
 const login = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/dashboard");
+            res.redirect("/members");
         } else {
             res.render("login/index.html.twig", {});
         }
@@ -31,7 +31,7 @@ const login = (req, res) => {
 const tryReq = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/dashboard");
+            res.redirect("/members");
         } else {
             res.render("try/index.html.twig", {});
         }
@@ -40,7 +40,7 @@ const tryReq = (req, res) => {
     }
 };
 
-const dashboard = async (req, res) => {
+const members = async (req, res) => {
     try {
         if (req.headers["hx-request"]) {
             const connectedMember = await membersModel.findById(
@@ -78,7 +78,7 @@ const dashboard = async (req, res) => {
                 })
                 .populate("teams");
 
-            res.render("dashboard/_memberList.html.twig", {
+            res.render("members/_memberList.html.twig", {
                 club: club,
                 roles: connectedMember.role,
                 connectedMember: connectedMember,
@@ -98,7 +98,7 @@ const dashboard = async (req, res) => {
                     },
                 })
                 .populate("teams");
-            res.render("dashboard/index.html.twig", {
+            res.render("members/index.html.twig", {
                 title: "Membres",
                 connectedHeader: true,
                 roles: connectedMember.role,
@@ -177,7 +177,7 @@ module.exports = {
     home,
     login,
     tryReq,
-    dashboard,
+    members,
     management,
     subscribe,
     calendar,

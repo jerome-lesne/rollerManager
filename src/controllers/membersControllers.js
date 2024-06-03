@@ -92,7 +92,7 @@ const memberConnect = async (req, res) => {
         if (member) {
             if (await bcrypt.compare(req.body.password, member.password)) {
                 req.session.memberId = member.id;
-                res.redirect("/dashboard");
+                res.redirect("/members");
             } else {
                 throw { password: "Wrong password" };
             }
@@ -192,7 +192,7 @@ const memberFormEdit = async (req, res) => {
         const member = await membersModel
             .findById(req.params.id)
             .populate("team");
-        res.render("dashboard/_editMemberForm.html.twig", {
+        res.render("members/_editMemberForm.html.twig", {
             club: club,
             member: member,
         });
@@ -209,7 +209,7 @@ const cancelMemberEdit = async (req, res) => {
         const connectedMember = await membersModel.findById(
             req.session.memberId,
         );
-        res.render("dashboard/_memberListElmt.html.twig", {
+        res.render("members/_memberListElmt.html.twig", {
             member: member,
             unfolded: true,
             connectedMember: connectedMember,
@@ -268,7 +268,7 @@ const editMember = async (req, res) => {
         const connectedMember = await membersModel.findById(
             req.session.memberId,
         );
-        res.render("dashboard/_memberListElmt.html.twig", {
+        res.render("members/_memberListElmt.html.twig", {
             member: member,
             unfolded: true,
             connectedMember: connectedMember,
@@ -293,7 +293,7 @@ const editMember = async (req, res) => {
                 members: req.session.memberId,
             })
             .populate("teams");
-        res.render("dashboard/_editMemberForm.html.twig", {
+        res.render("members/_editMemberForm.html.twig", {
             club: club,
             member: memberError,
             errorMulter: e.image,
