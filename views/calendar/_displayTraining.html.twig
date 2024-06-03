@@ -13,7 +13,8 @@
                 </button>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
-                <li class="text-blue-500"><a>Editer</a></li>
+                <li class="text-blue-500"><a hx-get="/edit-training-form/{{training.id}}" hx-target="#modal-box"
+                        hx-swap="outerHTML">Editer</a></li>
                 <li class="text-red-500"><a>Supprimer</a></li>
             </ul>
         </div>
@@ -22,8 +23,13 @@
         <h3>Entrainement</h3>
         <div class="w-full bg-base-300 p-4">
             <div class="w-full">
+                {% if training.allDay %}
+                <h4>Jour : </h4>
+                <p>{{training.start | french_date_day}}</p>
+                {% else %}
                 <h4 class="mt-0">Horaires : </h4>
                 <p>{{training.start | french_date}} - {{training.end | french_date}}</p>
+                {% endif %}
             </div>
             <div class="w-full">
                 <h4>Lieu : </h4>

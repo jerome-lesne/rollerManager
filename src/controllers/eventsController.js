@@ -43,13 +43,15 @@ const cancelCreateEvent = async (req, res) => {
 
 const addTraining = async (req, res) => {
     try {
-        let data = req.body;
+        let data = JSON.parse(JSON.stringify(req.body));
         if (data.allDay === "on") {
             data.allDay = true;
         } else {
             data.allDay = false;
         }
-        data.club = await clubsModel.findOne({ members: req.session.memberId });
+        data.club = await clubsModel
+            .findOne({ members: req.session.memberId })
+            .select("_id");
         const training = new trainingsModel(data);
         training.validateSync();
         await training.save();
@@ -75,7 +77,9 @@ const addMatch = async (req, res) => {
         } else {
             data.allDay = false;
         }
-        data.club = await clubsModel.findOne({ members: req.session.memberId });
+        data.club = await clubsModel
+            .findOne({ members: req.session.memberId })
+            .select("_id");
         const mapLink = checkMapsLink(data.mapLink);
         if (mapLink) {
             data.mapLink = mapLink;
@@ -307,6 +311,41 @@ const withdrawFromTraining = async (req, res) => {
     }
 };
 
+const editTrainingForm = async (req, res) => {
+    try {
+        const training = await trainingsModel.findById(req.params.id);
+        res.render("calendar/_editTrainingForm.html.twig", {
+            values: training,
+            trainingId: req.params.id,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
+const editTraining = async (req, res) => {
+    try {
+        let data = JSON.parse(JSON.stringify(req.body));
+        await trainingsModel.updateOne({ _id: req.params.id }, data, {
+            runValidators: true,
+            context: "query",
+        });
+        res.status(201).render("calendar/_newEventForm.html.twig");
+    } catch (e) {
+        if (e.errors) {
+            res.setHeader("HX-Retarget", "#modal-box");
+            res.render("calendar/_editTrainingForm.html.twig", {
+                error: e.errors,
+                values: req.body,
+                trainingId: req.params.id,
+            });
+        } else {
+            res.status(500).send("server error");
+        }
+    }
+};
+
 module.exports = {
     getEventForm,
     cancelCreateEvent,
@@ -319,4 +358,6 @@ module.exports = {
     withdrawFromMatch,
     attendTraining,
     withdrawFromTraining,
+    editTrainingForm,
+    editTraining,
 };

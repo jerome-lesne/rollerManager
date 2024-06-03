@@ -1,0 +1,37 @@
+<div class="modal-box" id="modal-box">
+    <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" hx-get="/cancel-create-event"
+            hx-target="#modalEvent" hx-swap="outerHTML">✕</button>
+    </form>
+    <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center"
+        hx-post="/edit-training/{{trainingId}}" hx-target="#modalEvent" hx-swap="outerHTML"
+        hx-trigger="click from:#validateEvent">
+        <h2>Editer l'entrainement</h2>
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Début :
+            <input {% if values.allDay %} type="date" value="{{values.start | date('Y-m-d')}}" {% else %}
+                type="datetime-local" value="{{values.start | date('Y-m-d\TH:i')}}" {% endif %} name="start"
+                class="grow" id="startInput" />
+        </label>
+        {% if error.start %}
+        <p class="text-red-500">{{error.start}}</p>
+        {% endif %}
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Fin :
+            <input {% if values.allDay %} type="date" value="{{values.end | date('Y-m-d')}}" {% else %}
+                type="datetime-local" value="{{values.end | date('Y-m-d\TH:i')}}" {% endif %} name="end" class="grow"
+                id="endInput" />
+        </label>
+        {% if error.end %}
+        <p class="text-red-500">{{error.end}}</p>
+        {% endif %}
+        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+            Lieu :
+            <input type="text" name="place" class="grow" value="{{values.place}}" />
+        </label>
+        {% if error.place %}
+        <p class="text-red-500">{{error.place}}</p>
+        {% endif %}
+        <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Valider modification</button>
+    </form>
+</div>
