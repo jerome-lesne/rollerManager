@@ -14,6 +14,8 @@ const {
     editTrainingForm,
     editTraining,
     deleteTraining,
+    editMatchForm,
+    editMatch,
 } = require("../controllers/eventsController");
 
 eventsRouter.post("/get-event-form", getEventForm);
@@ -30,5 +32,7 @@ eventsRouter.get("/withdraw-from-training/:id", withdrawFromTraining);
 eventsRouter.get("/edit-training-form/:id", editTrainingForm);
 eventsRouter.post("/edit-training/:id", editTraining);
 eventsRouter.delete("/delete-training/:id", deleteTraining);
+eventsRouter.get("/edit-match-form/:id", editMatchForm);
+eventsRouter.post("/edit-match/:id", editMatch);
 
 module.exports = eventsRouter;

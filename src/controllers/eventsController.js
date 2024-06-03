@@ -3,7 +3,6 @@ const matchesModel = require("../models/matchesModel");
 const membersModel = require("../models/membersModel");
 const trainingsModel = require("../models/trainingsModel");
 const checkMapsLink = require("../utils/mapsLinkHandler");
-const { tryReq } = require("./pagesControllers");
 
 const getEventForm = async (req, res) => {
     try {
@@ -81,9 +80,7 @@ const addMatch = async (req, res) => {
             .findOne({ members: req.session.memberId })
             .select("_id");
         const mapLink = checkMapsLink(data.mapLink);
-        if (mapLink) {
-            data.mapLink = mapLink;
-        }
+        data.mapLink = mapLink;
         const match = new matchesModel(data);
         match.validateSync();
         await match.save();
@@ -356,6 +353,55 @@ const deleteTraining = async (req, res) => {
     }
 };
 
+const editMatchForm = async (req, res) => {
+    try {
+        const match = await matchesModel.findById(req.params.id);
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("teams");
+        res.render("calendar/_editMatchForm.html.twig", {
+            values: match,
+            matchId: req.params.id,
+            teams: club.teams,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
+const editMatch = async (req, res) => {
+    try {
+        let data = JSON.parse(JSON.stringify(req.body));
+        const mapLink = checkMapsLink(data.mapLink);
+        data.mapLink = mapLink;
+        await matchesModel.updateOne({ _id: req.params.id }, data, {
+            runValidators: true,
+            context: "query",
+        });
+        res.status(201).render("calendar/_newEventForm.html.twig");
+    } catch (e) {
+        if (e.errors) {
+            const club = await clubsModel
+                .findOne({
+                    members: req.session.memberId,
+                })
+                .populate("teams");
+            res.setHeader("HX-Retarget", "#modal-box");
+            res.render("calendar/_editMatchForm.html.twig", {
+                error: e.errors,
+                values: req.body,
+                teams: club.teams,
+                matchId: req.params.id,
+            });
+        } else {
+            res.status(500).send("server error");
+        }
+    }
+};
+
 module.exports = {
     getEventForm,
     cancelCreateEvent,
@@ -371,4 +417,6 @@ module.exports = {
     editTrainingForm,
     editTraining,
     deleteTraining,
+    editMatchForm,
+    editMatch,
 };

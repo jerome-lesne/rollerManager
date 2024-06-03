@@ -14,8 +14,8 @@ const matchesSchema = new mongoose.Schema({
         type: Date,
         required: [true, "La date et l'heure de fin est requise"],
         validate: {
-            validator: function(value) {
-                return value > this.start;
+            validator: function (value) {
+                return value > this.get("start");
             },
             message:
                 "La date et l'heure de fin doivent être après la date et l'heure de début",

@@ -13,8 +13,11 @@
                 </button>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
-                <li class="text-blue-500"><a>Editer</a></li>
-                <li class="text-red-500"><a>Supprimer</a></li>
+                <li class="text-blue-500"><a hx-get="/edit-match-form/{{match.id}}" hx-target="#modal-box"
+                        hx-swap="outerHTML">Editer</a></li>
+                <li class="text-red-500"><a hx-delete="/delete-match/{{match.id}}" hx-target="#modalEvent"
+                        hx-swap="outerHTML" hx-confirm="Confirmer la suppression de l'événement ?">Supprimer</a>
+                </li>
             </ul>
         </div>
     </form>
@@ -50,12 +53,14 @@
             <div class="w-full">
                 <h4>Lieu : </h4>
                 <p>{{match.place}}</p>
+                {% if match.mapLink %}
                 {% if match.mapLink.type == "iframe" %}
                 <iframe src="{{match.mapLink.value}}" class="w-full aspect-[4/3]" style="border:0;" allowfullscreen=""
                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 {% else %}
                 <p class="mt-0"><a class="link link-primary" href="{{match.mapLink.value}}" target="_blank"
                         rel="noopener noreferrer">Lien maps</a></p>
+                {% endif %}
                 {% endif %}
 
             </div>

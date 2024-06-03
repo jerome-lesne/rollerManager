@@ -3,7 +3,11 @@ const { JSDOM } = require("jsdom");
 const checkMapsLink = (string) => {
     try {
         new URL(string);
-        return { value: string, type: "link" };
+        if (string.includes("/embed?pb")) {
+            return { value: string, type: "iframe" };
+        } else {
+            return { value: string, type: "link" };
+        }
     } catch (e) {
         if (string.trim().startsWith("<iframe")) {
             const dom = new JSDOM(string);
