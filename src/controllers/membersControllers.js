@@ -92,7 +92,7 @@ const memberConnect = async (req, res) => {
         if (member) {
             if (await bcrypt.compare(req.body.password, member.password)) {
                 req.session.memberId = member.id;
-                res.redirect("/members");
+                res.redirect("/dashboard");
             } else {
                 throw { password: "Wrong password" };
             }

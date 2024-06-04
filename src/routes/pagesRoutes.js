@@ -7,6 +7,7 @@ const {
     management,
     subscribe,
     calendar,
+    dashboard,
 } = require("../controllers/pagesControllers");
 const authguard = require("../services/authguardService");
 
@@ -17,5 +18,6 @@ pagesRouter.get("/members", authguard(), members);
 pagesRouter.get("/management", authguard("Bureau"), management);
 pagesRouter.get("/subscribe/:token", subscribe);
 pagesRouter.get("/calendar", authguard(), calendar);
+pagesRouter.get("/dashboard", authguard(), dashboard);
 
 module.exports = pagesRouter;

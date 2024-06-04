@@ -3,11 +3,13 @@ const trialAttendeesModel = require("../models/trialAttendeesModel");
 const teamsModel = require("../models/teamsModel");
 const clubsModel = require("../models/clubsModel");
 const trainingsModel = require("../models/trainingsModel");
+const matchesModel = require("../models/matchesModel");
+const moment = require("moment");
 
 const home = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/members");
+            res.redirect("/dashboard");
         } else {
             res.render("home/index.html.twig", {});
         }
@@ -19,7 +21,7 @@ const home = (req, res) => {
 const login = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/members");
+            res.redirect("/dashboard");
         } else {
             res.render("login/index.html.twig", {});
         }
@@ -31,7 +33,7 @@ const login = (req, res) => {
 const tryReq = (req, res) => {
     try {
         if (req.session.memberId) {
-            res.redirect("/members");
+            res.redirect("/dashboard");
         } else {
             res.render("try/index.html.twig", {});
         }
@@ -173,6 +175,45 @@ const calendar = async (req, res) => {
     }
 };
 
+const dashboard = async (req, res) => {
+    try {
+        const nextMatch = await matchesModel
+            .findOne({ start: { $gte: new Date() } })
+            .sort({ start: 1 });
+        const today = moment();
+        const startDate = moment(nextMatch.start);
+        const daysToNextMatch = startDate.diff(today, "days");
+        const upcomingMatchesNb = await matchesModel
+            .find({
+                club: await clubsModel.findOne({
+                    members: req.session.memberId,
+                }),
+                start: { $gte: new Date() },
+            })
+            .countDocuments();
+        const club = await clubsModel.findOne({
+            members: req.session.memberId,
+        });
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
+        res.render("dashboard/index.html.twig", {
+            title: "Acceuil",
+            connectedHeader: true,
+            roles: connectedMember.role,
+            connectedMember: connectedMember,
+            membersNb: club.members.length,
+            teamsNb: club.teams.length,
+            trialNb: club.trialAttendees.length,
+            upcomingMatchesNb: upcomingMatchesNb,
+            daysToNextMatch: daysToNextMatch,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("server error");
+    }
+};
+
 module.exports = {
     home,
     login,
@@ -181,4 +222,5 @@ module.exports = {
     management,
     subscribe,
     calendar,
+    dashboard,
 };
