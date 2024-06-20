@@ -1,0 +1,138 @@
+<div class="w-full rounded-box bg-base-300 flex justify-center items-center p-1 border border-base-content">
+    {% if event.matchType %}
+    <div class="w-1/3 h-full flex flex-col items-center justify-around p-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="text-success w-12">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+            <path d="M4 22h16" />
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+        </svg>
+        <h3>Match</h3>
+        {% if event.matchType == "Championnat" %}
+        <div class="badge badge-success badge-outline lg:badge-lg">
+            {{event.matchType}}
+        </div>
+        {% endif %}
+        {% if event.matchType == "Amical" %}
+        <div class="badge badge-info badge-outline lg:badge-lg">
+            {{event.matchType}}
+        </div>
+        {% endif %}
+        <div class="divider divider-vertical divider-success m-0 mt-2"></div>
+        <div class="w-full flex flex-col items-center justify-center">
+            <div class="text-center">{{event.team.name}} </div>
+            <div class="divider divider-vertical m-0">VS</div>
+            <div class="text-center">{{event.opponent}}</div>
+        </div>
+    </div>
+    <div class="divider divider-horizontal m-0"></div>
+    <div class="h-full w-2/3 flex flex-col md:flex-row justify-center items-center">
+        <div class="w-full h-full text-nowrap flex flex-col justify-around gap-2 px-4">
+            <div class="w-full">
+                {% if event.allDay %}
+                <h4>Jour : </h4>
+                <p>{{event.start | french_date_day}}</p>
+                {% else %}
+                <h4>Horaires : </h4>
+                <p class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-plane-takeoff">
+                        <path d="M2 22h20" />
+                        <path
+                            d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" />
+                    </svg>{{event.start | french_date}}</p>
+                <p class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-plane-landing">
+                        <path d="M2 22h20" />
+                        <path
+                            d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" />
+                    </svg>{{event.end | french_date}}</p>
+                {% endif %}
+            </div>
+            <div class="w-full">
+                <h4>Lieu : </h4>
+                <p class="overflow-auto">{{event.place}}</p>
+            </div>
+            <div class="w-full">
+                <h4>Limite d'inscription :</h4>
+                <p class="text-red-400">{{event.registrationDeadline | french_date}}</p>
+            </div>
+        </div>
+        <div class="w-full flex justify-center items-center m-4">
+            {% if event.attendees.member == connectedMember._id%}
+            <button id="withdraw" class="btn btn-error btn-sm md:btn-md lg:btn-lg" type="button"
+                hx-get="/withdraw-from-match/{{event.id}}" hx-target="#id_{{connectedMember}}"
+                hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?">Se
+                désinscrire</button>
+            {% else %}
+            <button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
+                hx-get="/attend-match/{{event.id}}" hx-target="next tbody" hx-swap="afterbegin"
+                hx-confirm="Confirmez-vous votre participation ?">Participer
+                !</button>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="w-1/3 h-full flex flex-col items-center justify-around p-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="text-info w-12">
+            <path d="M14.4 14.4 9.6 9.6" />
+            <path
+                d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z" />
+            <path d="m21.5 21.5-1.4-1.4" />
+            <path d="M3.9 3.9 2.5 2.5" />
+            <path
+                d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z" />
+        </svg>
+        <h3>Entrainement</h3>
+    </div>
+    <div class="divider divider-horizontal m-0"></div>
+    <div class="h-full w-2/3 flex flex-col md:flex-row justify-center items-center">
+        <div class="w-full h-full text-nowrap flex flex-col justify-around gap-2 px-4">
+            <div class="w-full">
+                {% if event.allDay %}
+                <h4>Jour : </h4>
+                <p>{{event.start | french_date_day}}</p>
+                {% else %}
+                <h4>Horaires : </h4>
+                <p class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-plane-takeoff">
+                        <path d="M2 22h20" />
+                        <path
+                            d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" />
+                    </svg>{{event.start | french_date}}</p>
+                <p class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-plane-landing">
+                        <path d="M2 22h20" />
+                        <path
+                            d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" />
+                    </svg>{{event.end | french_date}}</p>
+                {% endif %}
+            </div>
+            <div class="w-full">
+                <h4>Lieu : </h4>
+                <p class="overflow-auto">{{event.place}}</p>
+            </div>
+        </div>
+        <div class="w-full flex justify-center items-center m-4">
+            {% if event.attendees.member == connectedMember._id%}
+            <button id="withdraw" class="btn btn-error btn-sm md:btn-md lg:btn-lg" type="button"
+                hx-get="/withdraw-from-match/{{event.id}}" hx-target="#id_{{connectedMember}}"
+                hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?">Se
+                désinscrire</button>
+            {% else %}
+            <button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
+                hx-get="/attend-match/{{event.id}}" hx-target="next tbody" hx-swap="afterbegin"
+                hx-confirm="Confirmez-vous votre participation ?">Participer
+                !</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

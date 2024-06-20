@@ -6,7 +6,7 @@
         </a>
     </div>
     <div class="w-4/6 flex items-center justify-center">
-        <ul class="menu menu-horizontal md:menu-lg bg-base-100 rounded-box gap-1 md:gap-2">
+        <ul class="menu menu-horizontal md:menu-lg bg-base-100 rounded-box gap-1 lg:gap-2">
             <li><a href="/dashboard" {% if title=='Acceuil' %}class="active" {% endif %}><svg
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +48,7 @@
                     <img alt="Membre" src="images/idPictures/{{connectedMember.picture}}" />
                 </div>
             </div>
-            <ul tabindex="0" class="mt-3 z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="mt-3 z-20 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
                 <li><a>Profile</a></li>
                 {% if "Bureau" in roles %}
                 <li><a href="/management">Gestion Club</a></li>

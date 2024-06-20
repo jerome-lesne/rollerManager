@@ -56,21 +56,6 @@ const trialAttendeesSchema = new mongoose.Schema({
     },
 });
 
-// trialAttendeesSchema.pre("updateOne", function(next) {
-//     const update = this.getUpdate();
-//     if (update.subToken) {
-//         try {
-//             const hash = bcrypt.hashSync(update.subToken, 10);
-//             this.set("subToken", hash);
-//             next();
-//         } catch (err) {
-//             return next(err);
-//         }
-//     } else {
-//         next();
-//     }
-// });
-
 const trialAttendeesModel = mongoose.model(
     "trialAttendees",
     trialAttendeesSchema,

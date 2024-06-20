@@ -9,12 +9,10 @@ const membersModel = require("../models/membersModel");
 
 const memberSet = async (req, res) => {
     try {
-        if (req.headers["hx-trigger-name"]) {
-            if (Object.values(req.body)[0] == "") {
-                res.send();
-            } else if (req.headers["hx-trigger-name"] == "confirmPassword") {
+        if (req.headers["hx-request"]) {
+            if (req.headers["hx-trigger-name"] == "confirmPassword") {
                 if (req.body.password == req.body.confirmPassword) {
-                    res.send();
+                    res.status(200).send();
                 } else {
                     res.send("Les mots de passes ne correspondent pas");
                 }
@@ -27,9 +25,11 @@ const memberSet = async (req, res) => {
                         if (e) {
                             res.status(200).send(e.message);
                         } else {
-                            res.send();
+                            res.status(200).send();
                         }
                     });
+            } else {
+                res.status(200).send();
             }
         } else {
             const attendee = await trialAttendeesModel.findOne({

@@ -8,9 +8,6 @@ const clubsSchema = new mongoose.Schema({
     matchRoles: {
         type: Array,
     },
-    trainingRoles: {
-        type: Array,
-    },
     teams: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -177,26 +177,47 @@ const calendar = async (req, res) => {
 
 const dashboard = async (req, res) => {
     try {
-        const nextMatch = await matchesModel
-            .findOne({ start: { $gte: new Date() } })
-            .sort({ start: 1 });
-        const today = moment();
-        const startDate = moment(nextMatch.start);
-        const daysToNextMatch = startDate.diff(today, "days");
-        const upcomingMatchesNb = await matchesModel
-            .find({
-                club: await clubsModel.findOne({
-                    members: req.session.memberId,
-                }),
-                start: { $gte: new Date() },
-            })
-            .countDocuments();
+        const now = new Date();
         const club = await clubsModel.findOne({
             members: req.session.memberId,
         });
         const connectedMember = await membersModel.findById(
             req.session.memberId,
         );
+        const nextMatch = await matchesModel
+            .findOne({ club: club._id, start: { $gte: new Date() } })
+            .sort({ start: 1 });
+        let daysToNextMatch = 0;
+        if (nextMatch) {
+            const today = moment();
+            const startDate = moment(nextMatch.start);
+            daysToNextMatch = startDate.diff(today, "days");
+        } else {
+            daysToNextMatch = "/";
+        }
+
+        const upcomingMatchesNb = await matchesModel
+            .find({
+                club: club._id,
+                start: { $gte: now },
+            })
+            .countDocuments();
+
+        const matches = await matchesModel
+            .find({ club: club._id, start: { $gte: now } })
+            .sort({ start: 1 })
+            .limit(10)
+            .populate("team")
+            .populate("attendees.member");
+        const trainings = await trainingsModel
+            .find({ club: club._id, start: { $gte: now } })
+            .sort({ start: 1 })
+            .limit(10);
+        const events = [...matches, ...trainings];
+        events.sort((a, b) => {
+            return new Date(a.start) - new Date(b.start);
+        });
+
         res.render("dashboard/index.html.twig", {
             title: "Acceuil",
             connectedHeader: true,
@@ -207,6 +228,7 @@ const dashboard = async (req, res) => {
             trialNb: club.trialAttendees.length,
             upcomingMatchesNb: upcomingMatchesNb,
             daysToNextMatch: daysToNextMatch,
+            events: events,
         });
     } catch (e) {
         console.log(e);
