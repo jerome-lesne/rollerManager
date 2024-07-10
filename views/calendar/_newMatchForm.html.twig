@@ -6,7 +6,7 @@
     <form id="newMatchForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-match"
         hx-target="#modalEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
         <h2>Nouveau match</h2>
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Début :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="start"
                 class="grow" id="startInput" {% if error %} value="{{values.start}}" {% else %} value="{{start_select}}"
@@ -15,7 +15,7 @@
         {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="end"
                 class="grow" id="endInput" {% if error %} value="{{values.end}}" {% else %} value="{{end_select}}" {%
@@ -25,13 +25,13 @@
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
         <label
-            class="input input-bordered input-secondary input-sm md:input-md flex items-center justify-between gap-2 w-full">
+            class="input input-bordered input-success input-sm md:input-md flex items-center justify-between gap-2 w-full">
             Toute la journée :
             <input type="checkbox" class="checkbox checkbox-accent checkbox-sm md:checkbox-md" name="allDay"
                 id="allDayCheckbox" class="grow" {% if allDay_select=='true' %}checked{% endif %} />
         </label>
         <select name="matchType"
-            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full">
+            class="select select-bordered select-success select-sm md:select-md flex items-center gap-2 w-full">
             <option value="" disabled selected>Type de match</option>
             <option value="Championnat">Championnat</option>
             <option value="Amical">Amical</option>
@@ -40,7 +40,7 @@
         <p class="text-red-500">{{error.matchType}}</p>
         {% endif %}
         <select name="team"
-            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full">
+            class="select select-bordered select-success select-sm md:select-md flex items-center gap-2 w-full">
             {% for team in teams %}
             <option value="{{team.id}}">{{team.name}}</option>
             {% endfor %}
@@ -48,28 +48,28 @@
         {% if error.team %}
         <p class="text-red-500">{{error.team}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Equipe Adverse :
             <input type="text" name="opponent" class="grow" {% if error %} value="{{values.opponent}}" {% endif %} />
         </label>
         {% if error.opponent %}
         <p class="text-red-500">{{error.opponent}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" {% if error %} value="{{values.place}}" {% endif %} />
         </label>
         {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Lien Map :
             <input type="text" name="mapLink" class="grow" {% if error %} value='{{values.mapLink}}' {% endif %} />
         </label>
         {% if error.mapLink %}
         <p class="text-red-500">{{error.mapLink}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Fin inscription :
             <input type="datetime-local" name="registrationDeadline" class="grow" {% if error %}
                 value="{{values.registrationDeadline}}" {% endif %} />
@@ -77,8 +77,8 @@
         {% if error.registrationDeadline %}
         <p class="text-red-500">{{error.registrationDeadline}}</p>
         {% endif %}
-        <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
+        <textarea name="instructions" class="textarea textarea-bordered textarea-success w-full" rows="5" cols="15"
             placeholder="instructions sur l'organisation de l'évènement">{{values.instructions}}</textarea>
-        <button type="button" id="validateEvent" class="btn btn-secondary btn-sm md:btn-md">Créer le match</button>
+        <button type="button" id="validateEvent" class="btn btn-success btn-sm md:btn-md">Créer le match</button>
     </form>
 </div>

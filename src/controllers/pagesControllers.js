@@ -208,11 +208,13 @@ const dashboard = async (req, res) => {
             .sort({ start: 1 })
             .limit(10)
             .populate("team")
-            .populate("attendees.member");
+            .populate("attendees.member")
+            .lean();
         const trainings = await trainingsModel
             .find({ club: club._id, start: { $gte: now } })
             .sort({ start: 1 })
-            .limit(10);
+            .limit(10)
+            .lean();
         const events = [...matches, ...trainings];
         events.sort((a, b) => {
             return new Date(a.start) - new Date(b.start);

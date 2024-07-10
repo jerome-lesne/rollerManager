@@ -6,7 +6,7 @@
     <form id="newMatchForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/edit-match/{{matchId}}"
         hx-target="#modalEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
         <h2>Editer le Match</h2>
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Début :
             <input {% if values.allDay %} type="date" value="{{values.start | date('Y-m-d')}}" {% else %}
                 type="datetime-local" value="{{values.start | date('Y-m-d\TH:i')}}" {% endif %} name="start"
@@ -15,7 +15,7 @@
         {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if values.allDay %} type="date" value="{{values.end | date('Y-m-d')}}" {% else %}
                 type="datetime-local" value="{{values.end | date('Y-m-d\TH:i')}}" {% endif %} name="end" class="grow"
@@ -25,7 +25,7 @@
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
         <select name="matchType"
-            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full">
+            class="select select-bordered select-success select-sm md:select-md flex items-center gap-2 w-full">
             <option value="Championnat" {% if values.matchType=="Championnat" %}selected{% endif %}>Championnat</option>
             <option value="Amical" {% if values.matchType=="Amical" %}selected{% endif %}>Amical</option>
         </select>
@@ -33,7 +33,7 @@
         <p class="text-red-500">{{error.matchType}}</p>
         {% endif %}
         <select name="team"
-            class="select select-bordered select-secondary select-sm md:select-md flex items-center gap-2 w-full">
+            class="select select-bordered select-success select-sm md:select-md flex items-center gap-2 w-full">
             {% for team in teams %}
             <option value="{{team.id}}" {% if values.team._id==team.id %}selected{% endif %}>{{team.name}}</option>
             {% endfor %}
@@ -41,21 +41,21 @@
         {% if error.team %}
         <p class="text-red-500">{{error.team}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Equipe Adverse :
             <input type="text" name="opponent" class="grow" value="{{values.opponent}}" />
         </label>
         {% if error.opponent %}
         <p class="text-red-500">{{error.opponent}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" value="{{values.place}}" />
         </label>
         {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Lien Map :
             <input type="text" name="mapLink" class="grow" {% if values.mapLink %}value='{{values.mapLink.value}}' {%
                 endif %} />
@@ -63,7 +63,7 @@
         {% if error.mapLink %}
         <p class="text-red-500">{{error.mapLink}}</p>
         {% endif %}
-        <label class="input input-bordered input-secondary input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-success input-sm md:input-md flex items-center gap-2 w-full">
             Fin inscription :
             <input type="datetime-local" name="registrationDeadline" class="grow"
                 value="{{values.registrationDeadline | date('Y-m-d\TH:i')}}" />
@@ -71,9 +71,9 @@
         {% if error.registrationDeadline %}
         <p class="text-red-500">{{error.registrationDeadline}}</p>
         {% endif %}
-        <textarea name="instructions" class="textarea textarea-bordered textarea-secondary w-full" rows="5" cols="15"
+        <textarea name="instructions" class="textarea textarea-bordered textarea-success w-full" rows="5" cols="15"
             placeholder="instructions sur l'organisation de l'évènement">{{values.instructions}}</textarea>
-        <button type="button" id="validateEvent" class="btn btn-secondary btn-sm md:btn-md">Valider
+        <button type="button" id="validateEvent" class="btn btn-success btn-sm md:btn-md">Valider
             modification</button>
     </form>
 </div>

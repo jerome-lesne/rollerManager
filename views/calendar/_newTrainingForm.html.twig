@@ -6,7 +6,7 @@
     <form id="newTrainingForm" class="flex flex-col gap-4 justify-center items-center" hx-post="/add-training"
         hx-target="#modalEvent" hx-swap="outerHTML" hx-trigger="click from:#validateEvent">
         <h2>Nouvel entrainement</h2>
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Début :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="start"
                 class="grow" id="startInput" {% if error %} value="{{values.start}}" {% else %} value="{{start_select}}"
@@ -15,7 +15,7 @@
         {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if allDay_select=='true' %} type="date" {% else %} type="datetime-local" {% endif %} name="end"
                 class="grow" id="endInput" {% if error %} value="{{values.end}}" {% else %} value="{{end_select}}" {%
@@ -25,19 +25,19 @@
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
         <label
-            class="input input-bordered input-accent input-sm md:input-md flex items-center justify-between gap-2 w-full">
+            class="input input-bordered input-info input-sm md:input-md flex items-center justify-between gap-2 w-full">
             Toute la journée :
-            <input type="checkbox" class="checkbox checkbox-accent checkbox-sm md:checkbox-md" name="allDay"
+            <input type="checkbox" class="checkbox checkbox-info checkbox-sm md:checkbox-md" name="allDay"
                 id="allDayCheckbox" class="grow" {% if allDay_select=='true' %} checked {% endif %} />
         </label>
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" {% if error %} value="{{values.place}}" {% endif %} />
         </label>
         {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
-        <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Créer
+        <button id="validateEvent" type="button" class="btn btn-info btn-sm md:btn-md">Créer
             l'entrainement</button>
     </form>
 </div>

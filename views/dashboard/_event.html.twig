@@ -63,15 +63,22 @@
             </div>
         </div>
         <div class="w-full flex justify-center items-center m-4">
-            {% if event.attendees.member == connectedMember._id%}
-            <button id="withdraw" class="btn btn-error btn-sm md:btn-md lg:btn-lg" type="button"
-                hx-get="/withdraw-from-match/{{event.id}}" hx-target="#id_{{connectedMember}}"
-                hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?">Se
+            {% set idMatchFound = false %}
+            {% for item in event.attendees %}
+            {% if item.member._id == connectedMember.id %}
+            {% set idMatchFound = true %}
+            {% endif %}
+            {% endfor %}
+
+            {% if idMatchFound %}
+            <button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                hx-get="/withdraw-from-match/{{event._id}}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
                 désinscrire</button>
             {% else %}
             <button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
-                hx-get="/attend-match/{{event.id}}" hx-target="next tbody" hx-swap="afterbegin"
-                hx-confirm="Confirmez-vous votre participation ?">Participer
+                hx-get="/attend-match/{{event._id}}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
                 !</button>
             {% endif %}
         </div>
@@ -121,17 +128,25 @@
             </div>
         </div>
         <div class="w-full flex justify-center items-center m-4">
-            {% if event.attendees.member == connectedMember._id%}
-            <button id="withdraw" class="btn btn-error btn-sm md:btn-md lg:btn-lg" type="button"
-                hx-get="/withdraw-from-match/{{event.id}}" hx-target="#id_{{connectedMember}}"
-                hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?">Se
+            {% set idFound = false %}
+            {% for item in event.attendees %}
+            {% if item.member == connectedMember.id %}
+            {% set idFound = true %}
+            {% endif %}
+            {% endfor %}
+
+            {% if idFound %}
+            <button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                hx-get="/withdraw-from-training/{{event._id}}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
                 désinscrire</button>
             {% else %}
             <button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
-                hx-get="/attend-match/{{event.id}}" hx-target="next tbody" hx-swap="afterbegin"
-                hx-confirm="Confirmez-vous votre participation ?">Participer
+                hx-get="/attend-training/{{event._id}}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
                 !</button>
             {% endif %}
+
         </div>
     </div>
     {% endif %}

@@ -7,7 +7,7 @@
         hx-post="/edit-training/{{trainingId}}" hx-target="#modalEvent" hx-swap="outerHTML"
         hx-trigger="click from:#validateEvent">
         <h2>Editer l'entrainement</h2>
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Début :
             <input {% if values.allDay %} type="date" value="{{values.start | date('Y-m-d')}}" {% else %}
                 type="datetime-local" value="{{values.start | date('Y-m-d\TH:i')}}" {% endif %} name="start"
@@ -16,7 +16,7 @@
         {% if error.start %}
         <p class="text-red-500">{{error.start}}</p>
         {% endif %}
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Fin :
             <input {% if values.allDay %} type="date" value="{{values.end | date('Y-m-d')}}" {% else %}
                 type="datetime-local" value="{{values.end | date('Y-m-d\TH:i')}}" {% endif %} name="end" class="grow"
@@ -25,13 +25,13 @@
         {% if error.end %}
         <p class="text-red-500">{{error.end}}</p>
         {% endif %}
-        <label class="input input-bordered input-accent input-sm md:input-md flex items-center gap-2 w-full">
+        <label class="input input-bordered input-info input-sm md:input-md flex items-center gap-2 w-full">
             Lieu :
             <input type="text" name="place" class="grow" value="{{values.place}}" />
         </label>
         {% if error.place %}
         <p class="text-red-500">{{error.place}}</p>
         {% endif %}
-        <button id="validateEvent" type="button" class="btn btn-accent btn-sm md:btn-md">Valider modification</button>
+        <button id="validateEvent" type="button" class="btn btn-info btn-sm md:btn-md">Valider modification</button>
     </form>
 </div>

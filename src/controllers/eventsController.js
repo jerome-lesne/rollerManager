@@ -229,13 +229,21 @@ const attendMatch = async (req, res) => {
             const member = await membersModel
                 .findById(memberAttend)
                 .populate("team");
-            res.render("calendar/_matchAttendeeElmt.html.twig", {
-                attendee: { member: member },
-                swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                    hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
-                    hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
-                    désinscrire</button>`,
-            });
+            if (req.query.dashboard) {
+                const response = `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                hx-get="/withdraw-from-match/${req.params.id}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
+                désinscrire</button>`;
+                res.status(200).send(response);
+            } else {
+                res.render("calendar/_matchAttendeeElmt.html.twig", {
+                    attendee: { member: member },
+                    swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
+hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
+désinscrire</button>`,
+                });
+            }
         } else {
             res.send("le membre participe déjà à l'événement");
         }
@@ -251,10 +259,18 @@ const withdrawFromMatch = async (req, res) => {
             { _id: req.params.id },
             { $pull: { attendees: { member: req.session.memberId } } },
         );
-        const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
-                        hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-match/${req.params.id}' 
-                        hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
-        res.status(200).send(response);
+        if (req.query.dashboard) {
+            const response = `<button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
+                hx-get="/attend-match/{{event._id}}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
+                !</button>`;
+            res.status(200).send(response);
+        } else {
+            const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
+hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-match/${req.params.id}' 
+hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
+            res.status(200).send(response);
+        }
     } catch (e) {
         console.log(e);
         res.status(500).send("Erreur serveur");
@@ -276,13 +292,22 @@ const attendTraining = async (req, res) => {
             const member = await membersModel
                 .findById(memberAttend)
                 .populate("team");
-            res.render("calendar/_trainingAttendeeElmt.html.twig", {
-                attendee: { member: member },
-                swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+
+            if (req.query.dashboard) {
+                const response = `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+                hx-get="/withdraw-from-training/${req.params.id}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
+                désinscrire</button>`;
+                res.status(200).send(response);
+            } else {
+                res.render("calendar/_trainingAttendeeElmt.html.twig", {
+                    attendee: { member: member },
+                    swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
                     hx-get="/withdraw-from-training/${req.params.id}" hx-target="#id_${memberAttend}"
                     hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
                     désinscrire</button>`,
-            });
+                });
+            }
         } else {
             res.send("le membre participe déjà à l'événement");
         }
@@ -298,10 +323,18 @@ const withdrawFromTraining = async (req, res) => {
             { _id: req.params.id },
             { $pull: { attendees: { member: req.session.memberId } } },
         );
-        const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
-                        hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-training/${req.params.id}' 
-                        hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
-        res.status(200).send(response);
+        if (req.query.dashboard) {
+            const response = `<button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
+                hx-get="/attend-training/${req.params.id}" hx-swap="outerHTML swap:1s"
+                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
+                !</button>`;
+            res.status(200).send(response);
+        } else {
+            const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
+hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-training/${req.params.id}' 
+hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
+            res.status(200).send(response);
+        }
     } catch (e) {
         console.log(e);
         res.status(500).send("Erreur serveur");

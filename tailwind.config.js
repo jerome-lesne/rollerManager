@@ -9,11 +9,13 @@ module.exports = {
             {
                 dark: {
                     ...require("daisyui/src/theming/themes")["dark"],
+                    secondary: "#FCB040",
                 },
             },
             {
                 light: {
                     ...require("daisyui/src/theming/themes")["light"],
+                    secondary: "#FCB040",
                 },
             },
         ],
