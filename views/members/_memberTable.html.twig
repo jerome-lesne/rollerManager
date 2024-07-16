@@ -8,9 +8,9 @@
                             <div>
                                 Nom
                             </div>
-                            <div class="flex items-center justify-center w-4/5">
-                                <input class="form-control input input-xs w-full" type="search" name="search"
-                                    placeholder="Recherche par Prénom/Nom/DerbyName..." hx-get="/members"
+                            <div class="flex items-center justify-center w-full">
+                                <input class="form-control input input-xs md:input-sm w-full" type="search"
+                                    name="search" placeholder="Recherche par Prénom/Nom/DerbyName..." hx-get="/members"
                                     hx-target="tbody" hx-swap="outerHTML" hx-include="[name='team'], [name='role']"
                                     hx-trigger="keyup delay:500ms, change from:#team, change from:#role">
                             </div>
@@ -22,7 +22,7 @@
                                 Equipe
                             </div>
                             <div>
-                                <select class="select select-xs w-full" id="team" name="team">
+                                <select class="select select-xs md:select-sm w-full" id="team" name="team">
                                     <option value="">--Filtre--</option>
                                     {% for team in club.teams %}
                                     <option value="{{team.id}}">{{team.name}}</option>
@@ -37,7 +37,7 @@
                                 Roles
                             </div>
                             <div>
-                                <select class="select select-xs w-full" id="role" name="role">
+                                <select class="select select-xs md:select-sm w-full" id="role" name="role">
                                     <option value="">--Filtre--</option>
                                     {% for role in club.roles %}
                                     <option value="{{role}}">{{role}}</option>
