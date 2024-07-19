@@ -1,0 +1,15 @@
+<div id="selectCoachedTeam" class="flex flex-col items-center justify-center">
+    <p class="text-secondary my-1">Selectionnez l'équipe à coacher</p>
+    <div class="flex gap-2">
+        <select class="select select-secondary select-xs md:select-sm w-full" id="team" name="team"
+            hx-post="/add-coach-training/{{training.id}}" hx-trigger="change" hx-swap="beforeend"
+            hx-confirm="Confirmez le coaching ?">
+            <option value="" disabled selected>Selectionnez une équipe</option>
+            {% for team in club.teams %}
+            <option value="{{team.id}}" hx-target="#coachList_{{team.id}}">{{team.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="button" class="btn btn-error btn-xs md:btn-sm" hx-get="/cancel-coach-training/{{training.id}}"
+            hx-swap="outerHTML">Annuler</button>
+    </div>
+</div>

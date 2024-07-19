@@ -1,0 +1,23 @@
+<tr>
+    <td class="w-fit">
+        <div class="md:mx-4">
+            <div class="w-full avatar flex justify-center items-center">
+                {% if team.logo %}
+                <div class="mask mask-squircle w-14 h-14">
+                    <img class="m-0" src="images/teamsLogos/{{team.logo}}" alt="Avatar" />
+                </div>
+                {% else %}
+                <div class="mask mask-squircle w-14 h-14">
+                    <img class="m-0" src="images/team.svg" alt="Team" />
+                </div>
+                {% endif %}
+            </div>
+            <div class="font-bold text-center text-nowrap">{{team.name}}</div>
+        </div>
+    </td>
+    <td id="coachList_{{team.id}}" class="w-full">
+        {% for attendee in training.attendees if attendee.coachedTeam.id == team.id%}
+        {% include "calendar/_trainingCoachElmt.html.twig" %}
+        {% endfor %}
+    </td>
+</tr>

@@ -1,6 +1,7 @@
 const clubsModel = require("../models/clubsModel");
 const matchesModel = require("../models/matchesModel");
 const membersModel = require("../models/membersModel");
+const teamsModel = require("../models/teamsModel");
 const trainingsModel = require("../models/trainingsModel");
 const checkMapsLink = require("../utils/mapsLinkHandler");
 
@@ -158,6 +159,9 @@ const getMatchesEvents = async (req, res) => {
 
 const getEvent = async (req, res) => {
     try {
+        const connectedMember = await membersModel.findById(
+            req.session.memberId,
+        );
         switch (req.headers.eventtype) {
             case "training":
                 const currentUserInTraining = await trainingsModel.findOne({
@@ -175,11 +179,18 @@ const getEvent = async (req, res) => {
                         populate: {
                             path: "team",
                         },
-                    });
+                    })
+                    .populate("attendees.coachedTeam");
+                const club = await clubsModel
+                    .findOne({
+                        members: req.session.memberId,
+                    })
+                    .populate("teams");
                 res.render("calendar/_displayTraining.html.twig", {
                     training: training,
                     userInTraining: userInTraining,
-                    connectedMember: req.session.memberId,
+                    connectedMember: connectedMember,
+                    club: club,
                 });
                 break;
             case "match":
@@ -203,7 +214,7 @@ const getEvent = async (req, res) => {
                 res.render("calendar/_displayMatch.html.twig", {
                     match: match,
                     userInMatch: userInMatch,
-                    connectedMember: req.session.memberId,
+                    connectedMember: connectedMember,
                 });
                 break;
             default:
@@ -313,7 +324,66 @@ const attendTraining = async (req, res) => {
         }
     } catch (e) {
         console.log(e);
-        res.status(500).send("Erreur serveur");
+        res.status(500).send("Server Error");
+    }
+};
+
+const coachTraining = async (req, res) => {
+    try {
+        const club = await clubsModel
+            .findOne({
+                members: req.session.memberId,
+            })
+            .populate("teams");
+        const training = await trainingsModel.findById(req.params.id);
+        res.render("calendar/_teamSelectTraining.html.twig", {
+            club: club,
+            training: training,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Server Error");
+    }
+};
+
+const addCoachTraining = async (req, res) => {
+    try {
+        await trainingsModel.updateOne(
+            { _id: req.params.id },
+            {
+                $push: {
+                    attendees: {
+                        member: req.session.memberId,
+                        coachedTeam: req.body.team,
+                    },
+                },
+            },
+        );
+        const member = await membersModel.findById(req.session.memberId);
+        const attendee = {
+            member,
+        };
+        const response = `<button id='withdraw' class='btn btn-error btn-sm md:btn-md' type='button' hx-get='/withdraw-from-training/${req.params.id}' hx-target='#id_${req.session.memberId}' hx-swap-oob='outerHTML:#selectCoachedTeam' hx-swap='outerHTML swap:1s' hx-confirm='Confirmez-vous votre désinscription ?' > Se désinscrire</button >`;
+        res.setHeader("HX-Retarget", `#coachList_${req.body.team}`);
+        res.status(200).render("calendar/_trainingCoachElmt.html.twig", {
+            attendee: attendee,
+            trainingActionsBtn: response,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Server Error");
+    }
+};
+
+const cancelCoachTraining = async (req, res) => {
+    try {
+        res.status(200).render("calendar/_trainingActionsBtn.html.twig", {
+            training: await trainingsModel.findById(req.params.id),
+            connectedMember: await membersModel.findById(req.session.memberId),
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Server Error");
     }
 };
 
@@ -330,10 +400,13 @@ const withdrawFromTraining = async (req, res) => {
                 !</button>`;
             res.status(200).send(response);
         } else {
-            const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
-hx-swap-oob='outerHTML:#withdraw' hx-get='/attend-training/${req.params.id}' 
-hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre participation ?'>Participer !</button>`;
-            res.status(200).send(response);
+            res.status(200).render("calendar/_trainingActionsBtn.html.twig", {
+                training: await trainingsModel.findById(req.params.id),
+                connectedMember: await membersModel.findById(
+                    req.session.memberId,
+                ),
+                swapoob: true,
+            });
         }
     } catch (e) {
         console.log(e);
@@ -463,4 +536,7 @@ module.exports = {
     editMatchForm,
     editMatch,
     deleteMatch,
+    coachTraining,
+    cancelCoachTraining,
+    addCoachTraining,
 };

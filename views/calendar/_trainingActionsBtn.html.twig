@@ -1,0 +1,16 @@
+{% if userInTraining %}
+<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
+    hx-get="/withdraw-from-training/{{training.id}}" hx-target="#id_{{connectedMember.id}}" hx-swap="outerHTML swap:1s"
+    hx-confirm="Confirmez-vous votre désinscription ?">Se désinscrire</button>
+{% else %}
+<div id="attend" {% if swapoob %} hx-swap-oob='outerHTML:#withdraw' {% endif %}
+    class="flex items-center justify-center gap-2">
+    <button class="btn btn-primary btn-sm md:btn-md" type="button" hx-get="/attend-training/{{training.id}}"
+        hx-target="#attendeesBody" hx-swap="afterbegin" hx-confirm="Confirmez-vous votre participation ?">Participer
+        !</button>
+    {% if 'Coach' in connectedMember.role %}
+    <button id="coach" class="btn btn-secondary btn-sm md:btn-md" type="button" hx-get="/coach-training/{{training.id}}"
+        hx-swap="outerHTML" hx-target="#attend">Coacher !</button>
+    {% endif %}
+</div>
+{% endif %}
