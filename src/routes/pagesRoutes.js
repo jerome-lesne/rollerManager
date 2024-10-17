@@ -21,3 +21,4 @@ pagesRouter.get("/calendar", authguard(), calendar);
 pagesRouter.get("/dashboard", authguard(), dashboard);
 
 module.exports = pagesRouter;
+

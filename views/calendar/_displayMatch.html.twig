@@ -2,6 +2,7 @@
     <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4" hx-get="/cancel-create-event"
             hx-target="#modalEvent" hx-swap="outerHTML">✕</button>
+        {% if "Bureau" in connectedMember.role %}
         <div class="dropdown absolute left-4 top-4">
             <div tabindex="0" role="button" class="btn btn-sm btn-ghost btn-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -20,8 +21,9 @@
                 </li>
             </ul>
         </div>
+        {% endif %}
     </form>
-    <div class="flex flex-col items-center justify-center w-full prose">
+    <div class="flex flex-col items-center justify-center prose w-full">
         <h3>Match</h3>
         <div class="w-full bg-base-300 p-4">
             <div class="w-full flex flex-col items-center justify-center">
@@ -92,11 +94,12 @@
             <div class="divider">Participant•e•s : </div>
         </div>
         <div class="w-full">
-            <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full mt-0">
+            <table class="table table-xs sm:table-sm md:table-md lg:table-lg w-full mt-0 table-auto">
                 <thead class="sticky -top-6 z-10">
                     <tr class="bg-base-100">
                         <th class="text-center">Nom</th>
                         <th class="text-center">Equipe</th>
+                        <th class="text-center">Role</th>
                     </tr>
                 </thead>
                 <tbody>

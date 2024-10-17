@@ -1,32 +1,37 @@
-<tr id="id_{{attendee.member.id}}">
+<tr id="id_{{ attendee.member.id }}" class="w-full">
     <td>
-        {{swapBtn}}
+        {{ swapBtn }}
         <div class="flex items-center gap-4 sm:gap-8 md:gap-16 lg:gap-20">
-            <div class="w-2/5 avatar">
-                {% if attendee.member.picture %}
-                <div class="mask mask-squircle w-14 h-14">
-                    <img class="m-0" src="images/idPictures/{{attendee.member.picture}}" alt="Avatar" />
+            <div class="w-2/5 flex justify-center items-center">
+                <div class="avatar">
+                    {% if attendee.member.picture %}
+                    <div class="mask mask-squircle w-14 h-14">
+                        <img class="m-0" src="images/idPictures/{{ attendee.member.picture }}" alt="Avatar" />
+                    </div>
+                    {% else %}
+                    <div class="mask mask-squircle w-14 h-14">
+                        <img class="m-0" src="images/avatar.svg" alt="Avatar" />
+                    </div>
+                    {% endif %}
                 </div>
-                {% else %}
-                <div class="mask mask-squircle w-14 h-14">
-                    <img class="m-0" src="images/avatar.svg" alt="Avatar" />
-                </div>
-                {% endif %}
             </div>
             <div class="w-3/5 overflow-auto">
-                <div class="font-light">{{attendee.member.pronoun}}</div>
-                <div class="font-bold">{{attendee.member.derbyName}}</div>
-                <div class="text-sm opacity-50">{{attendee.member.firstName}}
-                    {{attendee.member.name}}</div>
+                <div class="font-light">{{ attendee.member.pronoun }}</div>
+                <div class="font-bold">{{ attendee.member.derbyName }}</div>
+                <div class="text-sm opacity-50">{{ attendee.member.firstName }}
+                    {{ attendee.member.name }}</div>
                 {% if member.playerNumber %}
-                <div class="text-sm opacity-50">N°{{attendee.member.playerNumber}}</div>
+                <div class="text-sm opacity-50">N°{{ attendee.member.playerNumber }}</div>
                 {% endif %}
             </div>
         </div>
     </td>
     <td>
         <div class="flex items-center justify-center overflow-auto h-full">
-            <p>{{attendee.member.team.name}}</p>
+            <p>{{ attendee.member.team.name }}</p>
         </div>
+    </td>
+    <td>
+        {% include "calendar/_matchAttendeeRole.html.twig" %}
     </td>
 </tr>

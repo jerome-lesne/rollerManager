@@ -1,0 +1,11 @@
+<div class="matchAttendeeRoleContainer flex flex-col items-center justify-center h-full gap-2">
+    <ul class="w-full m-0">
+        {% for role in attendee.matchRole %}
+        <li class="m-0">{{ role }}</li>
+        {% endfor %}
+    </ul>
+    <div class="w-full flex justify-center items-center">
+        <button type="button" class="btn btn-xs btn-info" hx-get="/get-matchRole-form/{{ match.id }}/{{ attendee.id }}"
+            hx-swap="outerHTML" hx-target="closest .matchAttendeeRoleContainer">Editer</button>
+    </div>
+</div>

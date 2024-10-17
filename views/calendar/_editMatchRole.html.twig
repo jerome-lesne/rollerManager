@@ -1,0 +1,14 @@
+<div class="editMatchRoleContainer flex flex-col justify-center items-center gap-2">
+    <select class="select select-xs select-info w-full" name="role" multiple="multiple" size="{{ club.matchRoles | length }}>
+        <option value=" no_role">--Aucun Role--</option>
+        {% for matchRole in club.matchRoles %}
+        <!--put selected value if attendee have already some roles-->
+        <option title="{{ matchRole }}" value="{{ matchRole }}">{{ matchRole }}</option>
+        {% endfor %}
+    </select>
+    <div class="flex justify-center items-center w-full">
+        <button class="btn btn-xs btn-success" type="button" hx-post="/edit-matchRole/{{ matchId }}/{{ attendeeId }}"
+            hx-include="previous select" hx-target="closest .editMatchRoleContainer"
+            hx-swap="outerHTML">Valider</button>
+    </div>
+</div>

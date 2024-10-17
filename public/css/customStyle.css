@@ -26,6 +26,10 @@ tr.htmx-swapping {
     cursor: pointer;
 }
 
+.word-break {
+    word-break: break-word;
+}
+
 @media (max-width: 767.98px) {
     .fc .fc-toolbar.fc-header-toolbar {
         display: flex;

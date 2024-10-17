@@ -242,13 +242,14 @@ const attendMatch = async (req, res) => {
                 .populate("team");
             if (req.query.dashboard) {
                 const response = `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                hx-get="/withdraw-from-match/${req.params.id}" hx-swap="outerHTML swap:1s"
-                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
-                désinscrire</button>`;
+hx-get="/withdraw-from-match/${req.params.id}" hx-swap="outerHTML swap:1s"
+hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
+désinscrire</button>`;
                 res.status(200).send(response);
             } else {
                 res.render("calendar/_matchAttendeeElmt.html.twig", {
                     attendee: { member: member },
+                    match: match,
                     swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
 hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
 hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
@@ -272,9 +273,9 @@ const withdrawFromMatch = async (req, res) => {
         );
         if (req.query.dashboard) {
             const response = `<button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
-                hx-get="/attend-match/{{event._id}}" hx-swap="outerHTML swap:1s"
-                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
-                !</button>`;
+hx-get="/attend-match/{{event._id}}" hx-swap="outerHTML swap:1s"
+hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
+!</button>`;
             res.status(200).send(response);
         } else {
             const response = `<button id='attend' class='btn btn-primary btn-sm md:btn-md' type='button'
@@ -285,6 +286,47 @@ hx-target='next tbody' hx-swap='afterbegin' hx-confirm='Confirmez-vous votre par
     } catch (e) {
         console.log(e);
         res.status(500).send("Erreur serveur");
+    }
+};
+
+const getRoleMatchForm = async (req, res) => {
+    try {
+        const club = await clubsModel.findOne({
+            members: req.session.memberId,
+        });
+        res.render("calendar/_editMatchRole.html.twig", {
+            club: club,
+            attendeeId: req.params.idAttendee,
+            matchId: req.params.idMatch,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erreur serveur");
+    }
+};
+
+const editMatchRole = async (req, res) => {
+    try {
+        const data = req.body;
+        const role = data.role;
+        await matchesModel.updateOne(
+            { _id: req.params.idMatch, "attendees._id": req.params.idAttendee },
+            { $set: { "attendees.$.matchRole": role } },
+        );
+        const match = await matchesModel.findOne({
+            _id: req.params.idMatch,
+            "attendees.member": req.session.memberId,
+        });
+        const attendee = match.attendees.find(
+            (att) => att._id.toString() === req.params.idAttendee,
+        );
+        console.log(match);
+        res.render("calendar/_matchAttendeeRole.html.twig", {
+            attendee: attendee,
+            match: match,
+        });
+    } catch (e) {
+        console.log(e);
     }
 };
 
@@ -306,17 +348,17 @@ const attendTraining = async (req, res) => {
 
             if (req.query.dashboard) {
                 const response = `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                hx-get="/withdraw-from-training/${req.params.id}" hx-swap="outerHTML swap:1s"
-                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
-                désinscrire</button>`;
+hx-get="/withdraw-from-training/${req.params.id}" hx-swap="outerHTML swap:1s"
+hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
+désinscrire</button>`;
                 res.status(200).send(response);
             } else {
                 res.render("calendar/_trainingAttendeeElmt.html.twig", {
                     attendee: { member: member },
                     swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                    hx-get="/withdraw-from-training/${req.params.id}" hx-target="#id_${memberAttend}"
-                    hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
-                    désinscrire</button>`,
+hx-get="/withdraw-from-training/${req.params.id}" hx-target="#id_${memberAttend}"
+hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
+désinscrire</button>`,
                 });
             }
         } else {
@@ -395,9 +437,9 @@ const withdrawFromTraining = async (req, res) => {
         );
         if (req.query.dashboard) {
             const response = `<button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
-                hx-get="/attend-training/${req.params.id}" hx-swap="outerHTML swap:1s"
-                hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
-                !</button>`;
+hx-get="/attend-training/${req.params.id}" hx-swap="outerHTML swap:1s"
+hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
+!</button>`;
             res.status(200).send(response);
         } else {
             res.status(200).render("calendar/_trainingActionsBtn.html.twig", {
@@ -539,4 +581,6 @@ module.exports = {
     coachTraining,
     cancelCoachTraining,
     addCoachTraining,
+    getRoleMatchForm,
+    editMatchRole,
 };

@@ -20,6 +20,8 @@ const {
     coachTraining,
     cancelCoachTraining,
     addCoachTraining,
+    getRoleMatchForm,
+    editMatchRole,
 } = require("../controllers/eventsController");
 
 eventsRouter.post("/get-event-form", getEventForm);
@@ -42,5 +44,7 @@ eventsRouter.delete("/delete-match/:id", deleteMatch);
 eventsRouter.get("/coach-training/:id", coachTraining);
 eventsRouter.get("/cancel-coach-training/:id", cancelCoachTraining);
 eventsRouter.post("/add-coach-training/:id", addCoachTraining);
+eventsRouter.get("/get-matchRole-form/:idMatch/:idAttendee", getRoleMatchForm);
+eventsRouter.post("/edit-matchRole/:idMatch/:idAttendee", editMatchRole);
 
 module.exports = eventsRouter;
