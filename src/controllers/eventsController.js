@@ -308,9 +308,13 @@ const getRoleMatchForm = async (req, res) => {
 const editMatchRole = async (req, res) => {
     try {
         const data = req.body;
-        const role = data.role;
+        let role = data.role;
+        console.log(role);
         await matchesModel.updateOne(
-            { _id: req.params.idMatch, "attendees._id": req.params.idAttendee },
+            {
+                _id: req.params.idMatch,
+                "attendees._id": req.params.idAttendee,
+            },
             { $set: { "attendees.$.matchRole": role } },
         );
         const match = await matchesModel.findOne({
@@ -320,7 +324,6 @@ const editMatchRole = async (req, res) => {
         const attendee = match.attendees.find(
             (att) => att._id.toString() === req.params.idAttendee,
         );
-        console.log(match);
         res.render("calendar/_matchAttendeeRole.html.twig", {
             attendee: attendee,
             match: match,

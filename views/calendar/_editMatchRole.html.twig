@@ -1,6 +1,7 @@
 <div class="editMatchRoleContainer flex flex-col justify-center items-center gap-2">
-    <select class="select select-xs select-info w-full" name="role" multiple="multiple" size="{{ club.matchRoles | length }}>
-        <option value=" no_role">--Aucun Role--</option>
+    <select class="select select-xs select-info w-full" name="role" multiple="multiple"
+        size="{{ club.matchRoles | length + 1 }}">
+        <option value="">--Aucun Role--</option>
         {% for matchRole in club.matchRoles %}
         <!--put selected value if attendee have already some roles-->
         <option title="{{ matchRole }}" value="{{ matchRole }}">{{ matchRole }}</option>
