@@ -1,13 +1,13 @@
-{{trainingActionsBtn}}
-<div id="id_{{attendee.member.id}}" class="w-full overflow-auto flex items-center gap-2 md:gap-4">
+{{ trainingActionsBtn }}
+<div id="id_{{ attendee.member.id }}" class="w-full overflow-auto flex items-center gap-2 md:gap-4">
     <div class="w-fit avatar flex justify-center items-center">
         <div class="mask mask-squircle w-7 h-7 md:w-9 md:h-9">
-            <img class="m-0" src="images/idPictures/{{attendee.member.picture}}" alt="Avatar" />
+            <img class="m-0" src="images/idPictures/{{ attendee.member.picture }}" alt="Avatar" />
         </div>
     </div>
     <div>
-        <div class="font-bold">{{attendee.member.derbyName}} </div>
-        <div class="text-sm opacity-50">{{attendee.member.firstName}}
-            {{attendee.member.name}}</div>
+        <div class="font-bold">{{ attendee.member.derbyName }} </div>
+        <div class="text-sm opacity-50">{{ attendee.member.firstName }}
+            {{ attendee.member.name }}</div>
     </div>
 </div>

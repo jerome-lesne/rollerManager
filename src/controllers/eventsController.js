@@ -279,7 +279,7 @@ const withdrawFromMatch = async (req, res) => {
         );
         if (req.query.dashboard) {
             const response = `<button id="attend" class="btn btn-primary btn-sm md:btn-md" type="button"
-hx-get="/attend-match/{{event._id}}" hx-swap="outerHTML swap:1s"
+hx-get="/attend-match/${req.params.id}" hx-swap="outerHTML swap:1s"
 hx-confirm="Confirmez-vous votre participation ?" hx-vals='{"dashboard": true}'>Participer
 !</button>`;
             res.status(200).send(response);
