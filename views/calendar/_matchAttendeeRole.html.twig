@@ -1,13 +1,16 @@
 <div class="matchAttendeeRoleContainer flex flex-col items-center justify-center h-full gap-2">
     <ul class="w-full m-0">
         {% for role in attendee.matchRole %}
-        {% if role %}
-        <li class="m-0">{{ role }}</li>
-        {% endif %}
+            {% if role %}
+            <li class="m-0">{{ role }}</li>
+            {% endif %}
         {% endfor %}
     </ul>
     <div class="w-full flex justify-center items-center">
-        <button type="button" class="btn btn-xs btn-info" hx-get="/get-matchRole-form/{{ match.id }}/{{ attendee.id }}"
-            hx-swap="outerHTML" hx-target="closest .matchAttendeeRoleContainer">Editer</button>
+        <button type="button"
+                class="btn btn-xs btn-info"
+                hx-get="/get-matchRole-form/{{ match.id }}/{{ attendee.id }}"
+                hx-swap="outerHTML"
+                hx-target="closest .matchAttendeeRoleContainer">Editer</button>
     </div>
 </div>
