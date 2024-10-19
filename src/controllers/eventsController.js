@@ -228,11 +228,11 @@ const getEvent = async (req, res) => {
 const attendMatch = async (req, res) => {
     try {
         const memberAttend = req.session.memberId;
-        const attendeeInMatch = await matchesModel.findOne({
+        const match = await matchesModel.findOne({
             _id: req.params.id,
             "attendees.member": memberAttend,
         });
-        if (!attendeeInMatch) {
+        if (!match) {
             await matchesModel.updateOne(
                 { _id: req.params.id },
                 { $push: { attendees: { member: memberAttend } } },
@@ -242,24 +242,18 @@ const attendMatch = async (req, res) => {
                 .populate("team");
             if (req.query.dashboard) {
                 const response = `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                hx-get="/withdraw-from-match/${req.params.id}" hx-swap="outerHTML swap:1s"
-                hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
-                désinscrire</button>`;
+hx-get="/withdraw-from-match/${req.params.id}" hx-swap="outerHTML swap:1s"
+hx-confirm="Confirmez-vous votre désinscription ?" hx-vals='{"dashboard": true}'>Se
+désinscrire</button>`;
                 res.status(200).send(response);
             } else {
-                const match = await matchesModel.findOne({
-                    _id: req.params.id,
-                });
-                const attendee = match.attendees.find(
-                    (att) => att.member.toString() === memberAttend,
-                );
                 res.render("calendar/_matchAttendeeElmt.html.twig", {
-                    attendee: { member: member, id: attendee._id },
+                    attendee: { member: member },
                     match: match,
                     swapBtn: `<button id="withdraw" class="btn btn-error btn-sm md:btn-md" type="button"
-                    hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
-                    hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
-                    désinscrire</button>`,
+hx-get="/withdraw-from-match/${req.params.id}" hx-target="#id_${memberAttend}"
+hx-swap="outerHTML swap:1s" hx-confirm="Confirmez-vous votre désinscription ?" hx-swap-oob='outerHTML:#attend'>Se
+désinscrire</button>`,
                 });
             }
         } else {
